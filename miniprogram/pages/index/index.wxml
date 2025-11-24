@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="index-page">
+  <!-- 欢迎区域 -->
+  <view class="welcome-section">
+    <view class="welcome-icon">🎉</view>
+    <text class="welcome-title">欢迎访问系统</text>
+    <text class="welcome-subtitle">Core Ledger</text>
+    
+    <!-- 用户信息 -->
+    <view class="user-info" wx:if="{{userInfo}}">
+      <image 
+        class="user-avatar" 
+        src="{{userInfo.wxAvatarUrl || '/images/default-avatar.png'}}" 
+        mode="aspectFill"
+      ></image>
+      <text class="user-name">{{userInfo.wxNickname || userInfo.username}}</text>
+      <text class="user-role">{{userInfo.roleDesc}}</text>
+    </view>
+  </view>
+
+  <!-- 退出登录按钮 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="handleLogout">退出登录</button>
+  </view>
+</view>

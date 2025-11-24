@@ -1,0 +1,84 @@
+<!--pages/login/login.wxml-->
+<view class="login-page">
+  <!-- Logo 区域 -->
+  <view class="logo-section">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="app-name">核心账本</text>
+    <text class="app-desc">专业的财务管理工具</text>
+  </view>
+
+  <!-- 登录表单区域 -->
+  <view class="form-section">
+    <!-- 微信登录 -->
+    <view class="wechat-login" wx:if="{{loginType === 'wechat'}}">
+      <!-- 微信一键登录 -->
+      <button 
+        class="wechat-login-btn" 
+        bindtap="handleWechatLogin"
+        loading="{{loading}}"
+        disabled="{{loading}}"
+      >
+        <image class="wechat-icon" src="/images/wechat-icon.png" mode="aspectFit"></image>
+        <text>微信一键登录</text>
+      </button>
+      
+      <view class="tips">
+        <text class="tips-text">点击登录后填写手机号和个人信息</text>
+      </view>
+    </view>
+
+    <!-- 密码登录 -->
+    <view class="password-login" wx:if="{{loginType === 'password'}}">
+      <view class="form-item">
+        <view class="form-label">
+          <image class="icon" src="/images/phone-icon.png" mode="aspectFit"></image>
+        </view>
+        <input 
+          class="form-input" 
+          type="number"
+          maxlength="11"
+          placeholder="请输入手机号"
+          value="{{phone}}"
+          bindinput="onPhoneInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <image class="icon" src="/images/lock-icon.png" mode="aspectFit"></image>
+        </view>
+        <input 
+          class="form-input" 
+          type="{{showPassword ? 'text' : 'password'}}"
+          placeholder="请输入密码"
+          value="{{password}}"
+          bindinput="onPasswordInput"
+        />
+        <view class="form-suffix" bindtap="togglePasswordVisibility">
+          <image 
+            class="icon" 
+            src="{{showPassword ? '/images/eye-open.png' : '/images/eye-close.png'}}" 
+            mode="aspectFit"
+          ></image>
+        </view>
+      </view>
+
+      <button 
+        class="login-btn" 
+        bindtap="handlePasswordLogin"
+        loading="{{loading}}"
+        disabled="{{loading}}"
+      >
+        登录
+      </button>
+    </view>
+  </view>
+
+  <!-- 切换登录方式（固定在底部） -->
+  <view class="switch-login-bottom">
+    <button class="switch-btn" bindtap="switchLoginType">
+      <image class="switch-icon" src="{{loginType === 'wechat' ? '/images/phone-icon.png' : '/images/wechat-icon.png'}}" mode="aspectFit"></image>
+      <text class="switch-text">{{loginType === 'wechat' ? '手机号密码登录' : '使用微信登录'}}</text>
+    </button>
+  </view>
+</view>

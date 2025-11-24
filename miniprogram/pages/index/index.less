@@ -1,0 +1,112 @@
+/* pages/index/index.less */
+page {
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.index-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx;
+  box-sizing: border-box;
+}
+
+/* 欢迎区域 */
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 120rpx;
+}
+
+.welcome-icon {
+  font-size: 120rpx;
+  margin-bottom: 48rpx;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20rpx);
+  }
+}
+
+.welcome-title {
+  font-size: 56rpx;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 24rpx;
+  text-align: center;
+}
+
+.welcome-subtitle {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+/* 用户信息 */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80rpx;
+  padding: 48rpx;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 32rpx;
+  backdrop-filter: blur(10px);
+  min-width: 400rpx;
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+  margin-bottom: 24rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 12rpx;
+}
+
+.user-role {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8rpx 24rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 32rpx;
+}
+
+/* 退出登录 */
+.logout-section {
+  position: fixed;
+  bottom: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 630rpx;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 88rpx;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.logout-btn::after {
+  border: none;
+}
