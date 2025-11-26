@@ -12,13 +12,25 @@ export interface WechatLoginParams {
 }
 
 /**
- * 绑定手机号请求参数
+ * 补充用户信息请求参数（已存在用户）
  */
-export interface BindPhoneParams {
+export interface SupplementUserInfoParams {
   openid: string;
   phone: string;
-  encryptedData?: string;
-  iv?: string;
+  nickname?: string;
+  avatarUrl?: string;
+  username?: string;
+}
+
+/**
+ * 注册新用户请求参数
+ */
+export interface RegisterUserParams {
+  openid: string;
+  phone: string;
+  nickname?: string;
+  avatarUrl?: string;
+  username?: string;
 }
 
 /**
@@ -48,8 +60,9 @@ export interface UserInfo {
 export interface LoginResponse {
   token: string;
   userInfo: UserInfo;
-  needBindPhone: boolean;
-  tempOpenid: string;
+  needSupplement: boolean;  // 是否需要补充信息（已存在用户）
+  isNewUser: boolean;        // 是否是新用户（需要注册）
+  tempOpenid: string;        // 临时 openid（需要补充信息或注册时返回）
   expireTime: string;
 }
 
@@ -63,16 +76,25 @@ export const authApi = {
    * @returns 登录响应
    */
   wechatLogin(data: WechatLoginParams): Promise<LoginResponse> {
-    return post<LoginResponse>('/api/auth/wechat-login', data);
+    return post<LoginResponse>('/auth/wechat-login', data);
   },
 
   /**
-   * 绑定手机号
-   * @param data 绑定手机号数据
+   * 补充用户信息（已存在用户）
+   * @param data 用户信息
    * @returns 登录响应
    */
-  bindPhone(data: BindPhoneParams): Promise<LoginResponse> {
-    return post<LoginResponse>('/api/auth/bind-phone', data);
+  supplementUserInfo(data: SupplementUserInfoParams): Promise<LoginResponse> {
+    return post<LoginResponse>('/auth/supplement-info', data);
+  },
+
+  /**
+   * 注册新用户
+   * @param data 用户注册信息
+   * @returns 登录响应
+   */
+  registerUser(data: RegisterUserParams): Promise<LoginResponse> {
+    return post<LoginResponse>('/auth/register', data);
   },
 
   /**
@@ -81,7 +103,7 @@ export const authApi = {
    * @returns 登录响应
    */
   passwordLogin(data: PasswordLoginParams): Promise<LoginResponse> {
-    return post<LoginResponse>('/api/auth/login', data, { showLoading: true });
+    return post<LoginResponse>('/auth/login', data, { showLoading: true });
   },
 
   /**
@@ -94,7 +116,7 @@ export const authApi = {
     if (token) {
       headers.Authorization = token;
     }
-    return post<void>('/api/auth/logout', {}, { header: headers });
+    return post<void>('/auth/logout', {}, { header: headers });
   },
 
   /**
@@ -103,7 +125,7 @@ export const authApi = {
    * @returns 用户信息
    */
   getCurrentUser(token: string): Promise<UserInfo> {
-    return get<UserInfo>('/api/auth/current-user', undefined, {
+    return get<UserInfo>('/auth/current-user', undefined, {
       header: { Authorization: token }
     });
   }

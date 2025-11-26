@@ -190,3 +190,132 @@
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* ========== 清新商务风专用样式 ========== */
+
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  padding: var(--spacing-md);
+  box-sizing: border-box;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--card-padding);
+  margin-bottom: var(--spacing-md);
+}
+
+.card:active {
+  background-color: var(--bg-hover);
+}
+
+/* 卡片标题区域 */
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* 主标题样式（黑色加粗） */
+.title-primary {
+  font-size: var(--font-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+/* 副标题样式（灰色常规） */
+.title-secondary {
+  font-size: var(--font-sm);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+}
+
+/* 金额样式（醒目红色） */
+.amount-text {
+  font-size: var(--font-xl);
+  font-weight: var(--font-bold);
+  color: var(--amount-receivable);
+  font-family: 'DIN Alternate', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* FAB 悬浮按钮 */
+.fab-button {
+  position: fixed;
+  right: 32rpx;
+  bottom: 120rpx;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-circle);
+  box-shadow: var(--shadow-fab);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: all var(--transition-normal);
+}
+
+.fab-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 16rpx rgba(24, 144, 255, 0.4);
+}
+
+.fab-button__icon {
+  width: var(--fab-icon-size);
+  height: var(--fab-icon-size);
+  color: var(--text-white);
+  font-size: var(--fab-icon-size);
+  font-weight: var(--font-normal);
+}
+
+/* 列表项样式 */
+.list-item {
+  background-color: var(--bg-white);
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--divider-color);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item:active {
+  background-color: var(--bg-hover);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+  color: var(--text-secondary);
+}
+
+.empty-state__icon {
+  font-size: 120rpx;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.empty-state__text {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+  color: var(--text-secondary);
+  font-size: var(--font-md);
+}

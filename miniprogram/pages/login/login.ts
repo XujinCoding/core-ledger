@@ -20,18 +20,7 @@ Page({
     // 是否显示密码
     showPassword: false,
     // 加载状态
-    loading: false,
-    // 用户信息
-    userInfo: {
-      avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
-      nickName: ''
-    },
-    // 是否已获取用户信息
-    hasUserInfo: false,
-    // 是否支持新版头像昵称API
-    canIUseNicknameComp: wx.canIUse('input.type.nickname'),
-    // 是否支持getUserProfile
-    canIUseGetUserProfile: wx.canIUse('getUserProfile')
+    loading: false
   },
 
   /**
@@ -79,35 +68,7 @@ Page({
   },
 
   /**
-   * 选择头像
-   */
-  onChooseAvatar(e: any): void {
-    const { avatarUrl } = e.detail;
-    const { nickName } = this.data.userInfo;
-    const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-    
-    this.setData({
-      'userInfo.avatarUrl': avatarUrl,
-      hasUserInfo: !!nickName && !!avatarUrl && avatarUrl !== defaultAvatarUrl
-    });
-  },
-
-  /**
-   * 输入昵称
-   */
-  onNicknameInput(e: WechatMiniprogram.Input): void {
-    const nickName = e.detail.value;
-    const { avatarUrl } = this.data.userInfo;
-    const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0';
-    
-    this.setData({
-      'userInfo.nickName': nickName,
-      hasUserInfo: !!nickName && !!avatarUrl && avatarUrl !== defaultAvatarUrl
-    });
-  },
-
-  /**
-   * 微信登录
+   * 微信一键登录
    */
   async handleWechatLogin(): Promise<void> {
     try {
@@ -115,18 +76,35 @@ Page({
 
       // 获取微信登录 code
       const loginRes = await this.getWechatLoginCode();
+      console.log('获取到code:', loginRes.code);
 
-      // 保存登录数据，跳转到完善信息页面
-      storage.set('tempLoginData', {
-        code: loginRes.code,
-        encryptedData: null,
-        iv: null
+      // 调用后台校验接口
+      const result = await authApi.wechatLogin({
+        code: loginRes.code
       });
-      
-      // 跳转到完善信息页面
-      wx.redirectTo({
-        url: '/pages/complete-info/complete-info'
-      });
+
+      // 判断是否需要补充信息或注册
+      if (result.needSupplement || result.isNewUser) {
+        // 保存临时数据，跳转到补充信息页面
+        storage.set('tempLoginData', {
+          tempOpenid: result.tempOpenid,
+          isNewUser: result.isNewUser,
+          needSupplement: result.needSupplement
+        });
+        
+        wx.redirectTo({
+          url: '/pages/complete-info/complete-info'
+        });
+      } else {
+        // 登录成功，直接跳转首页
+        this.saveLoginInfo(result);
+        this.redirectToHome();
+        
+        wx.showToast({
+          title: '登录成功',
+          icon: 'success'
+        });
+      }
 
     } catch (error: any) {
       console.error('微信登录失败', error);
@@ -139,87 +117,6 @@ Page({
     }
   },
 
-  /**
-   * 微信登录（手机号授权）
-   */
-  async handleWechatLoginWithPhone(e: WechatMiniprogram.ButtonGetPhoneNumber): Promise<void> {
-    if (e.detail.errMsg !== 'getPhoneNumber:ok') {
-      console.log('用户拒绝授权手机号');
-      wx.showToast({
-        title: '需要手机号授权才能登录',
-        icon: 'none'
-      });
-      return;
-    }
-
-    try {
-      this.setData({ loading: true });
-
-      // 获取微信登录 code
-      const loginRes = await this.getWechatLoginCode();
-      console.log('获取到code:', loginRes.code);
-
-      // 保存手机号加密数据和code，跳转到完善信息页面
-      storage.set('tempLoginData', {
-        code: loginRes.code,
-        encryptedData: e.detail.encryptedData,
-        iv: e.detail.iv
-      });
-
-      console.log('跳转到完善信息页面');
-      
-      // 跳转到完善信息页面
-      wx.redirectTo({
-        url: '/pages/complete-info/complete-info'
-      });
-
-    } catch (error: any) {
-      console.error('获取登录信息失败', error);
-      wx.showToast({
-        title: error.message || '登录失败，请重试',
-        icon: 'none'
-      });
-    } finally {
-      this.setData({ loading: false });
-    }
-  },
-
-  /**
-   * 测试模式登录（跳过手机号授权）
-   */
-  async handleTestLogin(): Promise<void> {
-    try {
-      this.setData({ loading: true });
-
-      // 获取微信登录 code
-      const loginRes = await this.getWechatLoginCode();
-      console.log('[测试模式] 获取到code:', loginRes.code);
-
-      // 保存登录数据（不包含手机号）
-      storage.set('tempLoginData', {
-        code: loginRes.code,
-        encryptedData: null,
-        iv: null,
-        testMode: true  // 标记为测试模式
-      });
-
-      console.log('[测试模式] 跳转到完善信息页面');
-      
-      // 跳转到完善信息页面
-      wx.redirectTo({
-        url: '/pages/complete-info/complete-info'
-      });
-
-    } catch (error: any) {
-      console.error('[测试模式] 登录失败', error);
-      wx.showToast({
-        title: error.message || '登录失败，请重试',
-        icon: 'none'
-      });
-    } finally {
-      this.setData({ loading: false });
-    }
-  },
 
   /**
    * 密码登录
@@ -271,23 +168,6 @@ Page({
   },
 
   /**
-   * 获取用户信息
-   */
-  getUserProfile(): Promise<WechatMiniprogram.GetUserProfileSuccessCallbackResult['userInfo'] | null> {
-    return new Promise((resolve) => {
-      wx.getUserProfile({
-        desc: '用于完善用户资料',
-        success: (res) => resolve(res.userInfo),
-        fail: () => {
-          // 用户拒绝授权，继续登录流程
-          console.log('用户拒绝授权获取用户信息');
-          resolve(null);
-        }
-      });
-    });
-  },
-
-  /**
    * 验证密码登录表单
    */
   validatePasswordLogin(): boolean {
@@ -330,7 +210,7 @@ Page({
    */
   redirectToHome(): void {
     wx.reLaunch({
-      url: '/pages/index/index'
+      url: '/pages/ledger/ledger'
     });
   }
 });

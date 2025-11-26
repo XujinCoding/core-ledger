@@ -1,0 +1,56 @@
+<!--
+  客户管理页面
+  设计风格：通讯录式列表
+-->
+<view class="page-container">
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <input
+      class="search-bar__input"
+      type="text"
+      placeholder="搜索客户姓名或手机号"
+      bindinput="handleSearch"
+      confirm-type="search"
+    />
+  </view>
+
+  <!-- 客户列表 -->
+  <view class="customer-list" wx:if="{{customers.length > 0}}">
+    <view
+      class="customer-item list-item"
+      wx:for="{{customers}}"
+      wx:key="id"
+      bindtap="handleItemClick"
+      data-id="{{item.id}}"
+    >
+      <!-- 客户信息 -->
+      <view class="customer-item__main">
+        <view class="customer-item__name title-primary">
+          {{item.name}}
+        </view>
+        <view class="customer-item__phone title-secondary">
+          {{item.phone}}
+        </view>
+        <view class="customer-item__address title-secondary ellipsis" wx:if="{{item.fullAddress}}">
+          {{item.fullAddress}} {{item.addressDetail}}
+        </view>
+      </view>
+
+      <!-- 右箭头 -->
+      <view class="customer-item__arrow">
+        <text>›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{customers.length === 0 && !loading}}">
+    <view class="empty-state__icon">👥</view>
+    <view class="empty-state__text">暂无客户</view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

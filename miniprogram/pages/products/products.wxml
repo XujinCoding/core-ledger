@@ -1,0 +1,52 @@
+<!--
+  商品管理页面
+  设计风格：高密度纯文字列表（类似Excel表格）
+-->
+<view class="page-container">
+  <!-- 搜索框 -->
+  <view class="search-bar">
+    <input
+      class="search-bar__input"
+      type="text"
+      placeholder="搜索商品名称"
+      bindinput="handleSearch"
+      confirm-type="search"
+    />
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="product-list" wx:if="{{products.length > 0}}">
+    <view
+      class="product-item"
+      wx:for="{{products}}"
+      wx:key="id"
+      bindtap="handleItemClick"
+      data-id="{{item.id}}"
+    >
+      <!-- 商品名称和规格数 -->
+      <view class="product-item__main">
+        <view class="product-item__name">{{item.name}}</view>
+        <view class="product-item__meta">
+          <text class="product-item__sku-count">{{item.skuCount}}个规格</text>
+          <text class="product-item__location" wx:if="{{item.location}}"> · {{item.location}}</text>
+        </view>
+      </view>
+
+      <!-- 单位 -->
+      <view class="product-item__unit">
+        {{item.unit}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{products.length === 0 && !loading}}">
+    <view class="empty-state__icon">📦</view>
+    <view class="empty-state__text">暂无商品</view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

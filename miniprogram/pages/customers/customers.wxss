@@ -1,0 +1,66 @@
+/**
+ * 客户管理页面样式
+ * 通讯录式列表
+ */
+@import '../../styles/common.wxss';
+
+/* 搜索框 */
+.search-bar {
+  background-color: var(--bg-white);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.search-bar__input {
+  height: 72rpx;
+  padding: 0 var(--spacing-md);
+  background-color: var(--bg-gray);
+  border-radius: var(--radius-md);
+  font-size: var(--font-md);
+}
+
+/* 客户列表 */
+.customer-list {
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.customer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.customer-item__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.customer-item__name {
+  font-size: var(--font-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.customer-item__phone {
+  font-size: var(--font-md);
+  color: var(--text-secondary);
+}
+
+.customer-item__address {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+.customer-item__arrow {
+  margin-left: var(--spacing-md);
+  font-size: 48rpx;
+  color: var(--text-tertiary);
+  font-weight: var(--font-normal);
+}

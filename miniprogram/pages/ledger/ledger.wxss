@@ -1,0 +1,45 @@
+/**
+ * 账单页面样式
+ * 清新商务风 - 高对比度、信息层级清晰
+ */
+@import '../../styles/common.wxss';
+
+/* 账单卡片 */
+.ledger-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.ledger-card__left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.ledger-card__customer-name {
+  font-size: var(--font-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.ledger-card__customer-phone {
+  font-size: var(--font-sm);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+}
+
+.ledger-card__right {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-lg);
+}
+
+.ledger-card__amount {
+  font-size: var(--font-xl);
+  font-weight: var(--font-bold);
+  color: var(--amount-receivable);
+  font-family: 'DIN Alternate', 'Helvetica Neue', Arial, sans-serif;
+}

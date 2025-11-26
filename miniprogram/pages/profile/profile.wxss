@@ -1,0 +1,89 @@
+/**
+ * 我的页面样式
+ * 标准个人中心风格
+ */
+@import '../../styles/common.wxss';
+
+/* 用户信息头部 */
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xl) var(--card-padding);
+  margin-bottom: var(--spacing-md);
+}
+
+.profile-header__avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: var(--radius-circle);
+  margin-right: var(--spacing-lg);
+  background-color: var(--bg-gray);
+}
+
+.profile-header__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.profile-header__name {
+  font-size: var(--font-lg);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.profile-header__desc {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+}
+
+/* 菜单列表 */
+.menu-list {
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg) var(--card-padding);
+  border-bottom: 1px solid var(--divider-color);
+  transition: all var(--transition-fast);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:active {
+  background-color: var(--bg-hover);
+}
+
+.menu-item__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.menu-item__icon {
+  font-size: 40rpx;
+}
+
+.menu-item__title {
+  font-size: var(--font-md);
+  color: var(--text-primary);
+}
+
+.menu-item--danger .menu-item__title {
+  color: var(--color-danger);
+}
+
+.menu-item__arrow {
+  font-size: 48rpx;
+  color: var(--text-tertiary);
+  font-weight: var(--font-normal);
+}

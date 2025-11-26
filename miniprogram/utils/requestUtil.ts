@@ -58,7 +58,7 @@ function getHeaders(customHeader?: Record<string, string>): Record<string, strin
 }
 
 /**
- * 处理业务错误（code !== 200）
+ * 处理业务错误（响应体中的 code !== 200）
  */
 function handleBusinessError(response: ResponseData, showError: boolean = true): void {
   const message = response.message || '请求失败';
@@ -69,7 +69,28 @@ function handleBusinessError(response: ResponseData, showError: boolean = true):
     data: response.data
   });
 
-  // 显示错误提示
+  // 特殊处理：响应体 code === 401，表示登录过期
+  if (response.code === 401) {
+    // 清除本地认证信息
+    storage.remove(config.tokenKey);
+    storage.remove('userInfo');
+    
+    // 显示登录过期提示
+    wx.showToast({
+      title: message || '登录已过期，请重新登录',
+      icon: 'none',
+      duration: 1500
+    });
+    
+    // 延迟跳转到登录页
+    setTimeout(() => {
+      wx.reLaunch({ url: '/pages/login/login' });
+    }, 1500);
+    
+    return;
+  }
+
+  // 其他业务错误，显示响应体中的 message 字段
   if (showError) {
     wx.showToast({
       title: message,
@@ -80,7 +101,7 @@ function handleBusinessError(response: ResponseData, showError: boolean = true):
 }
 
 /**
- * 处理网络错误
+ * 处理网络错误（HTTP 状态码相关的错误）
  */
 function handleNetworkError(error: any): void {
   console.error('网络错误:', error);
@@ -134,6 +155,13 @@ function handleNetworkError(error: any): void {
 
 /**
  * 统一请求方法
+ * 
+ * 错误处理说明：
+ * 1. HTTP 层错误（fail 回调）：处理网络错误和 HTTP 状态码错误
+ * 2. 业务层错误（success 回调）：处理响应体中的 code !== 200
+ *    - code === 401: 登录过期，清除认证信息并跳转登录页
+ *    - 其他 code: 显示响应体中的 message 字段
+ * 
  * @param options 请求配置
  * @returns Promise<T> 返回业务数据
  */
@@ -162,6 +190,15 @@ export function request<T = any>(options: RequestConfig): Promise<T> {
       header: getHeaders(header),
       timeout,
       success: (res: WechatMiniprogram.RequestSuccessCallbackResult) => {
+        // 先检查 HTTP 状态码
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          // HTTP 状态码异常，按网络错误处理
+          handleNetworkError({ statusCode: res.statusCode, errMsg: res.errMsg });
+          reject({ statusCode: res.statusCode, errMsg: res.errMsg });
+          return;
+        }
+
+        // HTTP 请求成功，解析响应体
         const response = res.data as ResponseData<T>;
 
         // 判断业务状态码
@@ -169,7 +206,7 @@ export function request<T = any>(options: RequestConfig): Promise<T> {
           // 业务成功，返回数据
           resolve(response.data);
         } else {
-          // 业务失败，处理错误
+          // 业务失败，处理错误（包括 code === 401 的情况）
           handleBusinessError(response, showError);
           reject(response);
         }
@@ -281,11 +318,22 @@ export function uploadFile(
       formData,
       header: getHeaders(),
       success: (res) => {
+        // 先检查 HTTP 状态码
+        if (res.statusCode < 200 || res.statusCode >= 300) {
+          handleNetworkError({ statusCode: res.statusCode, errMsg: res.errMsg });
+          reject({ statusCode: res.statusCode, errMsg: res.errMsg });
+          return;
+        }
+
+        // 解析响应体
         try {
           const response = JSON.parse(res.data) as ResponseData;
+          
+          // 判断业务状态码
           if (response.code === 200) {
             resolve(response.data);
           } else {
+            // 业务失败，处理错误（包括 code === 401 的情况）
             handleBusinessError(response);
             reject(response);
           }

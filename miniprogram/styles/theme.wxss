@@ -1,49 +1,80 @@
-/* 主题变量 */
+/**
+ * Core Ledger 主题变量
+ * 设计风格：清新商务风（Fresh Business）
+ * 强调高对比度、信息层级清晰、操作极简
+ */
 page {
-  /* 主题色 */
-  --color-primary: #1989fa;
-  --color-success: #07c160;
-  --color-warning: #ff976a;
-  --color-danger: #ee0a24;
-  --color-info: #909399;
+  /* ========== 主题色（清新商务风）========== */
+  --color-primary: #1890FF;      /* 清新商务蓝 - 主操作按钮 */
+  --color-primary-light: #40A9FF; /* 浅蓝 - hover状态 */
+  --color-primary-dark: #096DD9;  /* 深蓝 - active状态 */
 
-  /* 背景色 */
-  --bg-page: #f5f5f5;
-  --bg-white: #ffffff;
-  --bg-gray: #f7f8fa;
+  --color-success: #07C160;       /* 微信绿 - 成功状态 */
+  --color-warning: #FF976A;       /* 橙色 - 警告提示 */
+  --color-danger: #FF4D4F;        /* 醒目红色 - 金额/删除 */
+  --color-info: #909399;          /* 灰色 - 一般信息 */
 
-  /* 文字色 */
-  --text-primary: #323233;
-  --text-secondary: #646566;
-  --text-tertiary: #969799;
-  --text-disabled: #c8c9cc;
+  /* ========== 背景色（突出内容卡片）========== */
+  --bg-page: #F5F7FA;             /* 浅灰背景 - 页面底色 */
+  --bg-white: #FFFFFF;            /* 纯白 - 卡片背景 */
+  --bg-gray: #FAFAFA;             /* 浅灰 - 次要区域 */
+  --bg-hover: #F5F5F5;            /* hover背景 */
 
-  /* 边框色 */
-  --border-color: #ebedf0;
-  --border-light: #f2f3f5;
+  /* ========== 文字色（清晰层级）========== */
+  --text-primary: #000000;        /* 黑色 - 主标题 */
+  --text-secondary: #999999;      /* 灰色 - 副标题 */
+  --text-tertiary: #CCCCCC;       /* 浅灰 - 辅助文字 */
+  --text-disabled: #D8D8D8;       /* 禁用状态 */
+  --text-white: #FFFFFF;          /* 白色文字 */
 
-  /* 圆角 */
-  --radius-sm: 4rpx;
-  --radius-md: 8rpx;
-  --radius-lg: 16rpx;
-  --radius-xl: 24rpx;
+  /* ========== 金额色（高对比度）========== */
+  --amount-receivable: #FF4D4F;   /* 应收金额 - 醒目红色 */
+  --amount-paid: #07C160;         /* 已收金额 - 微信绿 */
+  --amount-debt: #FF4D4F;         /* 欠款 - 醒目红色 */
 
-  /* 间距 */
-  --spacing-xs: 8rpx;
-  --spacing-sm: 12rpx;
-  --spacing-md: 16rpx;
-  --spacing-lg: 24rpx;
-  --spacing-xl: 32rpx;
+  /* ========== 边框色 ========== */
+  --border-color: #EEEEEE;        /* 标准边框 */
+  --border-light: #F5F5F5;        /* 浅色边框 */
+  --divider-color: #E8E8E8;       /* 分隔线 */
 
-  /* 字体大小 */
-  --font-xs: 20rpx;
-  --font-sm: 24rpx;
-  --font-md: 28rpx;
-  --font-lg: 32rpx;
-  --font-xl: 36rpx;
+  /* ========== 圆角 ========== */
+  --radius-sm: 4rpx;              /* 小圆角 */
+  --radius-md: 8rpx;              /* 标准圆角 - 卡片 */
+  --radius-lg: 16rpx;             /* 大圆角 */
+  --radius-circle: 50%;           /* 圆形 - FAB按钮 */
 
-  /* 阴影 */
-  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 6rpx 16rpx rgba(0, 0, 0, 0.1);
+  /* ========== 间距 ========== */
+  --spacing-xs: 8rpx;             /* 最小间距 */
+  --spacing-sm: 12rpx;            /* 小间距 */
+  --spacing-md: 16rpx;            /* 标准间距 */
+  --spacing-lg: 24rpx;            /* 大间距 */
+  --spacing-xl: 32rpx;            /* 超大间距 */
+
+  /* ========== 字体大小（强调易读性）========== */
+  --font-xs: 20rpx;               /* 辅助文字 */
+  --font-sm: 24rpx;               /* 小字 */
+  --font-md: 28rpx;               /* 标准字 */
+  --font-lg: 32rpx;               /* 大字 - 主标题 */
+  --font-xl: 40rpx;               /* 超大字 - 金额 */
+  --font-xxl: 48rpx;              /* 特大字 */
+
+  /* ========== 字重 ========== */
+  --font-normal: 400;             /* 常规 */
+  --font-medium: 500;             /* 中等 */
+  --font-bold: 600;               /* 加粗 */
+
+  /* ========== 阴影（轻微立体感）========== */
+  --shadow-card: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);    /* 卡片阴影 */
+  --shadow-hover: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);  /* hover阴影 */
+  --shadow-fab: 0 8rpx 24rpx rgba(24, 144, 255, 0.3); /* FAB按钮阴影 */
+
+  /* ========== 动画 ========== */
+  --transition-fast: 0.2s;        /* 快速动画 */
+  --transition-normal: 0.3s;      /* 标准动画 */
+
+  /* ========== 固定尺寸 ========== */
+  --card-padding: 24rpx;          /* 卡片内边距 */
+  --fab-size: 112rpx;             /* FAB按钮尺寸 */
+  --fab-icon-size: 48rpx;         /* FAB图标尺寸 */
+  --avatar-size: 80rpx;           /* 头像尺寸 */
 }

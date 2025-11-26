@@ -5,11 +5,11 @@
 // 环境配置
 const ENV = {
   dev: {
-    baseURL: 'http://10.0.63.247:8080/api',
+    baseURL: 'http://10.0.63.247:8080/code-ledger/api',
     timeout: 10000
   },
   prod: {
-    baseURL: 'https://10.0.63.247:8080/api', // 生产环境域名，请根据实际情况修改
+    baseURL: 'https://10.0.63.247:8080/code-ledger/api', // 生产环境域名，请根据实际情况修改
     timeout: 10000
   }
 };

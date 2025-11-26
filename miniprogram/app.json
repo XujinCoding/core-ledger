@@ -1,11 +1,46 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/ledger/ledger",
+    "pages/customers/customers",
+    "pages/products/products",
+    "pages/profile/profile",
     "pages/login/login",
+    "pages/index/index",
     "pages/logs/logs",
-    "pages/bind-phone/bind-phone",
     "pages/complete-info/complete-info"
   ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1890FF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/ledger/ledger",
+        "text": "账单",
+        "iconPath": "images/tabbar/ledger.png",
+        "selectedIconPath": "images/tabbar/ledger-active.png"
+      },
+      {
+        "pagePath": "pages/customers/customers",
+        "text": "客户",
+        "iconPath": "images/tabbar/customers.png",
+        "selectedIconPath": "images/tabbar/customers-active.png"
+      },
+      {
+        "pagePath": "pages/products/products",
+        "text": "商品",
+        "iconPath": "images/tabbar/products.png",
+        "selectedIconPath": "images/tabbar/products-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tabbar/profile.png",
+        "selectedIconPath": "images/tabbar/profile-active.png"
+      }
+    ]
+  },
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"

@@ -15,11 +15,11 @@ pages/
 │   ├── login.wxml           # 页面结构
 │   ├── login.wxss           # 页面样式
 │   └── login.json           # 页面配置
-└── bind-phone/              # 绑定手机号页面
-    ├── bind-phone.ts        # 页面逻辑
-    ├── bind-phone.wxml      # 页面结构
-    ├── bind-phone.wxss      # 页面样式
-    └── bind-phone.json      # 页面配置
+└── complete-info/           # 完善信息页面
+    ├── complete-info.ts     # 页面逻辑
+    ├── complete-info.wxml   # 页面结构
+    ├── complete-info.wxss   # 页面样式
+    └── complete-info.json   # 页面配置
 
 api/modules/
 └── auth.ts                  # 认证相关 API
@@ -34,8 +34,8 @@ types/
 
 #### 微信登录
 - 一键授权登录
-- 自动获取微信用户信息（昵称、头像）
-- 如需绑定手机号，自动跳转到绑定页面
+- 后台自动校验用户是否存在
+- 如需补充信息或注册，自动跳转到完善信息页面
 
 #### 密码登录
 - 手机号格式验证
@@ -49,17 +49,16 @@ types/
 - 加载状态提示
 - 错误处理和提示
 
-### 绑定手机号页面 (pages/bind-phone)
+### 完善信息页面 (pages/complete-info)
 
-#### 微信一键绑定
-- 使用微信 `getPhoneNumber` API
-- 自动获取加密手机号信息
-- 后端解密并绑定
+#### 信息收集
+- 手机号输入（必填）
+- 昵称输入（可选，可跳过使用默认昵称）
+- 头像选择（可选）
 
-#### 手动绑定
-- 手机号输入
-- 验证码发送（60秒倒计时）
-- 验证码验证
+#### 两种场景
+- **新用户注册**：调用注册接口完成账号创建
+- **补充信息**：已存在用户补充缺失的信息
 
 ## API 接口
 
@@ -72,19 +71,35 @@ authApi.wechatLogin({
   nickname?: string,         // 微信昵称
   avatarUrl?: string         // 微信头像
 })
+// 返回：
+// - needSupplement: boolean  // 是否需要补充信息（已存在用户）
+// - isNewUser: boolean       // 是否是新用户（需要注册）
+// - tempOpenid: string       // 临时 openid
 ```
 
-### 2. 绑定手机号
+### 2. 补充用户信息
 ```typescript
-authApi.bindPhone({
+authApi.supplementUserInfo({
   openid: string,           // 临时 openid（必填）
   phone: string,            // 手机号（必填）
-  encryptedData?: string,   // 微信加密数据
-  iv?: string               // 加密向量
+  nickname?: string,        // 昵称
+  avatarUrl?: string,       // 头像 URL
+  username?: string         // 用户名
 })
 ```
 
-### 3. 密码登录
+### 3. 注册新用户
+```typescript
+authApi.registerUser({
+  openid: string,           // 临时 openid（必填）
+  phone: string,            // 手机号（必填）
+  nickname?: string,        // 昵称
+  avatarUrl?: string,       // 头像 URL
+  username?: string         // 用户名
+})
+```
+
+### 4. 密码登录
 ```typescript
 authApi.passwordLogin({
   phone: string,            // 手机号（必填）
@@ -92,12 +107,12 @@ authApi.passwordLogin({
 })
 ```
 
-### 4. 退出登录
+### 5. 退出登录
 ```typescript
 authApi.logout(token?: string)
 ```
 
-### 5. 获取当前用户信息
+### 6. 获取当前用户信息
 ```typescript
 authApi.getCurrentUser(token: string)
 ```
@@ -110,13 +125,21 @@ authApi.getCurrentUser(token: string)
    ↓
 2. 调用 wx.login() 获取 code
    ↓
-3. 调用 wx.getUserProfile() 获取用户信息（可选）
+3. 调用 authApi.wechatLogin() 发送到后端校验
    ↓
-4. 调用 authApi.wechatLogin() 发送到后端
+4. 后台判断用户是否存在并返回标志位
    ↓
 5. 判断返回结果：
-   - needBindPhone = true: 跳转到绑定手机号页面
-   - needBindPhone = false: 保存 token，跳转到首页
+   - needSupplement = true: 已存在用户需要补充信息，跳转到完善信息页面
+   - isNewUser = true: 新用户需要注册，跳转到完善信息页面
+   - 两者都为 false: 登录成功，保存 token，跳转到首页
+   ↓
+6. 在完善信息页面：
+   - 用户填写手机号、昵称、头像
+   - 根据 isNewUser 标志调用对应接口：
+     * isNewUser = true: 调用 registerUser 接口
+     * needSupplement = true: 调用 supplementUserInfo 接口
+   - 完成后保存 token，跳转到首页
 ```
 
 ### 密码登录流程
@@ -132,32 +155,6 @@ authApi.getCurrentUser(token: string)
 5. 登录失败：显示错误提示
 ```
 
-### 绑定手机号流程
-```
-方式一：微信一键绑定
-1. 用户点击"微信一键绑定"
-   ↓
-2. 调用 wx.getPhoneNumber() 获取加密数据
-   ↓
-3. 调用 authApi.bindPhone() 发送到后端
-   ↓
-4. 后端解密并绑定，返回 token
-   ↓
-5. 保存 token，跳转到首页
-
-方式二：手动绑定
-1. 用户输入手机号
-   ↓
-2. 点击"获取验证码"，发送验证码
-   ↓
-3. 用户输入验证码
-   ↓
-4. 调用 authApi.bindPhone() 发送到后端
-   ↓
-5. 验证成功，返回 token
-   ↓
-6. 保存 token，跳转到首页
-```
 
 ## 数据存储
 

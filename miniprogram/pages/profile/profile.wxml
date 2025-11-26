@@ -1,0 +1,52 @@
+<!--
+  我的页面（个人中心）
+  标准小程序个人中心风格
+-->
+<view class="page-container">
+  <!-- 用户信息卡片 -->
+  <view class="profile-header card">
+    <image
+      class="profile-header__avatar"
+      src="{{userInfo.avatar || '/images/logo.png'}}"
+      mode="aspectFill"
+    />
+    <view class="profile-header__info">
+      <view class="profile-header__name title-primary">
+        {{userInfo.nickname}}
+      </view>
+      <view class="profile-header__desc title-secondary">
+        Core Ledger 商户
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能列表 -->
+  <view class="menu-list">
+    <!-- 设置 -->
+    <view class="menu-item" bindtap="handleSettings">
+      <view class="menu-item__left">
+        <text class="menu-item__icon">⚙️</text>
+        <text class="menu-item__title">设置</text>
+      </view>
+      <view class="menu-item__arrow">›</view>
+    </view>
+
+    <!-- 关于我们 -->
+    <view class="menu-item" bindtap="handleAbout">
+      <view class="menu-item__left">
+        <text class="menu-item__icon">ℹ️</text>
+        <text class="menu-item__title">关于我们</text>
+      </view>
+      <view class="menu-item__arrow">›</view>
+    </view>
+
+    <!-- 退出登录 -->
+    <view class="menu-item menu-item--danger" bindtap="handleLogout">
+      <view class="menu-item__left">
+        <text class="menu-item__icon">🚪</text>
+        <text class="menu-item__title">退出登录</text>
+      </view>
+      <view class="menu-item__arrow">›</view>
+    </view>
+  </view>
+</view>

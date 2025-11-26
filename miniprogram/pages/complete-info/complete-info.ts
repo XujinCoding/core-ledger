@@ -145,15 +145,33 @@ Page({
         return;
       }
 
-      // 调用登录接口
-      const loginData = {
-        code: tempLoginData.code,
+      // 构建请求数据
+      const requestData = {
+        openid: tempLoginData.tempOpenid,
         phone: phone,
         nickname: nickname,
         avatarUrl: avatarUrl || undefined
       };
 
-      const result = await authApi.wechatLogin(loginData);
+      let result;
+      
+      // 根据 isNewUser 标志位判断调用哪个接口
+      if (tempLoginData.isNewUser) {
+        // 新用户，调用注册接口
+        console.log('调用注册接口');
+        result = await authApi.registerUser(requestData);
+      } else if (tempLoginData.needSupplement) {
+        // 已存在用户，调用补充信息接口
+        console.log('调用补充信息接口');
+        result = await authApi.supplementUserInfo(requestData);
+      } else {
+        // 理论上不应该到这里
+        wx.showToast({
+          title: '登录状态异常，请重新登录',
+          icon: 'none'
+        });
+        return;
+      }
 
       // 清除临时数据
       storage.remove('tempLoginData');
@@ -169,7 +187,7 @@ Page({
         success: () => {
           setTimeout(() => {
             wx.reLaunch({
-              url: '/pages/index/index'
+              url: '/pages/ledger/ledger'
             });
           }, 1500);
         }
