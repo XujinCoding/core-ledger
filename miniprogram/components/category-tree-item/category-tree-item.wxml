@@ -7,7 +7,6 @@
     </view>
     <view class="category-item__info">
       <text class="category-item__name">{{item.name}}</text>
-      <text class="category-item__count">({{item.productCount || 0}}个商品)</text>
     </view>
     <view 
       class="category-item__action" 

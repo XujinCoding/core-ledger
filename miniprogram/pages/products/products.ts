@@ -30,7 +30,11 @@ Page({
     selectedStatus: undefined as string | undefined,
     
     // 筛选面板
-    showFilter: false
+    showFilter: false,
+    
+    // 修改分类选择器
+    showChangeCategoryFilter: false,
+    changingProduct: null as ProductListItem | null
   },
 
   // 防抖定时器
@@ -355,11 +359,71 @@ Page({
   /**
    * 修改商品分类
    */
-  handleChangeProductCategory(_product: ProductListItem): void {
-    // TODO: 显示分类选择器
-    wx.showToast({
-      title: '分类选择功能开发中',
-      icon: 'none'
+  async handleChangeProductCategory(product: ProductListItem): Promise<void> {
+    // 确保分类数据已加载
+    if (this.data.categories.length === 0) {
+      await this.loadCategories();
+    }
+    
+    // 显示树形分类选择器
+    this.setData({
+      changingProduct: product,
+      showChangeCategoryFilter: true
+    });
+  },
+
+  /**
+   * 修改分类确认
+   */
+  async handleChangeCategoryConfirm(event: WechatMiniprogram.CustomEvent): Promise<void> {
+    const { categoryId } = event.detail;
+    const product = this.data.changingProduct;
+    
+    if (!product) return;
+    
+    if (categoryId === product.categoryId) {
+      wx.showToast({
+        title: '分类未变更',
+        icon: 'none'
+      });
+      this.setData({ showChangeCategoryFilter: false });
+      return;
+    }
+    
+    try {
+      await productApi.updateProduct(product.id, {
+        name: product.name,
+        categoryId: categoryId,
+        imageUrl: product.imageUrl,
+        description: product.description,
+        price: product.price,
+        spec: product.spec,
+        unit: product.unit,
+        location: product.location,
+        memo: product.memo
+      });
+      
+      wx.showToast({
+        title: '分类修改成功',
+        icon: 'success'
+      });
+      
+      this.setData({ showChangeCategoryFilter: false });
+      
+      // 重新加载商品列表
+      this.refreshProducts();
+    } catch (error) {
+      console.error('修改分类失败', error);
+    }
+  },
+
+  /**
+   * 关闭修改分类选择器
+   */
+  handleChangeCategoryClose(): void {
+    this.setData({ 
+      showChangeCategoryFilter: false,
+      changingProduct: null
     });
   },
 
@@ -492,6 +556,7 @@ Page({
     const { category } = event.detail;
     
     const itemList = [
+      '查看商品',
       '编辑分类',
       '新增子分类',
       '删除分类'
@@ -502,19 +567,46 @@ Page({
       success: (res) => {
         switch (res.tapIndex) {
           case 0:
+            // 查看商品
+            this.handleViewCategoryProducts(category);
+            break;
+          case 1:
             // 编辑分类
             this.handleEditCategory(category);
             break;
-          case 1:
+          case 2:
             // 新增子分类
             this.handleAddSubCategory(category);
             break;
-          case 2:
+          case 3:
             // 删除分类
             this.handleDeleteCategory(category);
             break;
         }
       }
+    });
+  },
+
+  /**
+   * 查看分类下的商品
+   */
+  handleViewCategoryProducts(category: CategoryTreeVO): void {
+    // 切换到商品Tab
+    this.setData({ activeTab: 0 });
+    
+    // 设置分类筛选
+    this.setData({
+      selectedCategoryId: category.id,
+      selectedCategoryName: category.name
+    });
+    
+    // 刷新商品列表
+    this.refreshProducts();
+    
+    wx.showToast({
+      title: `已筛选“${category.name}”`,
+      icon: 'success',
+      duration: 1500
     });
   },
 

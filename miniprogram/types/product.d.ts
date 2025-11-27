@@ -216,6 +216,7 @@ export interface GenerateSKUsRequest {
  */
 export interface UpdateProductRequest {
   name: string; // 必填
+  categoryId?: number; // 分类ID
   imageUrl?: string;
   description?: string;
   price?: number; // 标准价格

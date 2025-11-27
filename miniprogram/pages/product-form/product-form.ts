@@ -260,6 +260,7 @@ Page({
         // 编辑商品
         const request: UpdateProductRequest = {
           name: form.name.trim(),
+          categoryId: form.categoryId,
           imageUrl: form.imageUrl?.trim(),
           description: form.description?.trim(),
           price: form.price,

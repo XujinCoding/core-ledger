@@ -112,4 +112,13 @@
     bind:confirm="handleFilterConfirm"
     bind:close="handleFilterClose"
   />
+
+  <!-- 修改商品分类选择器 -->
+  <category-filter
+    show="{{showChangeCategoryFilter}}"
+    categories="{{categories}}"
+    selectedId="{{changingProduct ? changingProduct.categoryId : undefined}}"
+    bind:confirm="handleChangeCategoryConfirm"
+    bind:close="handleChangeCategoryClose"
+  />
 </view>
