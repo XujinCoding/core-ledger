@@ -1,0 +1,82 @@
+<!--
+  分类筛选组件
+  支持树形结构的分类选择
+-->
+<view class="category-filter" wx:if="{{show}}">
+  <!-- 遮罩层 -->
+  <view class="category-filter__mask" bindtap="handleClose"></view>
+  
+  <!-- 筛选面板 -->
+  <view class="category-filter__panel">
+    <!-- 标题栏 -->
+    <view class="category-filter__header">
+      <text class="category-filter__title">选择分类</text>
+      <view class="category-filter__close" bindtap="handleClose">×</view>
+    </view>
+    
+    <!-- 分类列表 -->
+    <scroll-view class="category-filter__content" scroll-y>
+      <!-- 全部分类选项 -->
+      <view 
+        class="category-option {{tempSelectedId === null ? 'category-option--active' : ''}}"
+        bindtap="handleSelectCategory"
+        data-id="{{null}}"
+        data-name="全部分类"
+      >
+        <text class="category-option__name">全部分类</text>
+        <view class="category-option__check" wx:if="{{tempSelectedId === null}}">✓</view>
+      </view>
+      
+      <!-- 分类树 -->
+      <block wx:for="{{categories}}" wx:key="id">
+        <view 
+          class="category-option category-option--level-{{item.level}} {{tempSelectedId === item.id ? 'category-option--active' : ''}}"
+          bindtap="handleSelectCategory"
+          data-id="{{item.id}}"
+          data-name="{{item.name}}"
+        >
+          <text class="category-option__name">{{item.name}}</text>
+          <view class="category-option__check" wx:if="{{tempSelectedId === item.id}}">✓</view>
+        </view>
+        
+        <!-- 子分类（递归显示，最多3层） -->
+        <block wx:if="{{item.children && item.children.length > 0}}">
+          <block wx:for="{{item.children}}" wx:key="id" wx:for-item="child">
+            <view 
+              class="category-option category-option--level-{{child.level}} {{tempSelectedId === child.id ? 'category-option--active' : ''}}"
+              bindtap="handleSelectCategory"
+              data-id="{{child.id}}"
+              data-name="{{child.name}}"
+            >
+              <text class="category-option__indent">└</text>
+              <text class="category-option__name">{{child.name}}</text>
+              <view class="category-option__check" wx:if="{{tempSelectedId === child.id}}">✓</view>
+            </view>
+            
+            <!-- 第三层子分类 -->
+            <block wx:if="{{child.children && child.children.length > 0}}">
+              <block wx:for="{{child.children}}" wx:key="id" wx:for-item="grandchild">
+                <view 
+                  class="category-option category-option--level-{{grandchild.level}} {{tempSelectedId === grandchild.id ? 'category-option--active' : ''}}"
+                  bindtap="handleSelectCategory"
+                  data-id="{{grandchild.id}}"
+                  data-name="{{grandchild.name}}"
+                >
+                  <text class="category-option__indent">　└</text>
+                  <text class="category-option__name">{{grandchild.name}}</text>
+                  <view class="category-option__check" wx:if="{{tempSelectedId === grandchild.id}}">✓</view>
+                </view>
+              </block>
+            </block>
+          </block>
+        </block>
+      </block>
+    </scroll-view>
+    
+    <!-- 操作按钮 -->
+    <view class="category-filter__footer">
+      <button class="category-filter__btn category-filter__btn--reset" bindtap="handleReset">重置</button>
+      <button class="category-filter__btn category-filter__btn--confirm" bindtap="handleConfirm">确定</button>
+    </view>
+  </view>
+</view>

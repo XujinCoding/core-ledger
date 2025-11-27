@@ -1,0 +1,108 @@
+<!--
+  商品属性配置页面
+-->
+<view class="page-container">
+  <scroll-view class="content" scroll-y>
+    <!-- 商品信息 -->
+    <view class="product-info">
+      <text class="product-name">{{productName}}</text>
+      <text class="product-hint">为商品配置属性后，可自动生成多个SKU规格</text>
+    </view>
+    
+    <!-- 属性列表 -->
+    <view class="attr-list" wx:if="{{attrs.length > 0}}">
+      <view class="attr-item" wx:for="{{attrs}}" wx:key="index" wx:for-index="attrIndex">
+        <view class="attr-header">
+          <view class="attr-number">属性{{attrIndex + 1}}</view>
+          <view class="attr-delete" catchtap="handleDeleteAttr" data-index="{{attrIndex}}">删除</view>
+        </view>
+        
+        <!-- 属性名称 -->
+        <view class="attr-row">
+          <view class="attr-label">
+            <text class="required">*</text>
+            <text>属性名称</text>
+          </view>
+          <input
+            class="attr-input"
+            type="text"
+            placeholder="如：颜色、尺寸"
+            value="{{item.attrName}}"
+            data-index="{{attrIndex}}"
+            bindinput="handleAttrNameInput"
+            maxlength="50"
+          />
+        </view>
+        
+        <!-- 属性值 -->
+        <view class="attr-row">
+          <view class="attr-label">
+            <text class="required">*</text>
+            <text>属性值</text>
+          </view>
+          <view class="attr-values-container">
+            <view class="attr-values">
+              <view 
+                class="attr-value-tag" 
+                wx:for="{{item.values}}" 
+                wx:key="index" 
+                wx:for-item="value"
+                wx:for-index="valueIndex"
+              >
+                <text>{{value.value}}</text>
+                <text 
+                  class="attr-value-delete" 
+                  catchtap="handleDeleteAttrValue" 
+                  data-attr-index="{{attrIndex}}"
+                  data-value-index="{{valueIndex}}"
+                >×</text>
+              </view>
+              <view class="attr-value-add" catchtap="handleAddAttrValue" data-index="{{attrIndex}}">
+                + 添加
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{attrs.length === 0}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无属性</text>
+      <text class="empty-hint">点击下方按钮添加商品属性</text>
+    </view>
+    
+    <!-- 添加属性按钮 -->
+    <view class="add-attr-btn" bindtap="handleAddAttr">
+      + 添加属性
+    </view>
+  </scroll-view>
+  
+  <!-- 底部操作按钮 -->
+  <view class="footer">
+    <button class="footer-btn footer-btn--cancel" bindtap="handleCancel">取消</button>
+    <button class="footer-btn footer-btn--save" bindtap="handleSave">保存</button>
+  </view>
+</view>
+
+<!-- 添加属性值弹窗 -->
+<view class="modal" wx:if="{{showValueModal}}">
+  <view class="modal-mask" catchtap="handleCloseValueModal"></view>
+  <view class="modal-content">
+    <view class="modal-title">添加属性值</view>
+    <input
+      class="modal-input"
+      type="text"
+      placeholder="请输入属性值"
+      value="{{tempValue}}"
+      bindinput="handleTempValueInput"
+      maxlength="50"
+      focus="{{showValueModal}}"
+    />
+    <view class="modal-footer">
+      <button class="modal-btn modal-btn--cancel" catchtap="handleCloseValueModal">取消</button>
+      <button class="modal-btn modal-btn--confirm" catchtap="handleConfirmValue">确定</button>
+    </view>
+  </view>
+</view>

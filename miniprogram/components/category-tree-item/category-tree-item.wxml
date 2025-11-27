@@ -1,0 +1,32 @@
+<!-- 分类树项组件（支持递归） -->
+<view class="category-item category-item--level-{{level}}">
+  <view class="category-item__header" style="padding-left: {{16 + level * 28}}rpx;">
+    <view class="category-item__expand" catchtap="handleToggleExpand">
+      <text wx:if="{{item.children && item.children.length > 0}}" class="expand-icon {{item.expanded ? 'expanded' : ''}}">▶</text>
+      <text wx:else class="expand-icon expand-icon--empty"></text>
+    </view>
+    <view class="category-item__info">
+      <text class="category-item__name">{{item.name}}</text>
+      <text class="category-item__count">({{item.productCount || 0}}个商品)</text>
+    </view>
+    <view 
+      class="category-item__action" 
+      catchtap="handleAction"
+    >
+      <text>⋯</text>
+    </view>
+  </view>
+</view>
+
+<!-- 递归渲染子分类 -->
+<block wx:if="{{item.expanded && item.children && item.children.length > 0}}">
+  <category-tree-item
+    wx:for="{{item.children}}"
+    wx:for-item="child"
+    wx:key="id"
+    item="{{child}}"
+    level="{{level + 1}}"
+    bind:toggle="onChildToggle"
+    bind:action="onChildAction"
+  />
+</block>

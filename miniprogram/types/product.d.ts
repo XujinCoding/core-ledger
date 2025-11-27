@@ -3,6 +3,52 @@
  */
 
 /**
+ * 商品分类
+ */
+export interface CategoryVO {
+  id: number;
+  parentId: number;
+  name: string;
+  level: number;
+  sortOrder: number;
+  iconUrl?: string;
+  memo?: string;
+  status: string; // "0"=禁用, "1"=启用
+  createInstant: string;
+  modifyInstant: string;
+}
+
+/**
+ * 商品分类树（带子分类）
+ */
+export interface CategoryTreeVO extends CategoryVO {
+  children: CategoryTreeVO[];
+  expanded?: boolean; // 前端用于控制展开/折叠状态
+  productCount?: number; // 该分类下的商品数量
+}
+
+/**
+ * 创建分类请求
+ */
+export interface CreateCategoryRequest {
+  parentId: number; // 0表示顶级分类
+  name: string;
+  sortOrder?: number;
+  iconUrl?: string;
+  memo?: string;
+}
+
+/**
+ * 更新分类请求
+ */
+export interface UpdateCategoryRequest {
+  name: string;
+  sortOrder?: number;
+  iconUrl?: string;
+  memo?: string;
+}
+
+/**
  * 商品属性
  */
 export interface ProductAttribute {
@@ -23,7 +69,7 @@ export interface ProductSKU {
 }
 
 /**
- * 商品详情（SPU）
+ * 商品详情（SPU）- 完整版VO
  */
 export interface Product {
   id: number;
@@ -32,17 +78,65 @@ export interface Product {
   name: string;
   imageUrl?: string;
   description?: string;
+  price: number; // 标准价格
+  spec?: string; // 规格型号
   unit: string;
   location?: string;
   memo?: string;
-  attributes: ProductAttribute[];
-  skus: ProductSKU[];
+  status: string; // "0"=禁用, "1"=启用
+  attrs: ProductAttrVO[]; // 使用API返回的类型
+  skus: ProductSkuVO[]; // 使用API返回的类型
   createInstant: string;
   modifyInstant: string;
 }
 
 /**
- * 商品列表项（简化版）
+ * 商品属性值VO
+ */
+export interface ProductAttrValueVO {
+  id?: number; // 新增时无id，修改时有id
+  productAttrId?: number; // 新增时可能没有
+  value: string;
+  sortOrder: number;
+}
+
+/**
+ * 商品属性VO
+ */
+export interface ProductAttrVO {
+  id?: number; // 新增时无id，修改时有id
+  productId?: number; // 批量更新时由后端设置
+  attrName: string;
+  sortOrder: number;
+  values: ProductAttrValueVO[];
+}
+
+/**
+ * 商品SKU属性VO
+ */
+export interface ProductSkuAttrVO {
+  attrName: string;
+  attrValue: string;
+  sortOrder: number;
+}
+
+/**
+ * 商品SKU VO
+ */
+export interface ProductSkuVO {
+  id: number;
+  productId: number;
+  skuName: string;
+  priceStatus: string; // "0"=未定价, "1"=已定价
+  price: number;
+  imageUrl?: string;
+  sortOrder: number;
+  status: string; // "0"=禁用, "1"=启用
+  skuAttrs: ProductSkuAttrVO[];
+}
+
+/**
+ * 商品列表项（完整版，匹配后端返回）
  */
 export interface ProductListItem {
   id: number;
@@ -50,10 +144,18 @@ export interface ProductListItem {
   categoryName?: string;
   name: string;
   imageUrl?: string;
+  description?: string;
+  price: number; // 标准价格
+  spec?: string; // 规格型号
   unit: string;
   location?: string;
-  skuCount: number;
+  memo?: string;
+  status: string; // "0"=禁用, "1"=启用
+  attrs: ProductAttrVO[];
+  skus: ProductSkuVO[];
+  skuCount?: number; // SKU数量（前端计算）
   createInstant: string;
+  modifyInstant: string;
 }
 
 /**
@@ -75,11 +177,13 @@ export interface SKUListItem {
  * 创建商品请求
  */
 export interface CreateProductRequest {
-  categoryId: number;
-  name: string;
+  categoryId: number; // 必填
+  name: string; // 必填
+  price: number; // 必填 - 标准价格
+  unit: string; // 必填
   imageUrl?: string;
   description?: string;
-  unit: string;
+  spec?: string; // 规格型号
   location?: string;
   memo?: string;
 }
@@ -111,11 +215,27 @@ export interface GenerateSKUsRequest {
  * 更新商品请求
  */
 export interface UpdateProductRequest {
-  categoryId?: number;
-  name?: string;
+  name: string; // 必填
   imageUrl?: string;
   description?: string;
+  price?: number; // 标准价格
+  spec?: string; // 规格型号
   unit?: string;
   location?: string;
   memo?: string;
+}
+
+/**
+ * SKU价格项
+ */
+export interface SkuPriceItem {
+  skuId: number; // SKU ID
+  price: number; // 价格（必须>0）
+}
+
+/**
+ * SKU批量定价请求
+ */
+export interface SkuPriceUpdateDTO {
+  skuPrices: SkuPriceItem[];
 }

@@ -1,0 +1,33 @@
+<!--
+  商品卡片组件
+  展示商品基本信息
+-->
+<view class="product-card" bindtap="handleClick">
+  <!-- 商品图片（如果有） -->
+  <image 
+    wx:if="{{item.imageUrl}}"
+    class="product-card__image" 
+    src="{{item.imageUrl}}" 
+    mode="aspectFill"
+  />
+  
+  <!-- 商品信息 -->
+  <view class="product-card__main">
+    <view class="product-card__name">{{item.name}}</view>
+    <view class="product-card__meta">
+      <text class="product-card__category">{{item.categoryName || '未分类'}}</text>
+      <text class="product-card__sku-count"> · {{item.skuCount}}个规格</text>
+      <text class="product-card__location" wx:if="{{item.location}}"> · {{item.location}}</text>
+    </view>
+    <view class="product-card__price">¥{{item.price}}</view>
+  </view>
+
+  <!-- 单位和操作 -->
+  <view class="product-card__right">
+    <view class="product-card__unit">{{item.unit}}</view>
+    <view 
+      class="product-card__action" 
+      catchtap="handleAction"
+    >⋯</view>
+  </view>
+</view>

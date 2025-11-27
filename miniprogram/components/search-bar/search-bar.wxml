@@ -1,0 +1,25 @@
+<!--
+  搜索框组件
+  支持防抖搜索和清空功能
+-->
+<view class="search-bar">
+  <view class="search-bar__input-wrapper">
+    <image class="search-bar__icon" src="/images/search.png" mode="aspectFit" wx:if="{{showIcon}}" />
+    <input 
+      class="search-bar__input"
+      type="text"
+      placeholder="{{placeholder}}"
+      value="{{keyword}}"
+      bindinput="handleInput"
+      confirm-type="search"
+      bindconfirm="handleConfirm"
+    />
+    <view 
+      wx:if="{{keyword}}" 
+      class="search-bar__clear"
+      catchtap="handleClear"
+    >
+      <text class="search-bar__clear-icon">×</text>
+    </view>
+  </view>
+</view>

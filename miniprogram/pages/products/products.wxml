@@ -1,52 +1,115 @@
 <!--
   商品管理页面
-  设计风格：高密度纯文字列表（类似Excel表格）
+  Phase 1: 基础功能 - 商品分类 + 商品列表
 -->
 <view class="page-container">
-  <!-- 搜索框 -->
-  <view class="search-bar">
-    <input
-      class="search-bar__input"
-      type="text"
-      placeholder="搜索商品名称"
-      bindinput="handleSearch"
-      confirm-type="search"
-    />
-  </view>
-
-  <!-- 商品列表 -->
-  <view class="product-list" wx:if="{{products.length > 0}}">
-    <view
-      class="product-item"
-      wx:for="{{products}}"
-      wx:key="id"
-      bindtap="handleItemClick"
-      data-id="{{item.id}}"
-    >
-      <!-- 商品名称和规格数 -->
-      <view class="product-item__main">
-        <view class="product-item__name">{{item.name}}</view>
-        <view class="product-item__meta">
-          <text class="product-item__sku-count">{{item.skuCount}}个规格</text>
-          <text class="product-item__location" wx:if="{{item.location}}"> · {{item.location}}</text>
-        </view>
+  <!-- Tab切换栏 -->
+  <view class="tab-bar">
+    <view class="tab-bar__tabs">
+      <view 
+        class="tab-item {{activeTab === 0 ? 'tab-item--active' : ''}}"
+        bindtap="handleTabChange"
+        data-index="0"
+      >
+        <text>商品列表</text>
       </view>
-
-      <!-- 单位 -->
-      <view class="product-item__unit">
-        {{item.unit}}
+      <view 
+        class="tab-item {{activeTab === 1 ? 'tab-item--active' : ''}}"
+        bindtap="handleTabChange"
+        data-index="1"
+      >
+        <text>商品分类</text>
       </view>
     </view>
   </view>
 
-  <!-- 空状态 -->
-  <view class="empty-state" wx:if="{{products.length === 0 && !loading}}">
-    <view class="empty-state__icon">📦</view>
-    <view class="empty-state__text">暂无商品</view>
+  <!-- Tab 0: 商品列表 -->
+  <view class="tab-content" wx:if="{{activeTab === 0}}">
+    <!-- 搜索框 -->
+    <view class="search-wrapper">
+      <search-bar
+        placeholder="搜索商品名称..."
+        bind:search="handleSearch"
+      />
+      <view class="search-filter" bindtap="handleShowFilter">
+        <text>筛选🎚</text>
+      </view>
+    </view>
+
+    <!-- 筛选条件 -->
+    <view class="filter-bar" wx:if="{{selectedCategoryId || selectedStatus}}">
+      <view class="filter-tag" wx:if="{{selectedCategoryId}}">
+        <text>{{selectedCategoryName}}</text>
+        <text class="filter-tag__close" bindtap="handleClearCategoryFilter">×</text>
+      </view>
+      <view class="filter-tag" wx:if="{{selectedStatus}}">
+        <text>{{selectedStatus === '1' ? '启用' : '禁用'}}</text>
+        <text class="filter-tag__close" bindtap="handleClearStatusFilter">×</text>
+      </view>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="product-list" wx:if="{{products.length > 0}}">
+      <product-card
+        wx:for="{{products}}"
+        wx:key="id"
+        item="{{item}}"
+        bind:click="handleItemClick"
+        bind:action="handleProductAction"
+      />
+    </view>
+
+    <!-- 空状态 -->
+    <empty-state
+      wx:if="{{products.length === 0 && !loading}}"
+      icon="📦"
+      text="暂无商品"
+      buttonText="新增商品"
+      bind:action="handleAddProduct"
+    />
+
+    <!-- 加载状态 -->
+    <loading-spinner wx:if="{{loading}}" text="加载中..." />
   </view>
 
-  <!-- 加载状态 -->
-  <view class="loading-state" wx:if="{{loading}}">
-    <text>加载中...</text>
+  <!-- Tab 1: 商品分类管理 -->
+  <view class="tab-content" wx:if="{{activeTab === 1}}">
+    <!-- 分类树列表 -->
+    <view class="category-list" wx:if="{{categories.length > 0}}">
+      <category-tree-item
+        wx:for="{{categories}}"
+        wx:key="id"
+        item="{{item}}"
+        level="0"
+        bind:toggle="handleCategoryToggle"
+        bind:action="handleCategoryAction"
+      />
+    </view>
+
+    <!-- 空状态 -->
+    <empty-state
+      wx:if="{{categories.length === 0 && !categoryLoading}}"
+      icon="📂"
+      text="暂无分类"
+      buttonText="新增顶级分类"
+      bind:action="handleAddCategory"
+    />
+
+    <!-- 加载状态 -->
+    <loading-spinner wx:if="{{categoryLoading}}" text="加载中..." />
   </view>
+
+  <!-- 右下角浮动按钮 -->
+  <view class="fab" bindtap="handleFabClick">
+    <text class="fab__icon">+</text>
+  </view>
+
+  <!-- 分类筛选面板 -->
+  <category-filter
+    show="{{showFilter}}"
+    categories="{{categories}}"
+    selectedId="{{selectedCategoryId}}"
+    bind:confirm="handleFilterConfirm"
+    bind:close="handleFilterClose"
+  />
 </view>

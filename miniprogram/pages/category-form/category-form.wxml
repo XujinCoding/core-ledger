@@ -1,0 +1,88 @@
+<!--
+  商品分类表单页面
+-->
+<view class="page-container">
+  <view class="form-container">
+    <!-- 父分类信息 -->
+    <view class="form-section" wx:if="{{mode === 'create' && parentId > 0}}">
+      <view class="form-section__title">父分类</view>
+      <view class="form-item form-item--readonly">
+        <view class="form-item__label">所属分类</view>
+        <view class="form-item__value">{{parentName}}</view>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="form-section__title">基本信息</view>
+      
+      <!-- 分类名称 -->
+      <view class="form-item form-item--required">
+        <view class="form-item__label">分类名称</view>
+        <input
+          class="form-item__input"
+          type="text"
+          placeholder="请输入分类名称（最多50字）"
+          value="{{formData.name}}"
+          maxlength="50"
+          bindinput="handleInputChange"
+          data-field="name"
+          focus="{{mode === 'create'}}"
+          disabled="{{submitting}}"
+        />
+      </view>
+
+      <!-- 排序序号 -->
+      <view class="form-item">
+        <view class="form-item__label">排序序号</view>
+        <input
+          class="form-item__input"
+          type="number"
+          placeholder="数字越小越靠前"
+          value="{{formData.sortOrder}}"
+          bindinput="handleInputChange"
+          data-field="sortOrder"
+        />
+      </view>
+
+      <!-- 图标URL -->
+      <view class="form-item">
+        <view class="form-item__label">图标URL</view>
+        <input
+          class="form-item__input"
+          type="text"
+          placeholder="选填"
+          value="{{formData.iconUrl}}"
+          bindinput="handleInputChange"
+          data-field="iconUrl"
+        />
+      </view>
+
+      <!-- 备注 -->
+      <view class="form-item form-item--textarea">
+        <view class="form-item__label">备注说明</view>
+        <textarea
+          class="form-item__textarea"
+          placeholder="选填，可输入分类描述信息"
+          value="{{formData.memo}}"
+          maxlength="200"
+          bindinput="handleInputChange"
+          data-field="memo"
+          auto-height
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="footer-actions">
+    <button class="btn btn--cancel" bindtap="handleCancel">取消</button>
+    <button 
+      class="btn btn--primary" 
+      bindtap="handleSubmit"
+      disabled="{{submitting}}"
+    >
+      {{submitting ? '提交中...' : (mode === 'create' ? '创建' : '保存')}}
+    </button>
+  </view>
+</view>

@@ -1,5 +1,16 @@
 {
-  "navigationBarTitleText": "商品",
+  "navigationBarTitleText": "商品管理",
   "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "category-tree-item": "../../components/category-tree-item/category-tree-item",
+    "search-bar": "../../components/search-bar/search-bar",
+    "product-card": "../../components/product-card/product-card",
+    "empty-state": "../../components/empty-state/empty-state",
+    "loading-spinner": "../../components/loading-spinner/loading-spinner",
+    "category-filter": "../../components/category-filter/category-filter"
+  }
 }

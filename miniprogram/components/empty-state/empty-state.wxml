@@ -1,0 +1,11 @@
+<!--
+  空状态组件
+  展示无数据时的提示
+-->
+<view class="empty-state">
+  <view class="empty-state__icon">{{icon}}</view>
+  <view class="empty-state__text">{{text}}</view>
+  <view class="empty-state__action" wx:if="{{buttonText}}">
+    <button class="empty-state__button" bindtap="handleAction">{{buttonText}}</button>
+  </view>
+</view>

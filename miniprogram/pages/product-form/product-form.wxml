@@ -1,0 +1,126 @@
+<!--
+  商品表单页面
+  用于新增和编辑商品
+-->
+<view class="page-container">
+  <scroll-view class="form-container" scroll-y>
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="form-section__title">基本信息</view>
+      
+      <!-- 商品名称 -->
+      <view class="form-item">
+        <view class="form-item__label">
+          <text class="form-item__required">*</text>
+          <text>商品名称</text>
+        </view>
+        <input
+          class="form-item__input"
+          type="text"
+          placeholder="请输入商品名称"
+          value="{{form.name}}"
+          data-field="name"
+          bindinput="handleInput"
+          maxlength="200"
+        />
+      </view>
+
+      <!-- 商品分类 -->
+      <view class="form-item" bindtap="handleSelectCategory">
+        <view class="form-item__label">
+          <text class="form-item__required">*</text>
+          <text>商品分类</text>
+        </view>
+        <view class="form-item__picker">
+          <text class="{{form.categoryId ? '' : 'form-item__placeholder'}}">
+            {{form.categoryName || '请选择商品分类'}}
+          </text>
+          <text class="form-item__arrow">›</text>
+        </view>
+      </view>
+
+      <!-- 计量单位 -->
+      <view class="form-item">
+        <view class="form-item__label">
+          <text class="form-item__required">*</text>
+          <text>计量单位</text>
+        </view>
+        <input
+          class="form-item__input"
+          type="text"
+          placeholder="如：个、斤、箱"
+          value="{{form.unit}}"
+          data-field="unit"
+          bindinput="handleInput"
+          maxlength="10"
+        />
+      </view>
+
+      <!-- 标准价格 -->
+      <view class="form-item">
+        <view class="form-item__label">
+          <text class="form-item__required">*</text>
+          <text>标准价格</text>
+        </view>
+        <view class="form-item__input-wrapper">
+          <text class="form-item__prefix">¥</text>
+          <input
+            class="form-item__input"
+            type="digit"
+            placeholder="0.00"
+            value="{{form.price}}"
+            data-field="price"
+            bindinput="handleInput"
+          />
+        </view>
+      </view>
+
+      <!-- 存放位置 -->
+      <view class="form-item">
+        <view class="form-item__label">
+          <text>存放位置</text>
+        </view>
+        <input
+          class="form-item__input"
+          type="text"
+          placeholder="如：A区-01货架"
+          value="{{form.location}}"
+          data-field="location"
+          bindinput="handleInput"
+          maxlength="50"
+        />
+      </view>
+
+      <!-- 备注说明 -->
+      <view class="form-item form-item--textarea">
+        <view class="form-item__label">
+          <text>备注说明</text>
+        </view>
+        <textarea
+          class="form-item__textarea"
+          placeholder="请输入备注信息"
+          value="{{form.memo}}"
+          data-field="memo"
+          bindinput="handleInput"
+          maxlength="500"
+          show-confirm-bar="{{false}}"
+        />
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作按钮 -->
+  <view class="form-footer">
+    <button class="form-btn form-btn--cancel" bindtap="handleCancel">取消</button>
+    <button class="form-btn form-btn--submit" bindtap="handleSubmit">保存</button>
+  </view>
+
+  <!-- 分类选择器 -->
+  <category-filter
+    show="{{showCategoryPicker}}"
+    categories="{{categories}}"
+    selectedId="{{form.categoryId}}"
+    bind:confirm="handleCategoryConfirm"
+    bind:close="handleCategoryClose"
+  />
+</view>

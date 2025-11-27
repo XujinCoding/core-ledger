@@ -1,0 +1,172 @@
+<!--
+  商品详情页面
+-->
+<view class="page-container">
+  <scroll-view class="content" scroll-y wx:if="{{product}}">
+    <!-- 商品基本信息 -->
+    <view class="section">
+      <view class="section-title">基本信息</view>
+      
+      <!-- 商品图片 -->
+      <view class="product-image" wx:if="{{product.imageUrl}}">
+        <image src="{{product.imageUrl}}" mode="aspectFill" />
+      </view>
+      
+      <view class="info-row">
+        <text class="info-label">商品名称</text>
+        <text class="info-value">{{product.name}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-label">商品分类</text>
+        <text class="info-value">{{product.categoryName}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-label">标准价格</text>
+        <text class="info-value price">¥{{product.price}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-label">计量单位</text>
+        <text class="info-value">{{product.unit}}</text>
+      </view>
+      
+      <view class="info-row" wx:if="{{product.spec}}">
+        <text class="info-label">规格型号</text>
+        <text class="info-value">{{product.spec}}</text>
+      </view>
+      
+      <view class="info-row" wx:if="{{product.location}}">
+        <text class="info-label">存放位置</text>
+        <text class="info-value">{{product.location}}</text>
+      </view>
+      
+      <view class="info-row" wx:if="{{product.description}}">
+        <text class="info-label">商品描述</text>
+        <text class="info-value">{{product.description}}</text>
+      </view>
+      
+      <view class="info-row" wx:if="{{product.memo}}">
+        <text class="info-label">备注说明</text>
+        <text class="info-value">{{product.memo}}</text>
+      </view>
+    </view>
+    
+    <!-- 商品属性 -->
+    <view class="section" wx:if="{{product.attrs && product.attrs.length > 0}}">
+      <view class="section-title">商品属性</view>
+      
+      <view class="attr-list">
+        <view class="attr-item" wx:for="{{product.attrs}}" wx:key="id">
+          <view class="attr-name">{{item.attrName}}</view>
+          <view class="attr-values">
+            <text class="attr-value" wx:for="{{item.values}}" wx:key="id" wx:for-item="value">
+              {{value.value}}
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 商品SKU -->
+    <view class="section" wx:if="{{product.skus && product.skus.length > 0}}">
+      <view class="section-title-row">
+        <text class="section-title">商品规格 ({{product.skus.length}})</text>
+        <text class="batch-price-btn" catchtap="handleBatchPrice">批量定价</text>
+      </view>
+      
+      <scroll-view class="sku-list" scroll-y>
+        <view class="sku-item" wx:for="{{sortedSkus}}" wx:key="id">
+          <view class="sku-header">
+            <text class="sku-name">{{item.skuName}}</text>
+            <text class="sku-price-status status-{{item.priceStatus}}">{{item.priceStatus == 1 || item.priceStatus == '1' ? '已定价' : '未定价'}}</text>
+          </view>
+          
+          <view class="sku-attrs" wx:if="{{item.skuAttrs && item.skuAttrs.length > 0}}">
+            <text class="sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">
+              {{attr.attrName}}: {{attr.attrValue}}
+            </text>
+          </view>
+          
+          <view class="sku-footer">
+            <view class="sku-price-info">
+              <text class="sku-price">￥{{item.price > 0 ? item.price : '未定价'}}</text>
+            </view>
+            <view class="sku-price-btn" catchtap="handleSkuPrice" data-sku="{{item}}">
+              {{item.priceStatus == 1 || item.priceStatus == '1' ? '修改价格' : '立即定价'}}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 时间信息 -->
+    <view class="section">
+      <view class="section-title">其他信息</view>
+      
+      <view class="info-row">
+        <text class="info-label">创建时间</text>
+        <text class="info-value">{{product.createInstant}}</text>
+      </view>
+      
+      <view class="info-row">
+        <text class="info-label">修改时间</text>
+        <text class="info-value">{{product.modifyInstant}}</text>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+  
+  <!-- 底部操作按钮 -->
+  <view class="footer" wx:if="{{product}}">
+    <button class="footer-btn footer-btn--edit" bindtap="handleEdit">编辑商品</button>
+    <button class="footer-btn footer-btn--attrs" bindtap="handleManageAttrs">
+      {{product.attrs && product.attrs.length > 0 ? '管理属性' : '配置属性'}}
+    </button>
+  </view>
+</view>
+
+<!-- 批量定价弹窗 -->
+<view class="batch-price-modal" wx:if="{{showBatchPriceModal}}">
+  <view class="modal-mask" catchtap="handleCloseBatchPrice"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">批量定价</text>
+      <text class="modal-close" catchtap="handleCloseBatchPrice">×</text>
+    </view>
+    
+    <scroll-view class="modal-sku-list" scroll-y>
+      <view class="modal-sku-item" wx:for="{{batchPriceSkus}}" wx:key="id">
+        <view class="modal-sku-info">
+          <view class="modal-sku-name">{{item.skuName}}</view>
+          <view class="modal-sku-attrs" wx:if="{{item.skuAttrs && item.skuAttrs.length > 0}}">
+            <text class="modal-sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">
+              {{attr.attrName}}: {{attr.attrValue}}
+            </text>
+          </view>
+        </view>
+        <view class="modal-sku-price-row">
+          <text class="modal-price-label">价格：</text>
+          <input 
+            class="modal-price-input" 
+            type="digit" 
+            placeholder="请输入价格" 
+            value="{{item.tempPrice}}"
+            data-index="{{index}}"
+            bindinput="handleBatchPriceInput"
+          />
+        </view>
+      </view>
+    </scroll-view>
+    
+    <view class="modal-footer">
+      <button class="modal-btn modal-btn--cancel" catchtap="handleCloseBatchPrice">取消</button>
+      <button class="modal-btn modal-btn--confirm" catchtap="handleConfirmBatchPrice">确定</button>
+    </view>
+  </view>
+</view>

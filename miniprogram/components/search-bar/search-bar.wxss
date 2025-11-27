@@ -1,0 +1,46 @@
+/**
+ * 搜索框组件样式
+ */
+
+.search-bar {
+  width: 100%;
+}
+
+.search-bar__input-wrapper {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+  padding: 0 24rpx;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  gap: 16rpx;
+}
+
+.search-bar__icon {
+  width: 32rpx;
+  height: 32rpx;
+  flex-shrink: 0;
+}
+
+.search-bar__input {
+  flex: 1;
+  height: 100%;
+  font-size: var(--font-md);
+  color: var(--text-primary);
+}
+
+.search-bar__clear {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.search-bar__clear-icon {
+  font-size: 40rpx;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1;
+}
