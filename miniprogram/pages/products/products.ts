@@ -25,8 +25,8 @@ Page({
     page: 0,
     size: 20,
     keyword: '',
-    selectedCategoryId: undefined as number | undefined,
-    selectedCategoryName: '',
+    selectedCategoryId: undefined as number | null | undefined,
+    selectedCategoryName: undefined as string | null | undefined,
     selectedStatus: undefined as string | undefined,
     
     // 筛选面板
@@ -508,7 +508,7 @@ Page({
     const { categoryId, categoryName } = event.detail;
     this.setData({
       selectedCategoryId: categoryId,
-      selectedCategoryName: categoryName || '',
+      selectedCategoryName: categoryName,
       showFilter: false
     });
     this.refreshProducts();
@@ -526,10 +526,11 @@ Page({
    */
   handleClearCategoryFilter(): void {
     this.setData({ 
-      selectedCategoryId: undefined,
-      selectedCategoryName: ''
+      selectedCategoryId: null,
+      selectedCategoryName: null
+    }, () => {
+      this.refreshProducts();
     });
-    this.refreshProducts();
   },
 
   /**

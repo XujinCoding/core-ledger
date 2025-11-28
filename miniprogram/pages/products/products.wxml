@@ -27,24 +27,26 @@
   <view class="tab-content" wx:if="{{activeTab === 0}}">
     <!-- 搜索框 -->
     <view class="search-wrapper">
-      <search-bar
-        placeholder="搜索商品名称..."
-        bind:search="handleSearch"
-      />
+      <view class="search-bar-wrapper">
+        <search-bar
+          placeholder="搜索商品名称..."
+          bind:search="handleSearch"
+        />
+      </view>
       <view class="search-filter" bindtap="handleShowFilter">
-        <text>筛选🎚</text>
+        <text>🔽</text>
       </view>
     </view>
 
     <!-- 筛选条件 -->
-    <view class="filter-bar" wx:if="{{selectedCategoryId || selectedStatus}}">
-      <view class="filter-tag" wx:if="{{selectedCategoryId}}">
+    <view class="filter-bar" wx:if="{{(selectedCategoryId != null && selectedCategoryId != undefined && selectedCategoryName) || selectedStatus}}">
+      <view class="filter-tag" wx:if="{{selectedCategoryId != null && selectedCategoryId != undefined && selectedCategoryName}}">
         <text>{{selectedCategoryName}}</text>
-        <text class="filter-tag__close" bindtap="handleClearCategoryFilter">×</text>
+        <text class="filter-tag__close" catchtap="handleClearCategoryFilter">×</text>
       </view>
       <view class="filter-tag" wx:if="{{selectedStatus}}">
         <text>{{selectedStatus === '1' ? '启用' : '禁用'}}</text>
-        <text class="filter-tag__close" bindtap="handleClearStatusFilter">×</text>
+        <text class="filter-tag__close" catchtap="handleClearStatusFilter">×</text>
       </view>
     </view>
 

@@ -96,6 +96,12 @@
   display: flex;
   gap: 16rpx;
   padding: 0 0 24rpx 0;
+  align-items: center;
+}
+
+.search-bar-wrapper {
+  flex: 1;
+  min-width: 0;
 }
 
 .search-filter {
@@ -104,10 +110,13 @@
   line-height: 72rpx;
   background-color: var(--bg-white);
   border-radius: var(--radius-md);
-  font-size: var(--font-sm);
+  font-size: 32rpx;
   color: var(--text-secondary);
   white-space: nowrap;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 商品列表容器 */
@@ -138,8 +147,19 @@
 }
 
 .filter-tag__close {
-  font-size: 28rpx;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44rpx;
+  min-height: 44rpx;
+  margin: -8rpx -8rpx -8rpx 0;
+  font-size: 32rpx;
   color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.filter-tag__close:active {
+  opacity: 0.6;
 }
 
 /* 分类列表 */
