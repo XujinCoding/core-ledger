@@ -1,0 +1,142 @@
+<!--
+  客户表单页面
+  新增/编辑客户
+-->
+<view class="page-container">
+  <form bindsubmit="handleSubmit">
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="form-section__title">基本信息</view>
+
+      <!-- 客户姓名 -->
+      <view class="form-item">
+        <view class="form-item__label required">客户姓名</view>
+        <input 
+          class="form-item__input"
+          name="name"
+          value="{{form.name}}"
+          placeholder="请输入客户姓名"
+          maxlength="50"
+          bindinput="handleInputChange"
+          data-field="name"
+        />
+      </view>
+
+      <!-- 客户别名 -->
+      <view class="form-item">
+        <view class="form-item__label">客户别名</view>
+        <input 
+          class="form-item__input"
+          name="alias"
+          value="{{form.alias}}"
+          placeholder="请输入客户别名（选填）"
+          maxlength="50"
+          bindinput="handleInputChange"
+          data-field="alias"
+        />
+      </view>
+
+      <!-- 手机号码 -->
+      <view class="form-item">
+        <view class="form-item__label required">手机号码</view>
+        <input 
+          class="form-item__input"
+          name="phone"
+          type="number"
+          value="{{form.phone}}"
+          placeholder="请输入手机号"
+          maxlength="11"
+          bindinput="handleInputChange"
+          data-field="phone"
+        />
+      </view>
+
+      <!-- 性别 -->
+      <view class="form-item">
+        <view class="form-item__label required">性别</view>
+        <radio-group name="gender" bindchange="handleGenderChange">
+          <label class="radio-item">
+            <radio value="1" checked="{{form.gender === '1'}}" />男
+          </label>
+          <label class="radio-item">
+            <radio value="2" checked="{{form.gender === '2'}}" />女
+          </label>
+        </radio-group>
+      </view>
+
+      <!-- 年龄 -->
+      <view class="form-item">
+        <view class="form-item__label">年龄</view>
+        <input 
+          class="form-item__input"
+          name="age"
+          type="number"
+          value="{{form.age}}"
+          placeholder="请输入年龄（选填）"
+          bindinput="handleInputChange"
+          data-field="age"
+        />
+      </view>
+
+    </view>
+
+    <!-- 地址信息 -->
+    <view class="form-section">
+      <view class="form-section__title">地址信息</view>
+
+      <!-- 所在地址 -->
+      <view class="form-item">
+        <view class="form-item__label required">所在地址</view>
+        <view class="form-item__picker" bindtap="handleAddressSelect">
+          <text class="{{form.addressId ? '' : 'placeholder'}}">{{form.addressPath || '请选择地址（至少选择到区县）'}}</text>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+
+      <!-- 详细地址 -->
+      <view class="form-item">
+        <view class="form-item__label">详细地址</view>
+        <input 
+          class="form-item__input"
+          name="addressDetail"
+          value="{{form.addressDetail}}"
+          placeholder="请输入详细地址（如：XX村XX号）"
+          maxlength="200"
+          bindinput="handleInputChange"
+          data-field="addressDetail"
+        />
+      </view>
+    </view>
+
+    <!-- 备注说明 -->
+    <view class="form-section">
+      <view class="form-section__title">备注说明</view>
+
+      <view class="form-item">
+        <textarea 
+          class="form-item__textarea"
+          name="memo"
+          value="{{form.memo}}"
+          placeholder="请输入备注信息（选填）"
+          maxlength="500"
+          bindinput="handleInputChange"
+          data-field="memo"
+        />
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="form-actions">
+      <button class="btn-cancel" bindtap="handleCancel">取消</button>
+      <button class="btn-submit" formType="submit">保存</button>
+    </view>
+  </form>
+
+  <!-- 地址选择器 -->
+  <address-picker
+    visible="{{showAddressPicker}}"
+    addressId="{{form.addressId}}"
+    bind:confirm="handleAddressConfirm"
+    bind:close="handleAddressClose"
+  />
+</view>

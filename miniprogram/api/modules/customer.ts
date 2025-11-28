@@ -8,6 +8,7 @@ import type {
   CustomerListItem,
   CreateCustomerRequest,
   UpdateCustomerRequest,
+  UpdateCustomerAddressRequest,
   PageResponse,
   PaginationParams
 } from '../../types';
@@ -46,6 +47,13 @@ export const customerApi = {
    */
   updateCustomer(id: number, data: UpdateCustomerRequest): Promise<Customer> {
     return put<Customer>(`/customers/${id}`, data, { showLoading: true, loadingText: '更新中...' });
+  },
+
+  /**
+   * 更新客户地址
+   */
+  updateCustomerAddress(id: number, data: UpdateCustomerAddressRequest): Promise<Customer> {
+    return put<Customer>(`/customers/${id}/address`, data, { showLoading: true, loadingText: '更新中...' });
   },
 
   /**

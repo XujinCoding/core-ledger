@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "客户信息",
+  "usingComponents": {
+    "address-picker": "/components/address-picker/address-picker"
+  }
+}

@@ -16,7 +16,18 @@ Page({
     hasMore: true,
     page: 0,
     size: 20,
-    keyword: ''
+    keyword: '',
+    /** 搜索类型 */
+    searchTypes: [
+      { value: 'name', label: '姓名', placeholder: '请输入客户姓名' },
+      { value: 'phone', label: '手机号', placeholder: '请输入手机号' }
+    ],
+    searchTypeIndex: 0,
+    /** 筛选相关 */
+    filterAddressId: 0,
+    filterAddressName: '',
+    filterAddressLastName: '',  // 只存储最后一级地址名称
+    showAddressPicker: false
   },
 
   /**
@@ -45,12 +56,27 @@ Page({
     try {
       this.setData({ loading: true });
 
-      const response = await customerApi.getCustomerList({
+      const params: any = {
         page: this.data.page,
-        size: this.data.size,
-        keyword: this.data.keyword || undefined,
-        sort: 'createInstant,desc'
-      });
+        size: this.data.size
+      };
+      
+      // 添加搜索关键词（根据选择的搜索类型）
+      if (this.data.keyword) {
+        const searchType = this.data.searchTypes[this.data.searchTypeIndex].value;
+        if (searchType === 'name') {
+          params.name = this.data.keyword;
+        } else if (searchType === 'phone') {
+          params.phone = this.data.keyword;
+        }
+      }
+      
+      // 添加地址筛选
+      if (this.data.filterAddressId) {
+        params.addressId = this.data.filterAddressId;
+      }
+      
+      const response = await customerApi.getCustomerList(params);
 
       const newCustomers = [...this.data.customers, ...response.content];
       const hasMore = !response.last;
@@ -87,8 +113,8 @@ Page({
   /**
    * 搜索客户
    */
-  handleSearch(event: WechatMiniprogram.Input): void {
-    const keyword = event.detail.value.trim();
+  handleSearch(event: WechatMiniprogram.CustomEvent): void {
+    const { keyword } = event.detail;
     this.setData({ keyword });
     this.refreshCustomers();
   },
@@ -109,12 +135,125 @@ Page({
   },
 
   /**
-   * 点击列表项查看客户详情
+   * 点击客户卡片
    */
-  handleItemClick(event: WechatMiniprogram.TouchEvent): void {
-    const { id } = event.currentTarget.dataset;
+  handleCustomerClick(event: WechatMiniprogram.CustomEvent): void {
+    const { customer } = event.detail;
     wx.navigateTo({
-      url: `/pages/customer-detail/customer-detail?id=${id}`
+      url: `/pages/customer-detail/customer-detail?id=${customer.id}`
     });
+  },
+
+  /**
+   * 点击客户操作按钮
+   */
+  handleCustomerAction(event: WechatMiniprogram.CustomEvent): void {
+    const { customer } = event.detail;
+    
+    wx.showActionSheet({
+      itemList: ['查看详情', '编辑信息', '拨打电话', '删除'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          // 查看详情
+          wx.navigateTo({
+            url: `/pages/customer-detail/customer-detail?id=${customer.id}`
+          });
+        } else if (res.tapIndex === 1) {
+          // 编辑
+          wx.navigateTo({
+            url: `/pages/customer-form/customer-form?id=${customer.id}`
+          });
+        } else if (res.tapIndex === 2) {
+          // 拨打电话
+          wx.makePhoneCall({
+            phoneNumber: customer.phone
+          });
+        } else if (res.tapIndex === 3) {
+          // 删除
+          this.handleDelete(customer);
+        }
+      }
+    });
+  },
+
+  /**
+   * 删除客户
+   */
+  async handleDelete(customer: CustomerListItem): Promise<void> {
+    const result = await wx.showModal({
+      title: '确认删除',
+      content: `确定要删除客户“${customer.name}”吗？\n删除后数据无法恢复！`
+    });
+
+    if (!result.confirm) return;
+
+    try {
+      await customerApi.deleteCustomer(customer.id);
+      wx.showToast({ title: '删除成功', icon: 'success' });
+      this.refreshCustomers();
+    } catch (error) {
+      console.error('删除客户失败', error);
+    }
+  },
+
+  /**
+   * 新增客户
+   */
+  handleAdd(): void {
+    wx.navigateTo({ url: '/pages/customer-form/customer-form' });
+  },
+
+  /**
+   * 打开地址筛选
+   */
+  handleAddressFilter(): void {
+    this.setData({ showAddressPicker: true });
+  },
+
+  /**
+   * 地址筛选确认
+   */
+  handleAddressFilterConfirm(e: WechatMiniprogram.CustomEvent): void {
+    const { addressId, addressPath, address } = e.detail;
+    // 提取最后一级地址名称
+    const lastAddressName = address ? address.name : addressPath.split('').pop() || addressPath;
+    this.setData({
+      filterAddressId: addressId,
+      filterAddressName: addressPath,
+      filterAddressLastName: lastAddressName,
+      showAddressPicker: false
+    });
+    // 刷新列表
+    this.refreshCustomers();
+  },
+
+  /**
+   * 关闭地址筛选
+   */
+  handleAddressFilterClose(): void {
+    this.setData({ showAddressPicker: false });
+  },
+
+  /**
+   * 切换搜索类型
+   */
+  handleSearchTypeChange(e: WechatMiniprogram.PickerChange): void {
+    this.setData({ 
+      searchTypeIndex: parseInt(e.detail.value as string),
+      keyword: '' // 切换类型时清空关键词
+    });
+  },
+
+  /**
+   * 清除筛选
+   */
+  handleClearFilter(): void {
+    this.setData({
+      filterAddressId: 0,
+      filterAddressName: '',
+      filterAddressLastName: ''
+    });
+    // 刷新列表
+    this.refreshCustomers();
   }
 });

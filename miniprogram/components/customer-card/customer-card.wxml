@@ -1,0 +1,30 @@
+<!--
+  客户卡片组件
+  展示客户基本信息卡片
+-->
+<view class="customer-card" bindtap="handleClick">
+  <view class="customer-card__main">
+    <!-- 客户姓名和别名 -->
+    <view class="customer-card__header">
+      <text class="customer-card__name">{{customer.name}}</text>
+      <text wx:if="{{customer.alias}}" class="customer-card__alias">({{customer.alias}})</text>
+    </view>
+
+    <!-- 手机号 -->
+    <view class="customer-card__row">
+      <text class="customer-card__label">手机:</text>
+      <text class="customer-card__value">{{customer.phone}}</text>
+    </view>
+
+    <!-- 地址 -->
+    <view class="customer-card__row" wx:if="{{customer.addressPath}}">
+      <text class="customer-card__label">地址:</text>
+      <text class="customer-card__value customer-card__address">{{customer.addressPath}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="customer-card__action" catchtap="handleAction">
+    <text class="customer-card__action-icon">⋯</text>
+  </view>
+</view>

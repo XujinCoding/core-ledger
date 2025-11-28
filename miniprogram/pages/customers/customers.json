@@ -1,5 +1,12 @@
 {
-  "navigationBarTitleText": "客户",
+  "navigationBarTitleText": "客户管理",
   "enablePullDownRefresh": true,
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "search-bar": "/components/search-bar/search-bar",
+    "customer-card": "/components/customer-card/customer-card",
+    "floating-action-button": "/components/floating-action-button/floating-action-button",
+    "empty-state": "/components/empty-state/empty-state",
+    "address-picker": "/components/address-picker/address-picker"
+  }
 }

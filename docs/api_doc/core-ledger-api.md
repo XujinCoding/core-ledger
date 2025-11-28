@@ -1477,8 +1477,8 @@
 |code|响应码|integer(int32)|integer(int32)|
 |message|响应消息|string||
 |data||PageCategoryVO|PageCategoryVO|
-|&emsp;&emsp;totalElements||integer(int64)||
 |&emsp;&emsp;totalPages||integer(int32)||
+|&emsp;&emsp;totalElements||integer(int64)||
 |&emsp;&emsp;size||integer(int32)||
 |&emsp;&emsp;content|商品分类|array|CategoryVO|
 |&emsp;&emsp;&emsp;&emsp;id|分类ID|integer||
@@ -1520,8 +1520,8 @@
 	"code": 200,
 	"message": "操作成功",
 	"data": {
-		"totalElements": 0,
 		"totalPages": 0,
+		"totalElements": 0,
 		"size": 0,
 		"content": [
 			{
@@ -3001,6 +3001,7 @@
   "spec": "",
   "unit": "斤",
   "location": "A区3排5列",
+  "categoryId": 1,
   "memo": ""
 }
 ```
@@ -3020,6 +3021,7 @@
 |&emsp;&emsp;spec|规格型号||false|string||
 |&emsp;&emsp;unit|单位||false|string||
 |&emsp;&emsp;location|存放位置||false|string||
+|&emsp;&emsp;categoryId|商品分类标识||false|integer(int64)||
 |&emsp;&emsp;memo|备注||false|string||
 
 
@@ -4317,8 +4319,8 @@
 |code|响应码|integer(int32)|integer(int32)|
 |message|响应消息|string||
 |data||PageProductVO|PageProductVO|
-|&emsp;&emsp;totalElements||integer(int64)||
 |&emsp;&emsp;totalPages||integer(int32)||
+|&emsp;&emsp;totalElements||integer(int64)||
 |&emsp;&emsp;size||integer(int32)||
 |&emsp;&emsp;content|商品详情|array|ProductVO|
 |&emsp;&emsp;&emsp;&emsp;id|商品ID|integer||
@@ -4387,8 +4389,8 @@
 	"code": 200,
 	"message": "操作成功",
 	"data": {
-		"totalElements": 0,
 		"totalPages": 0,
+		"totalElements": 0,
 		"size": 0,
 		"content": [
 			{
@@ -5120,6 +5122,3767 @@
 			]
 		}
 	],
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+# 客户管理
+
+
+## 获取客户详情
+
+
+**接口地址**:`/code-ledger/api/customers/{id}`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据ID获取客户详情</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|id||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultCustomerVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||CustomerVO|CustomerVO|
+|&emsp;&emsp;id|客户ID|integer(int64)||
+|&emsp;&emsp;name|客户姓名|string||
+|&emsp;&emsp;phone|手机号|string||
+|&emsp;&emsp;alias|别名/昵称|string||
+|&emsp;&emsp;gender|性别,可用值:0,1,2|string||
+|&emsp;&emsp;genderDesc|性别描述|string||
+|&emsp;&emsp;age|年龄|integer(int32)||
+|&emsp;&emsp;addressId|关联地址ID|integer(int64)||
+|&emsp;&emsp;addressPath|地址完整路径|string||
+|&emsp;&emsp;addressDetail|详细地址|string||
+|&emsp;&emsp;customerType|客户类型,可用值:0,1|string||
+|&emsp;&emsp;customerTypeDesc|客户类型描述|string||
+|&emsp;&emsp;createInstant|创建时间|string(date-time)||
+|&emsp;&emsp;modifyInstant|修改时间|string(date-time)||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 0,
+		"name": "",
+		"phone": "",
+		"alias": "",
+		"gender": "",
+		"genderDesc": "",
+		"age": 0,
+		"addressId": 0,
+		"addressPath": "",
+		"addressDetail": "",
+		"customerType": "",
+		"customerTypeDesc": "",
+		"createInstant": "",
+		"modifyInstant": ""
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 修改客户
+
+
+**接口地址**:`/code-ledger/api/customers/{id}`
+
+
+**请求方式**:`PUT`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded,application/json`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>修改客户基本信息（不包括地址）</p>
+
+
+
+**请求示例**:
+
+
+```javascript
+{
+  "name": "张三",
+  "phone": "13800138000",
+  "alias": "小张",
+  "gender": "1",
+  "age": 30,
+  "customerType": "1"
+}
+```
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|id||path|true|integer(int64)||
+|customerUpdateDTO|客户更新请求|body|true|CustomerUpdateDTO|CustomerUpdateDTO|
+|&emsp;&emsp;name|客户姓名||false|string||
+|&emsp;&emsp;phone|手机号||false|string||
+|&emsp;&emsp;alias|别名/昵称||false|string||
+|&emsp;&emsp;gender|性别: 1=男, 2=女, 0=未知,可用值:0,1,2||false|string||
+|&emsp;&emsp;age|年龄||false|integer(int32)||
+|&emsp;&emsp;customerType|客户类型: 1=活跃, 2=潜在, 3=流失,可用值:0,1||false|string||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultCustomerVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||CustomerVO|CustomerVO|
+|&emsp;&emsp;id|客户ID|integer(int64)||
+|&emsp;&emsp;name|客户姓名|string||
+|&emsp;&emsp;phone|手机号|string||
+|&emsp;&emsp;alias|别名/昵称|string||
+|&emsp;&emsp;gender|性别,可用值:0,1,2|string||
+|&emsp;&emsp;genderDesc|性别描述|string||
+|&emsp;&emsp;age|年龄|integer(int32)||
+|&emsp;&emsp;addressId|关联地址ID|integer(int64)||
+|&emsp;&emsp;addressPath|地址完整路径|string||
+|&emsp;&emsp;addressDetail|详细地址|string||
+|&emsp;&emsp;customerType|客户类型,可用值:0,1|string||
+|&emsp;&emsp;customerTypeDesc|客户类型描述|string||
+|&emsp;&emsp;createInstant|创建时间|string(date-time)||
+|&emsp;&emsp;modifyInstant|修改时间|string(date-time)||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 0,
+		"name": "",
+		"phone": "",
+		"alias": "",
+		"gender": "",
+		"genderDesc": "",
+		"age": 0,
+		"addressId": 0,
+		"addressPath": "",
+		"addressDetail": "",
+		"customerType": "",
+		"customerTypeDesc": "",
+		"createInstant": "",
+		"modifyInstant": ""
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 删除客户
+
+
+**接口地址**:`/code-ledger/api/customers/{id}`
+
+
+**请求方式**:`DELETE`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>物理删除客户（谨慎操作）</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|id||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultVoid|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 更新客户地址
+
+
+**接口地址**:`/code-ledger/api/customers/{id}/address`
+
+
+**请求方式**:`PUT`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded,application/json`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>修改客户的关联地址和详细地址</p>
+
+
+
+**请求示例**:
+
+
+```javascript
+{
+  "addressId": 1,
+  "addressDetail": "XX街道XX号"
+}
+```
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|id||path|true|integer(int64)||
+|customerAddressUpdateDTO|客户地址更新请求|body|true|CustomerAddressUpdateDTO|CustomerAddressUpdateDTO|
+|&emsp;&emsp;addressId|关联地址ID（必须为村级地址）||true|integer(int64)||
+|&emsp;&emsp;addressDetail|详细地址||false|string||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultCustomerVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||CustomerVO|CustomerVO|
+|&emsp;&emsp;id|客户ID|integer(int64)||
+|&emsp;&emsp;name|客户姓名|string||
+|&emsp;&emsp;phone|手机号|string||
+|&emsp;&emsp;alias|别名/昵称|string||
+|&emsp;&emsp;gender|性别,可用值:0,1,2|string||
+|&emsp;&emsp;genderDesc|性别描述|string||
+|&emsp;&emsp;age|年龄|integer(int32)||
+|&emsp;&emsp;addressId|关联地址ID|integer(int64)||
+|&emsp;&emsp;addressPath|地址完整路径|string||
+|&emsp;&emsp;addressDetail|详细地址|string||
+|&emsp;&emsp;customerType|客户类型,可用值:0,1|string||
+|&emsp;&emsp;customerTypeDesc|客户类型描述|string||
+|&emsp;&emsp;createInstant|创建时间|string(date-time)||
+|&emsp;&emsp;modifyInstant|修改时间|string(date-time)||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 0,
+		"name": "",
+		"phone": "",
+		"alias": "",
+		"gender": "",
+		"genderDesc": "",
+		"age": 0,
+		"addressId": 0,
+		"addressPath": "",
+		"addressDetail": "",
+		"customerType": "",
+		"customerTypeDesc": "",
+		"createInstant": "",
+		"modifyInstant": ""
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 条件查询客户
+
+
+**接口地址**:`/code-ledger/api/customers`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据姓名、电话、地址ID查询客户（支持分页）</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|searchDTO|客户查询请求DTO|query|true|CustomerSearchDTO|CustomerSearchDTO|
+|&emsp;&emsp;name|客户姓名（模糊查询）||false|string||
+|&emsp;&emsp;phone|客户电话（模糊查询）||false|string||
+|&emsp;&emsp;addressId|地址ID（从地址树选择）||false|integer(int64)||
+|pageable||query|true|Pageable|Pageable|
+|&emsp;&emsp;page|||false|integer(int32)||
+|&emsp;&emsp;size|||false|integer(int32)||
+|&emsp;&emsp;sort|||false|array|string|
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultPageCustomerVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||PageCustomerVO|PageCustomerVO|
+|&emsp;&emsp;totalPages||integer(int32)||
+|&emsp;&emsp;totalElements||integer(int64)||
+|&emsp;&emsp;size||integer(int32)||
+|&emsp;&emsp;content|客户详情|array|CustomerVO|
+|&emsp;&emsp;&emsp;&emsp;id|客户ID|integer||
+|&emsp;&emsp;&emsp;&emsp;name|客户姓名|string||
+|&emsp;&emsp;&emsp;&emsp;phone|手机号|string||
+|&emsp;&emsp;&emsp;&emsp;alias|别名/昵称|string||
+|&emsp;&emsp;&emsp;&emsp;gender|性别,可用值:0,1,2|string||
+|&emsp;&emsp;&emsp;&emsp;genderDesc|性别描述|string||
+|&emsp;&emsp;&emsp;&emsp;age|年龄|integer||
+|&emsp;&emsp;&emsp;&emsp;addressId|关联地址ID|integer||
+|&emsp;&emsp;&emsp;&emsp;addressPath|地址完整路径|string||
+|&emsp;&emsp;&emsp;&emsp;addressDetail|详细地址|string||
+|&emsp;&emsp;&emsp;&emsp;customerType|客户类型,可用值:0,1|string||
+|&emsp;&emsp;&emsp;&emsp;customerTypeDesc|客户类型描述|string||
+|&emsp;&emsp;&emsp;&emsp;createInstant|创建时间|string||
+|&emsp;&emsp;&emsp;&emsp;modifyInstant|修改时间|string||
+|&emsp;&emsp;number||integer(int32)||
+|&emsp;&emsp;sort||SortObject|SortObject|
+|&emsp;&emsp;&emsp;&emsp;empty||boolean||
+|&emsp;&emsp;&emsp;&emsp;sorted||boolean||
+|&emsp;&emsp;&emsp;&emsp;unsorted||boolean||
+|&emsp;&emsp;first||boolean||
+|&emsp;&emsp;last||boolean||
+|&emsp;&emsp;numberOfElements||integer(int32)||
+|&emsp;&emsp;pageable||PageableObject|PageableObject|
+|&emsp;&emsp;&emsp;&emsp;offset||integer||
+|&emsp;&emsp;&emsp;&emsp;sort||SortObject|SortObject|
+|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;empty||boolean||
+|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;sorted||boolean||
+|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;unsorted||boolean||
+|&emsp;&emsp;&emsp;&emsp;pageSize||integer||
+|&emsp;&emsp;&emsp;&emsp;pageNumber||integer||
+|&emsp;&emsp;&emsp;&emsp;paged||boolean||
+|&emsp;&emsp;&emsp;&emsp;unpaged||boolean||
+|&emsp;&emsp;empty||boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"totalPages": 0,
+		"totalElements": 0,
+		"size": 0,
+		"content": [
+			{
+				"id": 0,
+				"name": "",
+				"phone": "",
+				"alias": "",
+				"gender": "",
+				"genderDesc": "",
+				"age": 0,
+				"addressId": 0,
+				"addressPath": "",
+				"addressDetail": "",
+				"customerType": "",
+				"customerTypeDesc": "",
+				"createInstant": "",
+				"modifyInstant": ""
+			}
+		],
+		"number": 0,
+		"sort": {
+			"empty": true,
+			"sorted": true,
+			"unsorted": true
+		},
+		"first": true,
+		"last": true,
+		"numberOfElements": 0,
+		"pageable": {
+			"offset": 0,
+			"sort": {
+				"empty": true,
+				"sorted": true,
+				"unsorted": true
+			},
+			"pageSize": 0,
+			"pageNumber": 0,
+			"paged": true,
+			"unpaged": true
+		},
+		"empty": true
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 创建客户
+
+
+**接口地址**:`/code-ledger/api/customers`
+
+
+**请求方式**:`POST`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded,application/json`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>创建新客户（手机号不能重复，地址必须为村级）</p>
+
+
+
+**请求示例**:
+
+
+```javascript
+{
+  "name": "张三",
+  "phone": "13800138000",
+  "alias": "小张",
+  "gender": "1",
+  "age": 30,
+  "addressId": 1,
+  "addressDetail": "XX街道XX号",
+  "customerType": "1"
+}
+```
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|customerCreateDTO|客户创建请求|body|true|CustomerCreateDTO|CustomerCreateDTO|
+|&emsp;&emsp;name|客户姓名||true|string||
+|&emsp;&emsp;phone|手机号||true|string||
+|&emsp;&emsp;alias|别名/昵称||false|string||
+|&emsp;&emsp;gender|性别: 1=男, 2=女, 0=未知,可用值:0,1,2||true|string||
+|&emsp;&emsp;age|年龄||false|integer(int32)||
+|&emsp;&emsp;addressId|关联地址ID（必须为村级地址）||true|integer(int64)||
+|&emsp;&emsp;addressDetail|详细地址||false|string||
+|&emsp;&emsp;customerType|客户类型: 1=活跃, 2=潜在, 3=流失,可用值:0,1||true|string||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultCustomerVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||CustomerVO|CustomerVO|
+|&emsp;&emsp;id|客户ID|integer(int64)||
+|&emsp;&emsp;name|客户姓名|string||
+|&emsp;&emsp;phone|手机号|string||
+|&emsp;&emsp;alias|别名/昵称|string||
+|&emsp;&emsp;gender|性别,可用值:0,1,2|string||
+|&emsp;&emsp;genderDesc|性别描述|string||
+|&emsp;&emsp;age|年龄|integer(int32)||
+|&emsp;&emsp;addressId|关联地址ID|integer(int64)||
+|&emsp;&emsp;addressPath|地址完整路径|string||
+|&emsp;&emsp;addressDetail|详细地址|string||
+|&emsp;&emsp;customerType|客户类型,可用值:0,1|string||
+|&emsp;&emsp;customerTypeDesc|客户类型描述|string||
+|&emsp;&emsp;createInstant|创建时间|string(date-time)||
+|&emsp;&emsp;modifyInstant|修改时间|string(date-time)||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 0,
+		"name": "",
+		"phone": "",
+		"alias": "",
+		"gender": "",
+		"genderDesc": "",
+		"age": 0,
+		"addressId": 0,
+		"addressPath": "",
+		"addressDetail": "",
+		"customerType": "",
+		"customerTypeDesc": "",
+		"createInstant": "",
+		"modifyInstant": ""
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+# 地址管理
+
+
+## 查询地址列表
+
+
+**接口地址**:`/code-ledger/api/addresses`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>优先按父级ID查询子级地址，如果父级ID为null则按层级查询，都为null则返回省份列表</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|queryDTO|地址查询请求DTO|query|true|AddressQueryDTO|AddressQueryDTO|
+|&emsp;&emsp;parentId|父级ID（0或null表示查询省份）||false|integer(int64)||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）||false|integer(int32)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultListAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|array|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": [
+		{
+			"id": 1,
+			"parentId": 0,
+			"name": "广东省",
+			"level": 1,
+			"levelDesc": "省",
+			"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+			"isTopLevel": true,
+			"isVillageLevel": false
+		}
+	],
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 创建地址
+
+
+**接口地址**:`/code-ledger/api/addresses`
+
+
+**请求方式**:`POST`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded,application/json`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>创建地址。parentId=0或null创建省级地址，指定parentId创建子级地址（自动计算层级和路径）</p>
+
+
+
+**请求示例**:
+
+
+```javascript
+{
+  "parentId": 1,
+  "name": "深圳市"
+}
+```
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|addressCreateDTO|地址创建请求DTO|body|true|AddressCreateDTO|AddressCreateDTO|
+|&emsp;&emsp;parentId|父级ID（0或null表示创建省级地址）||false|integer(int64)||
+|&emsp;&emsp;name|地址名称||true|string||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||AddressVO|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 1,
+		"parentId": 0,
+		"name": "广东省",
+		"level": 1,
+		"levelDesc": "省",
+		"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+		"isTopLevel": true,
+		"isVillageLevel": false
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 获取地址详情
+
+
+**接口地址**:`/code-ledger/api/addresses/{id}`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据ID获取地址详情（含完整路径）</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|id||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||AddressVO|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"id": 1,
+		"parentId": 0,
+		"name": "广东省",
+		"level": 1,
+		"levelDesc": "省",
+		"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+		"isTopLevel": true,
+		"isVillageLevel": false
+	},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 查询村级地址
+
+
+**接口地址**:`/code-ledger/api/addresses/village/{parentId}`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据父级ID（镇/乡）查询村级地址，用于客户地址选择</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|parentId||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultListAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|array|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": [
+		{
+			"id": 1,
+			"parentId": 0,
+			"name": "广东省",
+			"level": 1,
+			"levelDesc": "省",
+			"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+			"isTopLevel": true,
+			"isVillageLevel": false
+		}
+	],
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 获取顶级地址
+
+
+**接口地址**:`/code-ledger/api/addresses/top`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>获取所有省份列表</p>
+
+
+
+**请求参数**:
+
+
+暂无
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultListAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|array|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": [
+		{
+			"id": 1,
+			"parentId": 0,
+			"name": "广东省",
+			"level": 1,
+			"levelDesc": "省",
+			"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+			"isTopLevel": true,
+			"isVillageLevel": false
+		}
+	],
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 查询子级地址
+
+
+**接口地址**:`/code-ledger/api/addresses/children/{parentId}`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据父级ID查询下一级地址（用于级联选择）</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|parentId||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultListAddressVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|array|AddressVO|
+|&emsp;&emsp;id|地址ID|integer(int64)||
+|&emsp;&emsp;parentId|父级ID（0表示顶级）|integer(int64)||
+|&emsp;&emsp;name|地址名称|string||
+|&emsp;&emsp;level|地址层级（1=省, 2=市, 3=区县, 4=镇, 5=村）|integer(int32)||
+|&emsp;&emsp;levelDesc|地址层级描述|string||
+|&emsp;&emsp;mergerName|全称路径|string||
+|&emsp;&emsp;isTopLevel|是否为顶级|boolean||
+|&emsp;&emsp;isVillageLevel|是否为村级及以上（可用于客户地址）|boolean||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": [
+		{
+			"id": 1,
+			"parentId": 0,
+			"name": "广东省",
+			"level": 1,
+			"levelDesc": "省",
+			"mergerName": "广东省-深圳市-南山区-西丽街道-留仙村",
+			"isTopLevel": true,
+			"isVillageLevel": false
+		}
+	],
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-400**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-401**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-403**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-404**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-405**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-409**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+**响应状态码-500**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data|响应数据|object||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {},
+	"timestamp": 1700000000000,
+	"success": true
+}
+```
+
+
+## 查询地址链
+
+
+**接口地址**:`/code-ledger/api/addresses/chain/{addressId}`
+
+
+**请求方式**:`GET`
+
+
+**请求数据类型**:`application/x-www-form-urlencoded`
+
+
+**响应数据类型**:`*/*`
+
+
+**接口描述**:<p>根据地址ID向上查询完整地址链，用于客户编辑时回显地址级联选择器</p>
+
+
+
+**请求参数**:
+
+
+| 参数名称 | 参数说明 | 请求类型    | 是否必须 | 数据类型 | schema |
+| -------- | -------- | ----- | -------- | -------- | ------ |
+|addressId||path|true|integer(int64)||
+
+
+**响应状态**:
+
+
+| 状态码 | 说明 | schema |
+| -------- | -------- | ----- | 
+|200|OK|ResultAddressChainVO|
+|400|Bad Request|ResultObject|
+|401|Unauthorized|ResultObject|
+|403|Forbidden|ResultObject|
+|404|Not Found|ResultObject|
+|405|Method Not Allowed|ResultObject|
+|409|Conflict|ResultObject|
+|500|Internal Server Error|ResultObject|
+
+
+**响应状态码-200**:
+
+
+**响应参数**:
+
+
+| 参数名称 | 参数说明 | 类型 | schema |
+| -------- | -------- | ----- |----- | 
+|code|响应码|integer(int32)|integer(int32)|
+|message|响应消息|string||
+|data||AddressChainVO|AddressChainVO|
+|&emsp;&emsp;addressIds|地址ID数组（从省到当前地址）|array|integer(int64)|
+|&emsp;&emsp;addressNames|地址名称数组|array|string|
+|&emsp;&emsp;addressLevels|地址层级数组|array|integer(int32)|
+|&emsp;&emsp;fullPath|完整地址路径|string||
+|&emsp;&emsp;targetAddressId|最终地址ID|integer(int64)||
+|&emsp;&emsp;targetAddressName|最终地址名称|string||
+|timestamp|时间戳|integer(int64)|integer(int64)|
+|success||boolean||
+
+
+**响应示例**:
+```javascript
+{
+	"code": 200,
+	"message": "操作成功",
+	"data": {
+		"addressIds": "[1,101,1001,10001,100001]",
+		"addressNames": "[\"广东省\",\"深圳市\",\"南山区\",\"西丽街道\",\"留仙村\"]",
+		"addressLevels": "[1,2,3,4,5]",
+		"fullPath": "广东省-深圳市-南山区-西丽街道-留仙村",
+		"targetAddressId": 100001,
+		"targetAddressName": "留仙村"
+	},
 	"timestamp": 1700000000000,
 	"success": true
 }

@@ -2,6 +2,8 @@
   "pages": [
     "pages/ledger/ledger",
     "pages/customers/customers",
+    "pages/customer-form/customer-form",
+    "pages/customer-detail/customer-detail",
     "pages/products/products",
     "pages/category-form/category-form",
     "pages/product-form/product-form",

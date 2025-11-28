@@ -1,0 +1,119 @@
+/**
+ * 客户卡片样式
+ */
+
+.customer-card {
+  display: flex;
+  background: transparent;
+  padding: 24rpx;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transition: all 0.3s ease;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.customer-card:last-child {
+  border-bottom: none;
+}
+
+.customer-card:active {
+  background: #f7f8fa;
+}
+
+.customer-card__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.customer-card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.customer-card__name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+}
+
+.customer-card__alias {
+  font-size: 28rpx;
+  color: #969799;
+}
+
+.customer-card__type-tag {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 4rpx;
+  color: #fff;
+}
+
+.customer-card__type-tag.active {
+  background: #07C160;
+}
+
+.customer-card__type-tag.potential {
+  background: #FF976A;
+}
+
+.customer-card__row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.customer-card__label {
+  color: #969799;
+  margin-right: 8rpx;
+  white-space: nowrap;
+}
+
+.customer-card__value {
+  color: #646566;
+  flex: 1;
+  text-align: right;
+  word-break: break-all;
+}
+
+.customer-card__address {
+  text-align: right;
+  word-break: keep-all;
+  white-space: normal;
+  overflow: visible;
+}
+
+.customer-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #969799;
+}
+
+.customer-card__meta-item {
+  display: inline-block;
+}
+
+.customer-card__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60rpx;
+  height: 60rpx;
+  margin-left: 16rpx;
+}
+
+.customer-card__action-icon {
+  font-size: 48rpx;
+  color: #c8c9cc;
+  line-height: 1;
+  font-weight: bold;
+  transform: rotate(90deg);
+}

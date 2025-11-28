@@ -1,0 +1,177 @@
+/**
+ * 地址选择器样式
+ */
+
+.address-picker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.address-picker__mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.address-picker__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70vh;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-picker__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.address-picker__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+}
+
+.address-picker__close {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  color: #969799;
+}
+
+.address-picker__breadcrumb {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background: #f7f8fa;
+  font-size: 28rpx;
+  color: #646566;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-arrow {
+  margin: 0 8rpx;
+  color: #c8c9cc;
+}
+
+.address-picker__list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.address-picker__loading,
+.address-picker__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  font-size: 28rpx;
+  color: #969799;
+}
+
+.address-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #ebedf0;
+  transition: background 0.2s;
+}
+
+.address-item:active {
+  background: #f7f8fa;
+}
+
+.address-item.selected {
+  background: #f0f9ff;
+}
+
+.address-item__name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #323233;
+}
+
+.address-item.selected .address-item__name {
+  color: #07C160;
+  font-weight: 600;
+}
+
+.address-item__icon {
+  margin-left: 16rpx;
+  font-size: 32rpx;
+  color: #c8c9cc;
+}
+
+.address-item.selected .address-item__icon {
+  color: #07C160;
+}
+
+.address-picker__footer {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx 24rpx;
+  border-top: 1rpx solid #ebedf0;
+  background: #fff;
+}
+
+.address-picker__tip {
+  flex: 1;
+  font-size: 24rpx;
+  color: #ee0a24;
+}
+
+.btn-cancel,
+.btn-confirm {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel {
+  background: #f7f8fa;
+  color: #646566;
+}
+
+.btn-confirm {
+  background: #07C160;
+  color: #fff;
+}
+
+.btn-confirm.disabled {
+  background: #c8c9cc;
+  color: #fff;
+}
+
+.btn-cancel::after,
+.btn-confirm::after {
+  border: none;
+}

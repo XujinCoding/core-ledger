@@ -1,0 +1,218 @@
+/**
+ * 客户详情页面样式
+ */
+
+.page-container {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding-bottom: 120rpx;
+}
+
+/* 客户头部 */
+.customer-header {
+  background: #fff;
+  padding: 32rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.customer-header__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.customer-header__info {
+  flex: 1;
+}
+
+.customer-header__name {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #323233;
+  margin-bottom: 12rpx;
+}
+
+.customer-header__alias {
+  font-size: 32rpx;
+  color: #969799;
+  font-weight: 400;
+}
+
+.customer-header__type {
+  margin-top: 8rpx;
+}
+
+.type-tag {
+  display: inline-block;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 4rpx;
+  color: #fff;
+}
+
+.type-tag.active {
+  background: #07C160;
+}
+
+.type-tag.potential {
+  background: #FF976A;
+}
+
+.customer-header__action {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f8fa;
+  border-radius: 50%;
+  font-size: 32rpx;
+}
+
+/* 信息区块 */
+.info-section {
+  background: #fff;
+  padding: 32rpx 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.info-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.info-section__title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #323233;
+  margin-bottom: 24rpx;
+}
+
+.info-section__action {
+  font-size: 28rpx;
+  color: #07C160;
+}
+
+/* 信息行 */
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #ebedf0;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row__label {
+  width: 160rpx;
+  font-size: 28rpx;
+  color: #969799;
+  flex-shrink: 0;
+}
+
+.info-row__value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #323233;
+  text-align: right;
+  word-break: break-all;
+}
+
+.info-row__value text {
+  display: inline;
+  white-space: normal;
+}
+
+.info-row__value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-row__action {
+  font-size: 32rpx;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 账单统计 */
+.ledger-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 20rpx;
+  background: #f7f8fa;
+  border-radius: 8rpx;
+}
+
+.stat-item__label {
+  font-size: 28rpx;
+  color: #646566;
+}
+
+.stat-item__value {
+  font-size: 28rpx;
+  color: #323233;
+  font-weight: 600;
+}
+
+.stat-item__amount {
+  font-size: 24rpx;
+  color: #969799;
+  margin-left: 8rpx;
+}
+
+/* 备注内容 */
+.memo-content {
+  font-size: 28rpx;
+  color: #646566;
+  line-height: 1.6;
+  padding: 16rpx 20rpx;
+  background: #f7f8fa;
+  border-radius: 8rpx;
+}
+
+/* 删除区域 */
+.delete-section {
+  padding: 32rpx 24rpx;
+}
+
+.btn-delete {
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  border: 1rpx solid #ee0a24;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+  color: #ee0a24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-delete::after {
+  border: none;
+}
+
+/* 加载状态 */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 28rpx;
+  color: #969799;
+}

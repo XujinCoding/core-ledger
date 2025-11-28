@@ -1,0 +1,10 @@
+<!--
+  浮动操作按钮（FAB）
+  固定在页面右下角的圆形按钮
+-->
+<view class="fab-container" bindtap="handleClick">
+  <view class="fab-button" style="background-color: {{color}}">
+    <image wx:if="{{icon}}" class="fab-icon" src="{{icon}}" mode="aspectFit" />
+    <text wx:else class="fab-text">{{text}}</text>
+  </view>
+</view>

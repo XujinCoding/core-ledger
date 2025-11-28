@@ -4,7 +4,7 @@
 
 .empty-state {
   text-align: center;
-  padding: 160rpx 48rpx;
+  padding: 160rpx 24rpx;
 }
 
 .empty-state__icon {
@@ -28,15 +28,15 @@
   padding: 20rpx 48rpx;
   background-color: var(--color-primary);
   color: var(--bg-white);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   font-size: var(--font-md);
-  font-weight: var(--font-medium);
+  font-weight: 500;
   border: none;
-  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.25);
-  display: inline-flex;
+  transition: all 0.3s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.25);
 }
 
 .empty-state__button::after {

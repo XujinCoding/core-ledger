@@ -42,15 +42,17 @@ export interface Customer {
   id: number;
   name: string;
   phone: string;
-  gender: Gender;
+  alias?: string;
+  gender: string;  // API返回字符串 "0" | "1" | "2"
   genderDesc: string;
+  age?: number;
   addressId?: number;
-  fullAddress?: string;
+  addressPath?: string;
   addressDetail?: string;
-  customerType: CustomerType;
+  customerType: string;  // API返回字符串 "0" | "1"
   customerTypeDesc: string;
   memo?: string;
-  ledgerSummary: LedgerSummary;
+  ledgerSummary?: LedgerSummary;
   createInstant: string;
   modifyInstant: string;
 }
@@ -62,17 +64,20 @@ export interface CustomerListItem {
   id: number;
   name: string;
   phone: string;
-  gender: Gender;
+  alias?: string;
+  gender: string;  // API返回字符串 "0" | "1" | "2"
   genderDesc: string;
+  age?: number;
   addressId?: number;
-  fullAddress?: string;
+  addressPath?: string;
   addressDetail?: string;
-  customerType: CustomerType;
+  customerType: string;  // API返回字符串 "0" | "1"
   customerTypeDesc: string;
-  debtAmount: number;           // 欠款总额
-  creditAmount: number;         // 赊账总额
-  activeLedgerCount: number;    // 活跃账单数
+  debtAmount?: number;          // 欠款总额
+  creditAmount?: number;        // 赊账总额
+  activeLedgerCount?: number;   // 活跃账单数
   createInstant: string;
+  modifyInstant?: string;
 }
 
 /**
@@ -81,20 +86,32 @@ export interface CustomerListItem {
 export interface CreateCustomerRequest {
   name: string;
   phone: string;
-  gender: Gender;
-  addressId?: number;
+  alias?: string;
+  gender: string;
+  age?: number;
+  addressId: number;
   addressDetail?: string;
+  customerType: string;
   memo?: string;
 }
 
 /**
- * 更新客户请求
+ * 更新客户请求（不包括地址）
  */
 export interface UpdateCustomerRequest {
   name?: string;
   phone?: string;
-  gender?: Gender;
-  addressId?: number;
-  addressDetail?: string;
+  alias?: string;
+  gender?: string;
+  age?: number;
+  customerType?: string;
   memo?: string;
+}
+
+/**
+ * 更新客户地址请求
+ */
+export interface UpdateCustomerAddressRequest {
+  addressId: number;
+  addressDetail?: string;
 }
