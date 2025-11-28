@@ -38,6 +38,16 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow(): void {
+    // 如果已经加载过商品，重新加载以获取最新数据
+    if (this.data.productId && this.data.product) {
+      this.loadProductDetail();
+    }
+  },
+
+  /**
    * 加载商品详情
    */
   async loadProductDetail(): Promise<void> {

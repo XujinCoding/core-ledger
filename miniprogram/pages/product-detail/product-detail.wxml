@@ -84,9 +84,7 @@
           </view>
           
           <view class="sku-attrs" wx:if="{{item.skuAttrs && item.skuAttrs.length > 0}}">
-            <text class="sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">
-              {{attr.attrName}}: {{attr.attrValue}}
-            </text>
+            <text class="sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">{{attr.attrName}}: {{attr.attrValue}}</text>
           </view>
           
           <view class="sku-footer">
@@ -145,9 +143,7 @@
         <view class="modal-sku-info">
           <view class="modal-sku-name">{{item.skuName}}</view>
           <view class="modal-sku-attrs" wx:if="{{item.skuAttrs && item.skuAttrs.length > 0}}">
-            <text class="modal-sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">
-              {{attr.attrName}}: {{attr.attrValue}}
-            </text>
+            <text class="modal-sku-attr" wx:for="{{item.skuAttrs}}" wx:key="attrName" wx:for-item="attr">{{attr.attrName}}: {{attr.attrValue}}</text>
           </view>
         </view>
         <view class="modal-sku-price-row">
