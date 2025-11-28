@@ -94,10 +94,8 @@ Page({
    * 修改地址
    */
   handleEditAddress(): void {
-    // TODO: 实现地址修改功能
-    wx.showToast({ 
-      title: '地址修改功能待实现', 
-      icon: 'none' 
+    wx.navigateTo({
+      url: `/pages/customer-form/customer-form?id=${this.data.customerId}`
     });
   },
 

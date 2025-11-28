@@ -4,7 +4,7 @@
  */
 
 import { customerApi } from '../../api/modules/index';
-import type { Customer, CreateCustomerRequest, UpdateCustomerRequest } from '../../types';
+import type { Customer, CreateCustomerRequest, UpdateCustomerRequest, UpdateCustomerAddressRequest } from '../../types';
 
 interface FormData {
   name: string;
@@ -41,6 +41,11 @@ Page({
       customerType: '1',  // 默认活跃客户
       memo: ''
     } as FormData,
+    /** 原始地址信息（用于编辑时比较） */
+    originalAddress: {
+      addressId: null as number | null,
+      addressDetail: '' as string
+    },
     /** 加载中 */
     loading: false,
     /** 是否显示地址选择器 */
@@ -84,6 +89,11 @@ Page({
           addressDetail: customer.addressDetail || '',
           customerType: String(customer.customerType) || '1',
           memo: customer.memo || ''
+        },
+        // 保存原始地址信息
+        originalAddress: {
+          addressId: customer.addressId || null,
+          addressDetail: customer.addressDetail || ''
         }
       });
     } catch (error) {
@@ -189,7 +199,7 @@ Page({
   async handleSubmit(): Promise<void> {
     if (!this.validateForm()) return;
 
-    const { form, isEdit, customerId } = this.data;
+    const { form, isEdit, customerId, originalAddress } = this.data;
 
     try {
       this.setData({ loading: true });
@@ -206,10 +216,22 @@ Page({
           memo: form.memo || undefined
         };
 
+        // 更新基本信息
         await customerApi.updateCustomer(customerId, updateData);
 
-        // 如果地址有变化，需要单独调用更新地址接口
-        // 这里暂不实现，因为编辑时地址信息在基本信息中一起提交
+        // 检查地址是否有变化
+        const addressChanged = 
+          form.addressId !== originalAddress.addressId || 
+          (form.addressDetail || '') !== (originalAddress.addressDetail || '');
+
+        if (addressChanged && form.addressId) {
+          // 地址有变化，单独调用更新地址接口
+          const addressData: UpdateCustomerAddressRequest = {
+            addressId: form.addressId,
+            addressDetail: form.addressDetail || undefined
+          };
+          await customerApi.updateCustomerAddress(customerId, addressData);
+        }
 
         wx.showToast({ title: '更新成功', icon: 'success' });
       } else {

@@ -11,6 +11,7 @@
     "product-card": "../../components/product-card/product-card",
     "empty-state": "../../components/empty-state/empty-state",
     "loading-spinner": "../../components/loading-spinner/loading-spinner",
-    "category-filter": "../../components/category-filter/category-filter"
+    "category-filter": "../../components/category-filter/category-filter",
+    "floating-action-button": "../../components/floating-action-button/floating-action-button"
   }
 }

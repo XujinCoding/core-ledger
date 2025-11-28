@@ -247,32 +247,3 @@
 }
 
 /* 组件样式已移至各自的组件文件 */
-
-/* 右下角浮动按钮 (FAB) */
-.fab {
-  position: fixed;
-  right: 48rpx;
-  bottom: 48rpx;
-  width: 112rpx;
-  height: 112rpx;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary) 0%, #05a854 100%);
-  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.fab:active {
-  transform: scale(0.92);
-  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
-}
-
-.fab__icon {
-  font-size: 56rpx;
-  font-weight: 300;
-  color: var(--bg-white);
-  line-height: 1;
-}
