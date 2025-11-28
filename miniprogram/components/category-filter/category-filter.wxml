@@ -1,6 +1,6 @@
 <!--
   分类筛选组件
-  支持树形结构的分类选择
+  支持树形结构的分类选择（可展开/收起）
 -->
 <view class="category-filter" wx:if="{{show}}">
   <!-- 遮罩层 -->
@@ -23,47 +23,40 @@
         data-id="{{null}}"
         data-name="全部分类"
       >
+        <view class="category-option__expand"></view>
         <text class="category-option__name">全部分类</text>
         <view class="category-option__check" wx:if="{{tempSelectedId === null}}">✓</view>
       </view>
       
-      <!-- 分类树 -->
-      <block wx:for="{{categories}}" wx:key="id">
-        <view 
-          class="category-option category-option--level-{{item.level}} {{tempSelectedId === item.id ? 'category-option--active' : ''}}"
-          bindtap="handleSelectCategory"
-          data-id="{{item.id}}"
-          data-name="{{item.name}}"
-        >
-          <text class="category-option__name">{{item.name}}</text>
+      <!-- 分类树（递归渲染） -->
+      <block wx:for="{{treeCategories}}" wx:key="id">
+        <view class="category-option {{tempSelectedId === item.id ? 'category-option--active' : ''}}" style="padding-left: {{16}}rpx;">
+          <view class="category-option__expand" catchtap="handleToggleExpand" data-id="{{item.id}}">
+            <text wx:if="{{item.children && item.children.length > 0}}" class="expand-icon {{item.expanded ? 'expanded' : ''}}">▶</text>
+            <text wx:else class="expand-icon expand-icon--empty"></text>
+          </view>
+          <text class="category-option__name" catchtap="handleSelectCategory" data-id="{{item.id}}" data-name="{{item.name}}">{{item.name}}</text>
           <view class="category-option__check" wx:if="{{tempSelectedId === item.id}}">✓</view>
         </view>
         
-        <!-- 子分类（递归显示，最多3层） -->
-        <block wx:if="{{item.children && item.children.length > 0}}">
+        <!-- 第二层子分类 -->
+        <block wx:if="{{item.expanded && item.children && item.children.length > 0}}">
           <block wx:for="{{item.children}}" wx:key="id" wx:for-item="child">
-            <view 
-              class="category-option category-option--level-{{child.level}} {{tempSelectedId === child.id ? 'category-option--active' : ''}}"
-              bindtap="handleSelectCategory"
-              data-id="{{child.id}}"
-              data-name="{{child.name}}"
-            >
-              <text class="category-option__indent">└</text>
-              <text class="category-option__name">{{child.name}}</text>
+            <view class="category-option {{tempSelectedId === child.id ? 'category-option--active' : ''}}" style="padding-left: {{44}}rpx;">
+              <view class="category-option__expand" catchtap="handleToggleExpand" data-id="{{child.id}}">
+                <text wx:if="{{child.children && child.children.length > 0}}" class="expand-icon {{child.expanded ? 'expanded' : ''}}">▶</text>
+                <text wx:else class="expand-icon expand-icon--empty"></text>
+              </view>
+              <text class="category-option__name" catchtap="handleSelectCategory" data-id="{{child.id}}" data-name="{{child.name}}">{{child.name}}</text>
               <view class="category-option__check" wx:if="{{tempSelectedId === child.id}}">✓</view>
             </view>
             
             <!-- 第三层子分类 -->
-            <block wx:if="{{child.children && child.children.length > 0}}">
+            <block wx:if="{{child.expanded && child.children && child.children.length > 0}}">
               <block wx:for="{{child.children}}" wx:key="id" wx:for-item="grandchild">
-                <view 
-                  class="category-option category-option--level-{{grandchild.level}} {{tempSelectedId === grandchild.id ? 'category-option--active' : ''}}"
-                  bindtap="handleSelectCategory"
-                  data-id="{{grandchild.id}}"
-                  data-name="{{grandchild.name}}"
-                >
-                  <text class="category-option__indent">　└</text>
-                  <text class="category-option__name">{{grandchild.name}}</text>
+                <view class="category-option {{tempSelectedId === grandchild.id ? 'category-option--active' : ''}}" style="padding-left: {{72}}rpx;">
+                  <view class="category-option__expand"></view>
+                  <text class="category-option__name" catchtap="handleSelectCategory" data-id="{{grandchild.id}}" data-name="{{grandchild.name}}">{{grandchild.name}}</text>
                   <view class="category-option__check" wx:if="{{tempSelectedId === grandchild.id}}">✓</view>
                 </view>
               </block>

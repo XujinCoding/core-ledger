@@ -1,6 +1,6 @@
 /**
  * 分类筛选组件
- * @description 支持树形结构的分类选择筛选
+ * @description 支持树形结构的分类选择筛选（可展开/收起）
  * @example
  * <category-filter 
  *   show="{{showFilter}}"
@@ -38,7 +38,8 @@ Component({
    */
   data: {
     tempSelectedId: null as number | null,
-    tempSelectedName: ''
+    tempSelectedName: '',
+    treeCategories: [] as any[]
   },
 
   /**
@@ -47,11 +48,20 @@ Component({
   observers: {
     'show': function(show: boolean) {
       if (show) {
-        // 打开时，初始化临时选中状态
+        // 打开时，初始化临时选中状态和树形数据
         const selectedId = this.properties.selectedId === undefined ? null : this.properties.selectedId;
         this.setData({
           tempSelectedId: selectedId,
-          tempSelectedName: this.getSelectedCategoryName(selectedId)
+          tempSelectedName: this.getSelectedCategoryName(selectedId),
+          treeCategories: this.initTreeCategories()
+        });
+      }
+    },
+    'categories': function() {
+      // 分类数据变化时，重新初始化树形数据
+      if (this.properties.show) {
+        this.setData({
+          treeCategories: this.initTreeCategories()
         });
       }
     }
@@ -61,6 +71,48 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    /**
+     * 初始化树形分类数据（添加expanded属性）
+     */
+    initTreeCategories(): any[] {
+      const categories = this.properties.categories as any[];
+      
+      const addExpandedProp = (items: any[]): any[] => {
+        return items.map(item => ({
+          ...item,
+          expanded: false,
+          children: item.children ? addExpandedProp(item.children) : []
+        }));
+      };
+      
+      return addExpandedProp(categories);
+    },
+
+    /**
+     * 切换展开/收起
+     */
+    handleToggleExpand(event: WechatMiniprogram.TouchEvent): void {
+      const { id } = event.currentTarget.dataset;
+      const categoryId = Number(id);
+      
+      // 递归更新展开状态
+      const updateExpanded = (items: any[]): any[] => {
+        return items.map(item => {
+          if (item.id === categoryId) {
+            return { ...item, expanded: !item.expanded };
+          }
+          if (item.children && item.children.length > 0) {
+            return { ...item, children: updateExpanded(item.children) };
+          }
+          return item;
+        });
+      };
+      
+      this.setData({
+        treeCategories: updateExpanded(this.data.treeCategories)
+      });
+    },
+
     /**
      * 选择分类
      */
