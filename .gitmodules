@@ -1,6 +1,8 @@
 [submodule "core-ledger-ui"]
 	path = core-ledger-ui
 	url = https://github.com/XujinCoding/core-ledger-ui.git
+	branch = master
 [submodule "core-ledger-service"]
 	path = core-ledger-service
 	url = https://github.com/XujinCoding/core-ledger-service.git
+	branch = master
