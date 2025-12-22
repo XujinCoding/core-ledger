@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>添加商品 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .form-section {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .required {
+      color: #EF4444;
+    }
+    .image-upload {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .upload-item {
+      width: 80px;
+      height: 80px;
+      border: 2px dashed #E5E7EB;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #9CA3AF;
+      cursor: pointer;
+    }
+    .upload-item i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .upload-item span {
+      font-size: 11px;
+    }
+    .uploaded-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 24px;
+      position: relative;
+    }
+    .uploaded-img .delete {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 20px;
+      height: 20px;
+      background: #EF4444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+    .attr-section {
+      margin-top: 16px;
+    }
+    .attr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .attr-title {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    .attr-add {
+      font-size: 13px;
+      color: #3B82F6;
+      cursor: pointer;
+    }
+    .attr-item {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .attr-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .attr-name {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    .attr-delete {
+      color: #EF4444;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .attr-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .attr-value {
+      background: white;
+      border: 1px solid #e5e5e5;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .attr-value.active {
+      border-color: #3B82F6;
+      color: #3B82F6;
+      background: #EBF5FF;
+    }
+    .attr-value .close {
+      color: #999;
+      cursor: pointer;
+    }
+    .add-value {
+      border-style: dashed;
+      color: #3B82F6;
+      border-color: #3B82F6;
+      cursor: pointer;
+    }
+    .sku-table {
+      margin-top: 16px;
+    }
+    .sku-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+    .sku-name {
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+    }
+    .sku-input {
+      width: 70px;
+      height: 32px;
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 0 8px;
+      font-size: 14px;
+      text-align: right;
+    }
+    .sku-label {
+      font-size: 12px;
+      color: #999;
+      width: 32px;
+    }
+    .sku-item-detail {
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+    .sku-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sku-item-name {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+    .sku-item-toggle {
+      font-size: 12px;
+      color: #3B82F6;
+      cursor: pointer;
+    }
+    .sku-price-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .sku-price-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="product-list.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">添加商品</span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab" style="padding-bottom: 80px;">
+      <!-- 基本信息 -->
+      <div class="form-section">
+        <div class="section-title">基本信息</div>
+        
+        <div class="form-group">
+          <label class="form-label">商品名称 <span class="required">*</span></label>
+          <input type="text" class="form-input" placeholder="请输入商品名称">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">商品分类 <span class="required">*</span></label>
+          <div class="form-input" style="display: flex; align-items: center; justify-content: space-between; color: #999; cursor: pointer;">
+            <span>请选择商品分类</span>
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">商品图片</label>
+          <div class="image-upload">
+            <div class="uploaded-img">
+              <i class="fas fa-image"></i>
+              <span class="delete"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="upload-item">
+              <i class="fas fa-plus"></i>
+              <span>添加图片</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">商品描述</label>
+          <textarea class="form-textarea" placeholder="简单描述商品特点（选填）"></textarea>
+        </div>
+      </div>
+
+      <!-- 商品属性 -->
+      <div class="form-section">
+        <div class="section-title">商品属性（用于生成SKU）</div>
+        
+        <div class="attr-item">
+          <div class="attr-item-header">
+            <span class="attr-name">颜色</span>
+            <span class="attr-delete"><i class="fas fa-trash"></i> 删除</span>
+          </div>
+          <div class="attr-values">
+            <span class="attr-value active">红色 <i class="fas fa-times close"></i></span>
+            <span class="attr-value">蓝色 <i class="fas fa-times close"></i></span>
+            <span class="attr-value">黑色 <i class="fas fa-times close"></i></span>
+            <span class="attr-value add-value"><i class="fas fa-plus"></i> 添加</span>
+          </div>
+        </div>
+
+        <div class="attr-item">
+          <div class="attr-item-header">
+            <span class="attr-name">规格</span>
+            <span class="attr-delete"><i class="fas fa-trash"></i> 删除</span>
+          </div>
+          <div class="attr-values">
+            <span class="attr-value">500ml <i class="fas fa-times close"></i></span>
+            <span class="attr-value">1L <i class="fas fa-times close"></i></span>
+            <span class="attr-value add-value"><i class="fas fa-plus"></i> 添加</span>
+          </div>
+        </div>
+
+        <button style="width: 100%; padding: 12px; border: 2px dashed #3B82F6; border-radius: 8px; background: #EBF5FF; color: #3B82F6; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <i class="fas fa-plus"></i> 添加属性
+        </button>
+
+        <!-- SKU列表预览 -->
+        <div class="sku-table">
+          <div style="font-size: 14px; color: #333; font-weight: 500; margin-bottom: 12px;">生成的SKU <span style="font-size: 12px; color: #999; font-weight: normal;">(共4个规格组合)</span></div>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="padding: 6px 12px; background: #f5f5f5; border-radius: 6px; font-size: 13px; color: #666;">红色 / 500ml</span>
+            <span style="padding: 6px 12px; background: #f5f5f5; border-radius: 6px; font-size: 13px; color: #666;">红色 / 1L</span>
+            <span style="padding: 6px 12px; background: #f5f5f5; border-radius: 6px; font-size: 13px; color: #666;">蓝色 / 500ml</span>
+            <span style="padding: 6px 12px; background: #f5f5f5; border-radius: 6px; font-size: 13px; color: #666;">蓝色 / 1L</span>
+          </div>
+          
+          <div style="margin-top: 12px; padding: 12px; background: #FEF3C7; border-radius: 8px; font-size: 13px; color: #92400E;">
+            <i class="fas fa-info-circle" style="margin-right: 6px;"></i>
+            保存后可在「商品定价」中设置各SKU的售价
+          </div>
+        </div>
+      </div>
+
+      <!-- 价格库存（无属性时显示） -->
+      <div class="form-section" style="display: none;">
+        <div class="section-title">价格库存</div>
+        
+        <div class="form-group">
+          <label class="form-label">销售价格 <span class="required">*</span></label>
+          <div class="form-input" style="display: flex; align-items: center;">
+            <span style="color: #999; margin-right: 4px;">¥</span>
+            <input type="number" placeholder="0.00" style="border: none; flex: 1; outline: none; font-size: 15px;">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">库存数量</label>
+          <input type="number" class="form-input" placeholder="请输入库存数量">
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部按钮 -->
+    <div class="footer-btns">
+      <button class="btn btn-primary btn-block">
+        保存商品
+      </button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户账单 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .customer-header {
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      padding: 20px 16px;
+      color: white;
+    }
+    .customer-info-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .customer-avatar-large {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .customer-detail {
+      flex: 1;
+    }
+    .customer-name-large {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .customer-phone {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    .customer-stats {
+      display: flex;
+      margin-top: 16px;
+      gap: 12px;
+    }
+    .customer-stat {
+      flex: 1;
+      text-align: center;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 10px 8px;
+    }
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .stat-value.debt {
+      color: #FCA5A5;
+    }
+    .stat-value.success {
+      color: #86EFAC;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.9);
+      margin-top: 4px;
+    }
+    .filter-bar {
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .filter-item {
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: #f5f5f5;
+      color: #666;
+      cursor: pointer;
+      border: none;
+    }
+    .filter-item.active {
+      background: #3B82F6;
+      color: white;
+    }
+    .ledger-group {
+      margin: 12px;
+    }
+    .ledger-date {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    .ledger-card {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .ledger-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .ledger-title {
+      flex: 1;
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+    .ledger-status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .ledger-status.pending {
+      background: #FEF3C7;
+      color: #F59E0B;
+    }
+    .ledger-status.debt {
+      background: #FEE2E2;
+      color: #EF4444;
+    }
+    .ledger-status.paid {
+      background: #D1FAE5;
+      color: #10B981;
+    }
+    .ledger-body {
+      padding: 14px 16px;
+    }
+    .ledger-items {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .ledger-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ledger-time {
+      font-size: 12px;
+      color: #999;
+    }
+    .ledger-amount {
+      text-align: right;
+    }
+    .amount-total {
+      font-size: 18px;
+      color: #333;
+      font-weight: 600;
+    }
+    .amount-paid {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+    .empty-icon {
+      font-size: 48px;
+      color: #e5e5e5;
+      margin-bottom: 16px;
+    }
+    .empty-text {
+      font-size: 14px;
+    }
+    .bottom-action {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 375px;
+      margin: 0 auto;
+      background: white;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .btn-new-ledger {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #3B82F6;
+      font-size: 16px;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar" style="background: #3B82F6;">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="customer-detail.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">客户账单</span>
+    </div>
+
+    <!-- 客户信息头部 -->
+    <div class="customer-header">
+      <div class="customer-info-row">
+        <div class="customer-avatar-large">李</div>
+        <div class="customer-detail">
+          <div class="customer-name-large">李大伟</div>
+          <div class="customer-phone">138****6789</div>
+        </div>
+      </div>
+      <div class="customer-stats">
+        <div class="customer-stat">
+          <div class="stat-value debt">¥1,200</div>
+          <div class="stat-label">当前欠款</div>
+        </div>
+        <div class="customer-stat">
+          <div class="stat-value">23</div>
+          <div class="stat-label">总账单数</div>
+        </div>
+        <div class="customer-stat">
+          <div class="stat-value success">¥8,560</div>
+          <div class="stat-label">累计消费</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab" style="padding-bottom: 80px;">
+      <!-- 状态筛选 -->
+      <div class="filter-bar">
+        <button class="filter-item active">全部 (23)</button>
+        <button class="filter-item">赊账中 (2)</button>
+        <button class="filter-item">进行中 (1)</button>
+        <button class="filter-item">已结清 (18)</button>
+        <button class="filter-item">已关闭 (2)</button>
+      </div>
+
+      <!-- 账单列表 -->
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月22日 星期日</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <span class="ledger-title">日常采购</span>
+            <span class="ledger-status debt">赊账中</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              金龙鱼食用油 x2、农夫山泉 x1、洗衣液 x3
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-22 14:30</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥580.00</div>
+                <div class="amount-paid">已付 ¥0</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月20日 星期五</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <span class="ledger-title">建材采购</span>
+            <span class="ledger-status debt">赊账中</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              PVC水管 x20米、电钻套装 x1
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-20 10:15</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥620.00</div>
+                <div class="amount-paid">已付 ¥0</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月15日 星期日</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <span class="ledger-title">日用品</span>
+            <span class="ledger-status paid">已结清</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              洗衣液 x2、纸巾 x5
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-15 16:20</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥320.00</div>
+                <div class="amount-paid">已付 ¥320.00</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <span class="ledger-title">食品采购</span>
+            <span class="ledger-status paid">已结清</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              食用油 x1、大米 x2袋
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-15 09:30</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥186.00</div>
+                <div class="amount-paid">已付 ¥186.00</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-action">
+      <button class="btn-new-ledger">
+        <i class="fas fa-plus"></i> 为该客户新建账单
+      </button>
+    </div>
+  </div>
+</body>
+</html>

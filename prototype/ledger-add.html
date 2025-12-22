@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创建账单 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .step-bar {
+      background: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #E5E7EB;
+      color: #9CA3AF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .step.active .step-num {
+      background: #3B82F6;
+      color: white;
+    }
+    .step.done .step-num {
+      background: #10B981;
+      color: white;
+    }
+    .step-text {
+      margin-left: 8px;
+      font-size: 14px;
+      color: #9CA3AF;
+    }
+    .step.active .step-text {
+      color: #3B82F6;
+      font-weight: 500;
+    }
+    .step.done .step-text {
+      color: #10B981;
+    }
+    .step-line {
+      width: 50px;
+      height: 2px;
+      background: #E5E7EB;
+      margin: 0 16px;
+    }
+    .step-line.done {
+      background: #10B981;
+    }
+    .customer-select {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .customer-select-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .customer-select-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    .selected-customer {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #EBF5FF;
+      border-radius: 8px;
+      border: 2px solid #3B82F6;
+    }
+    .selected-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+    .selected-info {
+      flex: 1;
+    }
+    .selected-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+    .selected-phone {
+      font-size: 13px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .change-btn {
+      color: #3B82F6;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .product-section {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .product-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    .add-product-btn {
+      color: #3B82F6;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+    .cart-info {
+      flex: 1;
+    }
+    .cart-name {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .cart-spec {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 6px;
+    }
+    .cart-price {
+      font-size: 15px;
+      color: #EF4444;
+      font-weight: 600;
+    }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+      cursor: pointer;
+      background: white;
+    }
+    .qty-btn:active {
+      background: #f5f5f5;
+    }
+    .qty-num {
+      font-size: 16px;
+      font-weight: 500;
+      min-width: 24px;
+      text-align: center;
+    }
+    .remark-section {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .remark-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+    }
+    .footer-summary {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 375px;
+      margin: 0 auto;
+      background: white;
+      padding: 12px 16px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+    }
+    .summary-left {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .summary-label {
+      font-size: 14px;
+      color: #666;
+    }
+    .summary-amount {
+      font-size: 22px;
+      font-weight: 600;
+      color: #EF4444;
+    }
+    .summary-count {
+      font-size: 13px;
+      color: #999;
+      margin-left: 8px;
+    }
+    .submit-btn {
+      background: #3B82F6;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="ledger-list.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">创建账单</span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab" style="padding-bottom: 80px;">
+      <!-- 步骤条 -->
+      <div class="step-bar">
+        <div class="step done">
+          <span class="step-num"><i class="fas fa-check"></i></span>
+          <span class="step-text">选客户</span>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step active">
+          <span class="step-num">2</span>
+          <span class="step-text">选商品</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span class="step-text">确认</span>
+        </div>
+      </div>
+
+      <!-- 已选客户 -->
+      <div class="customer-select">
+        <div class="customer-select-header">
+          <span class="customer-select-title">客户信息</span>
+        </div>
+        <div class="selected-customer">
+          <div class="selected-avatar">李</div>
+          <div class="selected-info">
+            <div class="selected-name">李大伟</div>
+            <div class="selected-phone">138****6789</div>
+          </div>
+          <span class="change-btn">更换 <i class="fas fa-chevron-right"></i></span>
+        </div>
+      </div>
+
+      <!-- 商品列表 -->
+      <div class="product-section">
+        <div class="product-header">
+          <span class="product-title">商品清单</span>
+          <span class="add-product-btn">
+            <i class="fas fa-plus"></i> 添加商品
+          </span>
+        </div>
+
+        <div class="cart-item">
+          <div class="cart-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="cart-info">
+            <div class="cart-name">金龙鱼食用油 5L</div>
+            <div class="cart-spec">规格: 5L装</div>
+            <div class="cart-price">¥68.00</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn"><i class="fas fa-minus"></i></button>
+            <span class="qty-num">2</span>
+            <button class="qty-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+
+        <div class="cart-item">
+          <div class="cart-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="cart-info">
+            <div class="cart-name">农夫山泉 550ml*24</div>
+            <div class="cart-spec">规格: 整箱</div>
+            <div class="cart-price">¥28.00</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn"><i class="fas fa-minus"></i></button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+
+        <div class="cart-item">
+          <div class="cart-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="cart-info">
+            <div class="cart-name">洗衣液 3kg 薰衣草</div>
+            <div class="cart-spec">规格: 3kg</div>
+            <div class="cart-price">¥35.00</div>
+          </div>
+          <div class="qty-control">
+            <button class="qty-btn"><i class="fas fa-minus"></i></button>
+            <span class="qty-num">3</span>
+            <button class="qty-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 备注 -->
+      <div class="remark-section">
+        <div class="remark-title">备注</div>
+        <textarea class="form-textarea" placeholder="添加备注信息（选填）" style="min-height: 70px;">日常采购，下周结账</textarea>
+      </div>
+    </div>
+
+    <!-- 底部汇总 -->
+    <div class="footer-summary">
+      <div class="summary-left">
+        <span class="summary-label">合计:</span>
+        <span class="summary-amount">¥269.00</span>
+        <span class="summary-count">共6件</span>
+      </div>
+      <button class="submit-btn">
+        创建账单
+      </button>
+    </div>
+  </div>
+</body>
+</html>

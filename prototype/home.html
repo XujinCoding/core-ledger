@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .home-header {
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      padding: 16px;
+      color: white;
+    }
+    .shop-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .shop-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+    }
+    .shop-logo i {
+      font-size: 24px;
+    }
+    .shop-name {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .shop-id {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-item .value {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .stat-item .label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 20px 16px;
+      background: white;
+      margin: -20px 12px 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 1;
+    }
+    .action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+    }
+    .action-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+    .action-icon.blue { background: #EBF5FF; color: #3B82F6; }
+    .action-icon.green { background: #D1FAE5; color: #10B981; }
+    .action-icon.orange { background: #FEF3C7; color: #F59E0B; }
+    .action-icon.purple { background: #EDE9FE; color: #8B5CF6; }
+    .action-text {
+      font-size: 12px;
+      color: #666;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+    .section-more {
+      font-size: 13px;
+      color: #999;
+      text-decoration: none;
+    }
+    .pending-list {
+      background: white;
+      border-radius: 12px;
+      margin: 0 12px 16px;
+      overflow: hidden;
+    }
+    .pending-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .pending-item:last-child {
+      border-bottom: none;
+    }
+    .pending-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9CA3AF;
+      font-size: 16px;
+      margin-right: 12px;
+    }
+    .pending-info {
+      flex: 1;
+    }
+    .pending-name {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 2px;
+    }
+    .pending-desc {
+      font-size: 12px;
+      color: #999;
+    }
+    .pending-amount {
+      font-size: 16px;
+      font-weight: 600;
+      color: #EF4444;
+    }
+    .today-summary {
+      background: white;
+      border-radius: 12px;
+      margin: 0 12px 16px;
+      padding: 16px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+    }
+    .summary-row:not(:last-child) {
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .summary-label {
+      color: #666;
+      font-size: 14px;
+    }
+    .summary-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .summary-value.income { color: #10B981; }
+    .summary-value.expense { color: #EF4444; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 头部 -->
+    <div class="home-header">
+      <div class="shop-info">
+        <div class="shop-logo">
+          <i class="fas fa-store"></i>
+        </div>
+        <div>
+          <div class="shop-name">张记杂货铺</div>
+          <div class="shop-id">邀请码：ZJ2024</div>
+        </div>
+      </div>
+      
+      <div class="stat-box">
+        <div class="stat-item">
+          <div class="value">¥12,580</div>
+          <div class="label">本月销售</div>
+        </div>
+        <div class="stat-item">
+          <div class="value">¥3,200</div>
+          <div class="label">待收款</div>
+        </div>
+        <div class="stat-item">
+          <div class="value">86</div>
+          <div class="label">本月订单</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content" style="margin-top: -10px; padding-top: 0;">
+      <!-- 快捷操作 -->
+      <div class="quick-actions">
+        <a class="action-item" href="ledger-add.html">
+          <div class="action-icon blue">
+            <i class="fas fa-plus"></i>
+          </div>
+          <span class="action-text">新建账单</span>
+        </a>
+        <a class="action-item" href="customer-add-new.html">
+          <div class="action-icon green">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <span class="action-text">添加客户</span>
+        </a>
+        <a class="action-item" href="product-add.html">
+          <div class="action-icon orange">
+            <i class="fas fa-box"></i>
+          </div>
+          <span class="action-text">添加商品</span>
+        </a>
+        <a class="action-item" href="ledger-list.html">
+          <div class="action-icon purple">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <span class="action-text">统计报表</span>
+        </a>
+      </div>
+
+      <!-- 今日汇总 -->
+      <div class="section-header" style="margin-top: 8px;">
+        <span class="section-title">今日汇总</span>
+        <span class="section-more" style="color: #3B82F6;">12月22日</span>
+      </div>
+      <div class="today-summary">
+        <div class="summary-row">
+          <span class="summary-label">今日销售额</span>
+          <span class="summary-value income">+¥1,280.00</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">今日收款</span>
+          <span class="summary-value income">+¥980.00</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">今日新增赊账</span>
+          <span class="summary-value expense">¥300.00</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">今日订单数</span>
+          <span class="summary-value" style="color: #333;">8 笔</span>
+        </div>
+      </div>
+
+      <!-- 进行中的账单 -->
+      <div class="section-header">
+        <span class="section-title">进行中的账单</span>
+        <a class="section-more" href="ledger-list.html">查看全部 <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a>
+      </div>
+      <div class="pending-list">
+        <a href="ledger-detail.html" class="pending-item" style="text-decoration: none;">
+          <div class="pending-avatar" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);">
+            <i class="fas fa-receipt" style="color: white;"></i>
+          </div>
+          <div class="pending-info">
+            <div class="pending-name">李大伟 - 日常采购</div>
+            <div class="pending-desc">赊账中 · 2小时前</div>
+          </div>
+          <div class="pending-amount" style="color: #EF4444;">¥580</div>
+        </a>
+        <a href="ledger-detail.html" class="pending-item" style="text-decoration: none;">
+          <div class="pending-avatar" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+            <i class="fas fa-receipt" style="color: white;"></i>
+          </div>
+          <div class="pending-info">
+            <div class="pending-name">王小红 - 建材采购</div>
+            <div class="pending-desc">待确认 · 5小时前</div>
+          </div>
+          <div class="pending-amount" style="color: #F59E0B;">¥850</div>
+        </a>
+        <a href="ledger-detail.html" class="pending-item" style="text-decoration: none;">
+          <div class="pending-avatar" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);">
+            <i class="fas fa-receipt" style="color: white;"></i>
+          </div>
+          <div class="pending-info">
+            <div class="pending-name">赵建国 - 日用品</div>
+            <div class="pending-desc">赊账中 · 1天前</div>
+          </div>
+          <div class="pending-amount" style="color: #EF4444;">¥650</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 底部TabBar -->
+    <div class="tab-bar">
+      <a class="tab-item active" href="home.html">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </a>
+      <a class="tab-item" href="customer-list.html">
+        <i class="fas fa-users"></i>
+        <span>客户</span>
+      </a>
+      <a class="tab-item" href="ledger-list.html">
+        <i class="fas fa-receipt"></i>
+        <span>账单</span>
+      </a>
+      <a class="tab-item" href="product-list.html">
+        <i class="fas fa-box"></i>
+        <span>商品</span>
+      </a>
+      <a class="tab-item" href="profile.html">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

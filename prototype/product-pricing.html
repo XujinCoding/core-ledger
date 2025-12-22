@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品定价 - 商品管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .product-header-card {
+      background: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .product-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 28px;
+    }
+    .product-detail {
+      flex: 1;
+    }
+    .product-name {
+      font-size: 17px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .product-meta {
+      font-size: 13px;
+      color: #999;
+    }
+    .product-meta span {
+      margin-right: 12px;
+    }
+    .section-card {
+      background: white;
+      margin: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-title {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+    .section-action {
+      font-size: 13px;
+      color: #3B82F6;
+      cursor: pointer;
+    }
+    .sku-pricing-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .sku-pricing-item:last-child {
+      border-bottom: none;
+    }
+    .sku-info {
+      flex: 1;
+    }
+    .sku-name {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .sku-status {
+      font-size: 12px;
+      color: #999;
+    }
+    .sku-status.no-price {
+      color: #EF4444;
+    }
+    .sku-status.has-price {
+      color: #10B981;
+    }
+    .price-input-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .price-prefix {
+      font-size: 16px;
+      color: #EF4444;
+      font-weight: 500;
+    }
+    .sku-price-input {
+      width: 90px;
+      height: 40px;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 16px;
+      text-align: right;
+      color: #333;
+    }
+    .sku-price-input:focus {
+      border-color: #3B82F6;
+      outline: none;
+    }
+    .sku-price-input::placeholder {
+      color: #ccc;
+    }
+    .batch-section {
+      background: #FEF3C7;
+      margin: 12px;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .batch-title {
+      font-size: 14px;
+      color: #92400E;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .batch-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .batch-input {
+      flex: 1;
+      height: 40px;
+      border: 1px solid #F59E0B;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 16px;
+      text-align: right;
+      background: white;
+    }
+    .batch-btn {
+      padding: 10px 20px;
+      background: #F59E0B;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .bottom-action {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 375px;
+      margin: 0 auto;
+      background: white;
+      padding: 12px 16px;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+    }
+    .btn-cancel {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      background: white;
+      font-size: 16px;
+      color: #666;
+      cursor: pointer;
+    }
+    .btn-save {
+      flex: 2;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #3B82F6;
+      font-size: 16px;
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .tip-bar {
+      background: #EBF5FF;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #3B82F6;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="product-list.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">商品定价</span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab" style="padding-bottom: 80px;">
+      <!-- 商品信息头部 -->
+      <div class="product-header-card">
+        <div class="product-image">
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="product-detail">
+          <div class="product-name">精品红酒</div>
+          <div class="product-meta">
+            <span><i class="fas fa-folder"></i> 酒水饮料</span>
+            <span><i class="fas fa-cubes"></i> 4个规格</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 提示 -->
+      <div class="tip-bar">
+        <i class="fas fa-info-circle"></i>
+        为每个规格设置售价，未设置的规格无法被选购
+      </div>
+
+      <!-- 批量定价 -->
+      <div class="batch-section">
+        <div class="batch-title">
+          <i class="fas fa-magic"></i> 快捷操作：统一设置所有规格价格
+        </div>
+        <div class="batch-row">
+          <span style="color: #92400E; font-size: 16px;">¥</span>
+          <input type="number" class="batch-input" placeholder="输入统一价格">
+          <button class="batch-btn">应用全部</button>
+        </div>
+      </div>
+
+      <!-- SKU定价列表 -->
+      <div class="section-card">
+        <div class="section-header">
+          <span class="section-title">规格定价</span>
+          <span class="section-action"><i class="fas fa-redo"></i> 重置</span>
+        </div>
+
+        <div class="sku-pricing-item">
+          <div class="sku-info">
+            <div class="sku-name">红色 / 500ml</div>
+            <div class="sku-status has-price"><i class="fas fa-check-circle"></i> 已定价</div>
+          </div>
+          <div class="price-input-group">
+            <span class="price-prefix">¥</span>
+            <input type="number" class="sku-price-input" value="68.00">
+          </div>
+        </div>
+
+        <div class="sku-pricing-item">
+          <div class="sku-info">
+            <div class="sku-name">红色 / 1L</div>
+            <div class="sku-status has-price"><i class="fas fa-check-circle"></i> 已定价</div>
+          </div>
+          <div class="price-input-group">
+            <span class="price-prefix">¥</span>
+            <input type="number" class="sku-price-input" value="118.00">
+          </div>
+        </div>
+
+        <div class="sku-pricing-item">
+          <div class="sku-info">
+            <div class="sku-name">蓝色 / 500ml</div>
+            <div class="sku-status no-price"><i class="fas fa-exclamation-circle"></i> 未定价</div>
+          </div>
+          <div class="price-input-group">
+            <span class="price-prefix">¥</span>
+            <input type="number" class="sku-price-input" placeholder="0.00">
+          </div>
+        </div>
+
+        <div class="sku-pricing-item">
+          <div class="sku-info">
+            <div class="sku-name">蓝色 / 1L</div>
+            <div class="sku-status no-price"><i class="fas fa-exclamation-circle"></i> 未定价</div>
+          </div>
+          <div class="price-input-group">
+            <span class="price-prefix">¥</span>
+            <input type="number" class="sku-price-input" placeholder="0.00">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-action">
+      <button class="btn-cancel">取消</button>
+      <button class="btn-save">保存定价</button>
+    </div>
+  </div>
+</body>
+</html>

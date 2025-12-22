@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分类管理 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .category-list {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .category-group {
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .category-group:last-child {
+      border-bottom: none;
+    }
+    .category-parent {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background: white;
+    }
+    .category-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #EBF5FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3B82F6;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+    .category-info {
+      flex: 1;
+    }
+    .category-name {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .category-count {
+      font-size: 12px;
+      color: #999;
+    }
+    .category-actions {
+      display: flex;
+      gap: 16px;
+    }
+    .category-action {
+      color: #999;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .category-action:hover {
+      color: #3B82F6;
+    }
+    .category-action.delete:hover {
+      color: #EF4444;
+    }
+    .category-children {
+      background: #f9fafb;
+      padding-left: 52px;
+    }
+    .category-child {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px 12px 12px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .child-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3B82F6;
+      margin-right: 12px;
+    }
+    .child-name {
+      flex: 1;
+      font-size: 14px;
+      color: #666;
+    }
+    .child-count {
+      font-size: 12px;
+      color: #999;
+      margin-right: 16px;
+    }
+    .add-category-btn {
+      margin: 16px;
+      padding: 14px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #3B82F6;
+      font-size: 15px;
+      cursor: pointer;
+      border: 2px dashed #3B82F6;
+    }
+    .tips {
+      margin: 16px;
+      padding: 12px;
+      background: #FEF3C7;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #92400E;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .tips i {
+      margin-top: 2px;
+    }
+    /* 弹窗样式 */
+    .modal {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: flex-end;
+      z-index: 100;
+    }
+    .modal.show {
+      display: flex;
+    }
+    .modal-box {
+      background: white;
+      width: 100%;
+      border-radius: 16px 16px 0 0;
+      padding: 20px;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: #333;
+    }
+    .modal-close {
+      font-size: 20px;
+      color: #999;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="product-list.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">分类管理</span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab">
+      <!-- 提示信息 -->
+      <div class="tips">
+        <i class="fas fa-lightbulb"></i>
+        <span>分类支持两级结构，删除分类前需先清空该分类下的商品</span>
+      </div>
+
+      <!-- 分类列表 -->
+      <div class="category-list">
+        <!-- 分类1 -->
+        <div class="category-group">
+          <div class="category-parent">
+            <div class="category-icon">
+              <i class="fas fa-shopping-basket"></i>
+            </div>
+            <div class="category-info">
+              <div class="category-name">日用百货</div>
+              <div class="category-count">12 个商品</div>
+            </div>
+            <div class="category-actions">
+              <span class="category-action"><i class="fas fa-edit"></i></span>
+              <span class="category-action delete"><i class="fas fa-trash"></i></span>
+            </div>
+          </div>
+          <div class="category-children">
+            <div class="category-child">
+              <span class="child-dot"></span>
+              <span class="child-name">清洁用品</span>
+              <span class="child-count">5 个</span>
+              <div class="category-actions">
+                <span class="category-action"><i class="fas fa-edit"></i></span>
+                <span class="category-action delete"><i class="fas fa-trash"></i></span>
+              </div>
+            </div>
+            <div class="category-child">
+              <span class="child-dot"></span>
+              <span class="child-name">纸品湿巾</span>
+              <span class="child-count">7 个</span>
+              <div class="category-actions">
+                <span class="category-action"><i class="fas fa-edit"></i></span>
+                <span class="category-action delete"><i class="fas fa-trash"></i></span>
+              </div>
+            </div>
+            <div class="category-child" style="color: #3B82F6; cursor: pointer;">
+              <i class="fas fa-plus" style="margin-right: 12px; font-size: 12px;"></i>
+              <span style="font-size: 14px;">添加子分类</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类2 -->
+        <div class="category-group">
+          <div class="category-parent">
+            <div class="category-icon" style="background: #D1FAE5; color: #10B981;">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="category-info">
+              <div class="category-name">食品饮料</div>
+              <div class="category-count">8 个商品</div>
+            </div>
+            <div class="category-actions">
+              <span class="category-action"><i class="fas fa-edit"></i></span>
+              <span class="category-action delete"><i class="fas fa-trash"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类3 -->
+        <div class="category-group">
+          <div class="category-parent">
+            <div class="category-icon" style="background: #FEF3C7; color: #F59E0B;">
+              <i class="fas fa-hammer"></i>
+            </div>
+            <div class="category-info">
+              <div class="category-name">五金建材</div>
+              <div class="category-count">15 个商品</div>
+            </div>
+            <div class="category-actions">
+              <span class="category-action"><i class="fas fa-edit"></i></span>
+              <span class="category-action delete"><i class="fas fa-trash"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类4 -->
+        <div class="category-group">
+          <div class="category-parent">
+            <div class="category-icon" style="background: #EDE9FE; color: #8B5CF6;">
+              <i class="fas fa-tv"></i>
+            </div>
+            <div class="category-info">
+              <div class="category-name">家电数码</div>
+              <div class="category-count">6 个商品</div>
+            </div>
+            <div class="category-actions">
+              <span class="category-action"><i class="fas fa-edit"></i></span>
+              <span class="category-action delete"><i class="fas fa-trash"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分类5 -->
+        <div class="category-group">
+          <div class="category-parent">
+            <div class="category-icon" style="background: #FCE7F3; color: #EC4899;">
+              <i class="fas fa-print"></i>
+            </div>
+            <div class="category-info">
+              <div class="category-name">办公用品</div>
+              <div class="category-count">10 个商品</div>
+            </div>
+            <div class="category-actions">
+              <span class="category-action"><i class="fas fa-edit"></i></span>
+              <span class="category-action delete"><i class="fas fa-trash"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 添加分类按钮 -->
+      <div class="add-category-btn">
+        <i class="fas fa-plus"></i>
+        <span>添加一级分类</span>
+      </div>
+    </div>
+
+    <!-- 添加分类弹窗 -->
+    <div class="modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <span class="modal-title">添加分类</span>
+          <span class="modal-close"><i class="fas fa-times"></i></span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">分类名称</label>
+          <input type="text" class="form-input" placeholder="请输入分类名称">
+        </div>
+        <div class="form-group">
+          <label class="form-label">上级分类</label>
+          <div class="form-input" style="display: flex; align-items: center; justify-content: space-between; color: #999;">
+            <span>无（作为一级分类）</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" style="margin-top: 20px;">
+          确认添加
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

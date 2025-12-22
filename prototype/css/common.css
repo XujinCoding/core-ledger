@@ -1,0 +1,591 @@
+/* 公共样式 - 账单管理小程序原型 */
+
+/* 小程序容器 */
+.app-container {
+  width: 375px;
+  height: 812px;
+  background: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 状态栏 */
+.status-bar {
+  height: 44px;
+  background: #3B82F6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: white;
+  font-size: 14px;
+}
+
+/* 导航栏 */
+.nav-bar {
+  height: 44px;
+  background: #3B82F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+}
+
+.nav-bar .nav-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.nav-bar .nav-back {
+  position: absolute;
+  left: 16px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.nav-bar .nav-right {
+  position: absolute;
+  right: 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 页面内容区域 */
+.page-content {
+  height: calc(100% - 88px - 50px);
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.page-content.no-tab {
+  height: calc(100% - 88px);
+}
+
+.page-content.full {
+  height: calc(100% - 44px);
+}
+
+/* 底部TabBar */
+.tab-bar {
+  height: 50px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #999;
+  font-size: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tab-item i {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.tab-item.active {
+  color: #3B82F6;
+}
+
+/* 卡片样式 */
+.card {
+  background: white;
+  border-radius: 8px;
+  margin: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 列表项 */
+.list-item {
+  background: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: #3B82F6;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  resize: none;
+}
+
+/* 按钮样式 */
+.btn {
+  height: 44px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: opacity 0.2s;
+}
+
+.btn:active {
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background: #3B82F6;
+  color: white;
+}
+
+.btn-success {
+  background: #10B981;
+  color: white;
+}
+
+.btn-warning {
+  background: #F59E0B;
+  color: white;
+}
+
+.btn-danger {
+  background: #EF4444;
+  color: white;
+}
+
+.btn-outline {
+  background: white;
+  color: #3B82F6;
+  border: 1px solid #3B82F6;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* 标签样式 */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.tag-blue {
+  background: #EBF5FF;
+  color: #3B82F6;
+}
+
+.tag-green {
+  background: #D1FAE5;
+  color: #10B981;
+}
+
+.tag-orange {
+  background: #FEF3C7;
+  color: #F59E0B;
+}
+
+.tag-red {
+  background: #FEE2E2;
+  color: #EF4444;
+}
+
+.tag-gray {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+/* 搜索框 */
+.search-bar {
+  background: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-input-wrap {
+  flex: 1;
+  height: 36px;
+  background: #f5f5f5;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.search-input-wrap i {
+  color: #999;
+  margin-right: 8px;
+}
+
+.search-input-wrap input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #ddd;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* 浮动按钮 */
+.fab {
+  position: absolute;
+  right: 20px;
+  bottom: 70px;
+  width: 56px;
+  height: 56px;
+  background: #3B82F6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  cursor: pointer;
+}
+
+/* 头像 */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9CA3AF;
+  font-size: 18px;
+}
+
+.avatar-lg {
+  width: 64px;
+  height: 64px;
+  font-size: 28px;
+}
+
+/* 金额样式 */
+.amount {
+  font-weight: 600;
+  font-family: 'DIN Alternate', -apple-system, sans-serif;
+}
+
+.amount-income {
+  color: #10B981;
+}
+
+.amount-expense {
+  color: #EF4444;
+}
+
+.amount-lg {
+  font-size: 28px;
+}
+
+/* 分割线 */
+.divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 16px 0;
+}
+
+/* 单元格 */
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: white;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.cell-label {
+  color: #333;
+  font-size: 15px;
+}
+
+.cell-value {
+  color: #999;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 统计卡片 */
+.stat-card {
+  text-align: center;
+  padding: 16px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #999;
+}
+
+/* 筛选标签 */
+.filter-tabs {
+  display: flex;
+  background: white;
+  padding: 12px 16px;
+  gap: 12px;
+  overflow-x: auto;
+}
+
+.filter-tab {
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  white-space: nowrap;
+  background: #f5f5f5;
+  color: #666;
+  cursor: pointer;
+}
+
+.filter-tab.active {
+  background: #3B82F6;
+  color: white;
+}
+
+/* 底部安全区域 */
+.safe-area-bottom {
+  height: env(safe-area-inset-bottom, 0);
+}
+
+/* 弹出层 */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  padding: 20px;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* Grid 布局 */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* 登录页专用 */
+.login-header {
+  padding: 60px 20px 40px;
+  text-align: center;
+}
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  background: #3B82F6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.login-logo i {
+  font-size: 40px;
+  color: white;
+}
+
+.login-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #999;
+}
+
+/* 底部固定按钮区域 */
+.footer-btns {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 12px 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 商品卡片 */
+.product-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 120px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ddd;
+  font-size: 32px;
+}
+
+.product-info {
+  padding: 10px;
+}
+
+.product-name {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #EF4444;
+  font-weight: 600;
+}
+
+/* 分类标签 */
+.category-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  background: #f5f5f5;
+  height: 100%;
+}
+
+.category-tab {
+  padding: 14px 10px;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.category-tab.active {
+  background: white;
+  color: #3B82F6;
+  border-left-color: #3B82F6;
+}

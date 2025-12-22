@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账单详情 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .detail-header {
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      padding: 20px 16px;
+      color: white;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .customer-info {
+      display: flex;
+      align-items: center;
+    }
+    .customer-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+    .customer-name {
+      font-size: 17px;
+      font-weight: 600;
+    }
+    .customer-phone {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+    .status-badge {
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      background: rgba(255,255,255,0.2);
+    }
+    .amount-box {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+    .amount-item .label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+    .amount-item .value {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .section {
+      background: white;
+      margin: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 1px solid #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .item-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .item-row:last-child {
+      border-bottom: none;
+    }
+    .item-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-name {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .item-spec {
+      font-size: 12px;
+      color: #999;
+    }
+    .item-right {
+      text-align: right;
+    }
+    .item-price {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+    .item-qty {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+    .summary-row .label {
+      color: #666;
+    }
+    .summary-row .value {
+      color: #333;
+    }
+    .summary-row.total {
+      border-top: 1px solid #f5f5f5;
+      padding-top: 14px;
+    }
+    .summary-row.total .label {
+      font-weight: 600;
+      color: #333;
+    }
+    .summary-row.total .value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #EF4444;
+    }
+    .payment-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .payment-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #D1FAE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10B981;
+      font-size: 14px;
+      margin-right: 12px;
+    }
+    .payment-info {
+      flex: 1;
+    }
+    .payment-type {
+      font-size: 14px;
+      color: #333;
+    }
+    .payment-time {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    .payment-amount {
+      font-size: 16px;
+      font-weight: 600;
+      color: #10B981;
+    }
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 375px;
+      margin: 0 auto;
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      border-top: 1px solid #f0f0f0;
+      box-sizing: border-box;
+    }
+    .action-bar .btn {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <a class="nav-back" href="ledger-list.html"><i class="fas fa-chevron-left"></i></a>
+      <span class="nav-title">账单详情</span>
+      <span class="nav-right"><i class="fas fa-ellipsis-h"></i></span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content no-tab" style="padding-bottom: 80px;">
+      <!-- 头部信息 -->
+      <div class="detail-header">
+        <div class="header-top">
+          <div class="customer-info">
+            <div class="customer-avatar">李</div>
+            <div>
+              <div class="customer-name">李大伟</div>
+              <div class="customer-phone">138****6789</div>
+            </div>
+          </div>
+          <span class="status-badge">赊账中</span>
+        </div>
+        
+        <div class="amount-box">
+          <div class="amount-item">
+            <div class="label">账单金额</div>
+            <div class="value">¥580</div>
+          </div>
+          <div class="amount-item">
+            <div class="label">已支付</div>
+            <div class="value">¥0</div>
+          </div>
+          <div class="amount-item">
+            <div class="label">待收款</div>
+            <div class="value">¥580</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 商品明细 -->
+      <div class="section">
+        <div class="section-header">
+          商品明细
+          <span style="font-size: 13px; color: #999; font-weight: normal;">共3件</span>
+        </div>
+        
+        <div class="item-row">
+          <div class="item-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="item-info">
+            <div class="item-name">金龙鱼食用油 5L</div>
+            <div class="item-spec">规格: 5L装</div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">¥136.00</div>
+            <div class="item-qty">x2</div>
+          </div>
+        </div>
+
+        <div class="item-row">
+          <div class="item-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="item-info">
+            <div class="item-name">农夫山泉 550ml*24</div>
+            <div class="item-spec">规格: 整箱</div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">¥28.00</div>
+            <div class="item-qty">x1</div>
+          </div>
+        </div>
+
+        <div class="item-row">
+          <div class="item-img">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="item-info">
+            <div class="item-name">洗衣液 3kg 薰衣草</div>
+            <div class="item-spec">规格: 3kg</div>
+          </div>
+          <div class="item-right">
+            <div class="item-price">¥105.00</div>
+            <div class="item-qty">x3</div>
+          </div>
+        </div>
+
+        <!-- 汇总 -->
+        <div class="summary-row">
+          <span class="label">商品小计</span>
+          <span class="value">¥580.00</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">优惠</span>
+          <span class="value" style="color: #10B981;">-¥0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span class="label">应付金额</span>
+          <span class="value">¥580.00</span>
+        </div>
+      </div>
+
+      <!-- 支付记录 -->
+      <div class="section">
+        <div class="section-header">
+          支付记录
+          <span style="font-size: 13px; color: #3B82F6; font-weight: normal; cursor: pointer;">
+            <i class="fas fa-plus"></i> 添加
+          </span>
+        </div>
+        
+        <div style="padding: 30px 16px; text-align: center; color: #999;">
+          <i class="fas fa-inbox" style="font-size: 32px; margin-bottom: 12px; display: block; color: #ddd;"></i>
+          <span style="font-size: 14px;">暂无支付记录</span>
+        </div>
+      </div>
+
+      <!-- 账单信息 -->
+      <div class="section">
+        <div class="section-header">账单信息</div>
+        <div class="summary-row">
+          <span class="label">账单编号</span>
+          <span class="value">LD202412200001</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">创建时间</span>
+          <span class="value">2024-12-20 14:30:25</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">备注</span>
+          <span class="value">日常采购，下周结账</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="action-bar">
+      <button class="btn btn-outline" style="flex: 0.6;">
+        <i class="fas fa-edit" style="margin-right: 4px;"></i> 编辑
+      </button>
+      <button class="btn btn-warning">
+        <i class="fas fa-book" style="margin-right: 4px;"></i> 记账
+      </button>
+      <button class="btn btn-success">
+        <i class="fas fa-hand-holding-usd" style="margin-right: 4px;"></i> 收款
+      </button>
+      <button class="btn btn-primary">
+        <i class="fas fa-check-circle" style="margin-right: 4px;"></i> 结账
+      </button>
+    </div>
+  </div>
+</body>
+</html>

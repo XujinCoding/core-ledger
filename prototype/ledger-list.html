@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账单列表 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .filter-bar {
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+    .filter-item {
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      white-space: nowrap;
+      background: #f5f5f5;
+      color: #666;
+      cursor: pointer;
+      border: none;
+    }
+    .filter-item.active {
+      background: #3B82F6;
+      color: white;
+    }
+    .date-filter {
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f5f5f5;
+    }
+    .date-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #333;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .date-selector i {
+      color: #999;
+    }
+    .stat-row {
+      display: flex;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stat-item.income {
+      color: #10B981;
+    }
+    .stat-item.debt {
+      color: #EF4444;
+    }
+    .ledger-group {
+      margin: 12px;
+    }
+    .ledger-date {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    .ledger-card {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .ledger-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .ledger-customer {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    .customer-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+    .customer-name {
+      font-size: 15px;
+      color: #333;
+      font-weight: 500;
+    }
+    .ledger-status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .ledger-status.pending {
+      background: #FEF3C7;
+      color: #F59E0B;
+    }
+    .ledger-status.debt {
+      background: #FEE2E2;
+      color: #EF4444;
+    }
+    .ledger-status.paid {
+      background: #D1FAE5;
+      color: #10B981;
+    }
+    .ledger-status.closed {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+    .ledger-body {
+      padding: 14px 16px;
+    }
+    .ledger-items {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .ledger-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ledger-time {
+      font-size: 12px;
+      color: #999;
+    }
+    .ledger-amount {
+      text-align: right;
+    }
+    .amount-total {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+    .amount-paid {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <span class="nav-title">账单管理</span>
+      <span class="nav-right"><i class="fas fa-search"></i></span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content">
+      <!-- 状态筛选 -->
+      <div class="filter-bar">
+        <button class="filter-item active">全部</button>
+        <button class="filter-item">进行中</button>
+        <button class="filter-item">赊账中</button>
+        <button class="filter-item">已结清</button>
+        <button class="filter-item">已关闭</button>
+      </div>
+
+      <!-- 日期筛选 -->
+      <div class="date-filter">
+        <div class="date-selector">
+          <i class="fas fa-calendar-alt"></i>
+          <span>2024年12月</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="stat-row">
+          <span class="stat-item income"><i class="fas fa-arrow-up"></i> ¥12,580</span>
+          <span class="stat-item debt"><i class="fas fa-clock"></i> ¥3,200</span>
+        </div>
+      </div>
+
+      <!-- 账单列表 -->
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月22日 星期日</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <div class="ledger-customer">
+              <div class="customer-avatar">李</div>
+              <span class="customer-name">李大伟</span>
+            </div>
+            <span class="ledger-status debt">赊账中</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              金龙鱼食用油 x2、农夫山泉 x1、洗衣液 x3
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-22 14:30</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥580.00</div>
+                <div class="amount-paid">已付 ¥0</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <div class="ledger-customer">
+              <div class="customer-avatar" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">赵</div>
+              <span class="customer-name">赵建国</span>
+            </div>
+            <span class="ledger-status paid">已结清</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              电钻套装 x1、PVC水管 x10米
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-22 10:15</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥449.00</div>
+                <div class="amount-paid">已付 ¥449.00</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月21日 星期六</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <div class="ledger-customer">
+              <div class="customer-avatar" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">王</div>
+              <span class="customer-name">王小红</span>
+            </div>
+            <span class="ledger-status pending">进行中</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              A4打印纸 x5、洗衣液 x2
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-21 16:45</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥180.00</div>
+                <div class="amount-paid">已付 ¥100.00</div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <div class="ledger-customer">
+              <div class="customer-avatar" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);">陈</div>
+              <span class="customer-name">陈晓明</span>
+            </div>
+            <span class="ledger-status paid">已结清</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              农夫山泉 x2
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-21 09:20</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥56.00</div>
+                <div class="amount-paid">已付 ¥56.00</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="ledger-group">
+        <div class="ledger-date">2024年12月18日 星期三</div>
+        
+        <a href="ledger-detail.html" class="ledger-card" style="text-decoration: none; display: block;">
+          <div class="ledger-header">
+            <div class="ledger-customer">
+              <div class="customer-avatar">李</div>
+              <span class="customer-name">李大伟</span>
+            </div>
+            <span class="ledger-status debt">赊账中</span>
+          </div>
+          <div class="ledger-body">
+            <div class="ledger-items">
+              五金建材若干
+            </div>
+            <div class="ledger-footer">
+              <span class="ledger-time">2024-12-18 10:15</span>
+              <div class="ledger-amount">
+                <div class="amount-total">¥620.00</div>
+                <div class="amount-paid">已付 ¥0</div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- 浮动添加按钮 -->
+    <a href="ledger-add.html" class="fab">
+      <i class="fas fa-plus"></i>
+    </a>
+
+    <!-- 底部TabBar -->
+    <div class="tab-bar">
+      <a class="tab-item" href="home.html">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </a>
+      <a class="tab-item" href="customer-list.html">
+        <i class="fas fa-users"></i>
+        <span>客户</span>
+      </a>
+      <a class="tab-item active" href="ledger-list.html">
+        <i class="fas fa-receipt"></i>
+        <span>账单</span>
+      </a>
+      <a class="tab-item" href="product-list.html">
+        <i class="fas fa-box"></i>
+        <span>商品</span>
+      </a>
+      <a class="tab-item" href="profile.html">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

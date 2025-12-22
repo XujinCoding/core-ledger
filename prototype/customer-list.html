@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>客户列表 - 账单管理</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .customer-card {
+      background: white;
+      margin: 12px;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+    }
+    .customer-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+    .customer-info {
+      flex: 1;
+    }
+    .customer-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .customer-phone {
+      font-size: 13px;
+      color: #999;
+    }
+    .customer-stats {
+      text-align: right;
+    }
+    .customer-address {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .customer-address i {
+      font-size: 10px;
+    }
+    .customer-debt {
+      font-size: 16px;
+      font-weight: 600;
+      color: #EF4444;
+      margin-bottom: 2px;
+    }
+    .customer-debt.zero {
+      color: #10B981;
+    }
+    .customer-orders {
+      font-size: 12px;
+      color: #999;
+    }
+    .filter-section {
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      background: #f5f5f5;
+      color: #666;
+      border: none;
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: #3B82F6;
+      color: white;
+    }
+    .stat-summary {
+      display: flex;
+      background: white;
+      padding: 16px;
+      margin: 12px;
+      border-radius: 12px;
+      gap: 12px;
+    }
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      background: #f9fafb;
+      border-radius: 8px;
+    }
+    .stat-item .value {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+    .stat-item .label {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+    .stat-item.debt .value {
+      color: #EF4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </span>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="nav-bar">
+      <span class="nav-title">客户管理</span>
+      <span class="nav-right"><i class="fas fa-qrcode"></i></span>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="page-content">
+      <!-- 搜索框 -->
+      <div class="search-bar">
+        <div class="search-input-wrap">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="搜索客户姓名/手机号">
+        </div>
+      </div>
+
+      <!-- 统计摘要 -->
+      <div class="stat-summary">
+        <div class="stat-item">
+          <div class="value">128</div>
+          <div class="label">客户总数</div>
+        </div>
+        <div class="stat-item debt">
+          <div class="value">¥3,200</div>
+          <div class="label">总欠款</div>
+        </div>
+        <div class="stat-item">
+          <div class="value">12</div>
+          <div class="label">有欠款</div>
+        </div>
+      </div>
+
+      <!-- 客户列表 -->
+      <a href="customer-detail.html" style="text-decoration: none;">
+        <div class="customer-card">
+          <div class="customer-avatar">李</div>
+          <div class="customer-info">
+            <div class="customer-name">
+              李大伟
+              <span class="tag tag-red">有欠款</span>
+            </div>
+            <div class="customer-phone">138****6789</div>
+            <div class="customer-address"><i class="fas fa-map-marker-alt"></i> 广东省广州市天河区</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-debt">¥1,200</div>
+            <div class="customer-orders">订单: 23笔</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="customer-detail.html" style="text-decoration: none;">
+        <div class="customer-card">
+          <div class="customer-avatar" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">王</div>
+          <div class="customer-info">
+            <div class="customer-name">
+              王小红
+              <span class="tag tag-red">有欠款</span>
+            </div>
+            <div class="customer-phone">139****2345</div>
+            <div class="customer-address"><i class="fas fa-map-marker-alt"></i> 广东省深圳市南山区</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-debt">¥850</div>
+            <div class="customer-orders">订单: 15笔</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="customer-detail.html" style="text-decoration: none;">
+        <div class="customer-card">
+          <div class="customer-avatar" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">赵</div>
+          <div class="customer-info">
+            <div class="customer-name">赵建国</div>
+            <div class="customer-phone">137****8901</div>
+            <div class="customer-address"><i class="fas fa-map-marker-alt"></i> 广东省广州市白云区</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-debt zero">¥0</div>
+            <div class="customer-orders">订单: 8笔</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="customer-detail.html" style="text-decoration: none;">
+        <div class="customer-card">
+          <div class="customer-avatar" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);">陈</div>
+          <div class="customer-info">
+            <div class="customer-name">
+              陈晓明
+            </div>
+            <div class="customer-phone">136****5678</div>
+            <div class="customer-address"><i class="fas fa-map-marker-alt"></i> 广东省佛山市禅城区</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-debt zero">¥0</div>
+            <div class="customer-orders">订单: 2笔</div>
+          </div>
+        </div>
+      </a>
+
+      <a href="customer-detail.html" style="text-decoration: none;">
+        <div class="customer-card">
+          <div class="customer-avatar" style="background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);">周</div>
+          <div class="customer-info">
+            <div class="customer-name">周美玲</div>
+            <div class="customer-phone">135****4321</div>
+            <div class="customer-address"><i class="fas fa-map-marker-alt"></i> 广东省东莞市莞城区</div>
+          </div>
+          <div class="customer-stats">
+            <div class="customer-debt zero">¥0</div>
+            <div class="customer-orders">订单: 12笔</div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- 浮动添加按钮 -->
+    <a href="customer-add-new.html" class="fab">
+      <i class="fas fa-plus"></i>
+    </a>
+
+    <!-- 底部TabBar -->
+    <div class="tab-bar">
+      <a class="tab-item" href="home.html">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </a>
+      <a class="tab-item active" href="customer-list.html">
+        <i class="fas fa-users"></i>
+        <span>客户</span>
+      </a>
+      <a class="tab-item" href="ledger-list.html">
+        <i class="fas fa-receipt"></i>
+        <span>账单</span>
+      </a>
+      <a class="tab-item" href="product-list.html">
+        <i class="fas fa-box"></i>
+        <span>商品</span>
+      </a>
+      <a class="tab-item" href="profile.html">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

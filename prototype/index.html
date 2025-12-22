@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账单管理小程序 - 原型展示</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      padding: 32px 24px;
+      color: white;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .nav-tabs {
+      background: white;
+      padding: 16px 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-tab {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: #666;
+      background: #f5f5f5;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .nav-tab:hover {
+      background: #e5e5e5;
+    }
+    .nav-tab.active {
+      background: #3B82F6;
+      color: white;
+    }
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+      padding-left: 12px;
+      border-left: 4px solid #3B82F6;
+    }
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 24px;
+    }
+    .prototype-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .prototype-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      padding: 16px 20px;
+      background: #f9fafb;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title i {
+      color: #3B82F6;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .card-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .card-btn.primary {
+      background: #3B82F6;
+      color: white;
+    }
+    .card-btn.secondary {
+      background: #f0f0f0;
+      color: #666;
+    }
+    .iframe-container {
+      width: 100%;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #e5e7eb;
+      padding: 20px;
+    }
+    .phone-frame {
+      width: 375px;
+      height: 560px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border: 8px solid #1f2937;
+      background: white;
+    }
+    .phone-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .legend {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .legend-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+    }
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .legend-dot.auth { background: #8B5CF6; }
+    .legend-dot.main { background: #3B82F6; }
+    .legend-dot.customer { background: #10B981; }
+    .legend-dot.product { background: #F59E0B; }
+    .legend-dot.ledger { background: #EF4444; }
+    .legend-dot.profile { background: #EC4899; }
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: #999;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .prototype-grid {
+        grid-template-columns: 1fr;
+      }
+      .phone-frame {
+        width: 100%;
+        max-width: 375px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 头部 -->
+  <div class="header">
+    <h1><i class="fas fa-receipt"></i> 账单管理小程序</h1>
+    <p>账单管理小程序原型 · 共 15 个页面</p>
+  </div>
+
+  <!-- 导航标签 -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="scrollToSection('all')">全部页面</button>
+    <button class="nav-tab" onclick="scrollToSection('auth')">登录注册</button>
+    <button class="nav-tab" onclick="scrollToSection('main')">首页</button>
+    <button class="nav-tab" onclick="scrollToSection('customer')">客户管理</button>
+    <button class="nav-tab" onclick="scrollToSection('product')">商品管理</button>
+    <button class="nav-tab" onclick="scrollToSection('ledger')">账单管理</button>
+    <button class="nav-tab" onclick="scrollToSection('profile')">个人中心</button>
+  </div>
+
+  <div class="container">
+    <!-- 图例 -->
+    <div class="legend">
+      <div class="legend-title">页面模块说明</div>
+      <div class="legend-grid">
+        <div class="legend-item">
+          <span class="legend-dot auth"></span>
+          <span>登录注册 (3个页面)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot main"></span>
+          <span>首页工作台 (1个页面)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot customer"></span>
+          <span>客户管理 (3个页面)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot product"></span>
+          <span>商品管理 (3个页面)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot ledger"></span>
+          <span>账单管理 (3个页面)</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot profile"></span>
+          <span>个人中心 (1个页面)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 登录注册 -->
+    <div class="section" id="auth">
+      <h2 class="section-title">登录注册</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-sign-in-alt"></i> 登录页</span>
+            <div class="card-actions">
+              <a href="login-new.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="login-new.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user-plus"></i> 商户注册</span>
+            <div class="card-actions">
+              <a href="register-merchant-new.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="register-merchant-new.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user-plus"></i> 客户注册</span>
+            <div class="card-actions">
+              <a href="register-customer.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="register-customer.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 首页 -->
+    <div class="section" id="main">
+      <h2 class="section-title">首页工作台</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-home"></i> 首页</span>
+            <div class="card-actions">
+              <a href="home.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="home.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 客户管理 -->
+    <div class="section" id="customer">
+      <h2 class="section-title">客户管理</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-users"></i> 客户列表</span>
+            <div class="card-actions">
+              <a href="customer-list.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="customer-list.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user"></i> 客户详情</span>
+            <div class="card-actions">
+              <a href="customer-detail.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="customer-detail.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user-plus"></i> 添加客户</span>
+            <div class="card-actions">
+              <a href="customer-add-new.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="customer-add-new.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 商品管理 -->
+    <div class="section" id="product">
+      <h2 class="section-title">商品管理</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-box"></i> 商品列表</span>
+            <div class="card-actions">
+              <a href="product-list.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="product-list.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-plus-circle"></i> 添加商品</span>
+            <div class="card-actions">
+              <a href="product-add.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="product-add.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-tags"></i> 分类管理</span>
+            <div class="card-actions">
+              <a href="category-list.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="category-list.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-tag"></i> 商品定价</span>
+            <div class="card-actions">
+              <a href="product-pricing.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="product-pricing.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 账单管理 -->
+    <div class="section" id="ledger">
+      <h2 class="section-title">账单管理</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-receipt"></i> 账单列表</span>
+            <div class="card-actions">
+              <a href="ledger-list.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="ledger-list.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user-tag"></i> 客户账单</span>
+            <div class="card-actions">
+              <a href="customer-ledger.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="customer-ledger.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-file-invoice"></i> 账单详情</span>
+            <div class="card-actions">
+              <a href="ledger-detail.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="ledger-detail.html"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-plus"></i> 创建账单</span>
+            <div class="card-actions">
+              <a href="ledger-add.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="ledger-add.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 个人中心 -->
+    <div class="section" id="profile">
+      <h2 class="section-title">个人中心</h2>
+      <div class="prototype-grid">
+        <div class="prototype-card">
+          <div class="card-header">
+            <span class="card-title"><i class="fas fa-user-circle"></i> 我的</span>
+            <div class="card-actions">
+              <a href="profile.html" target="_blank" class="card-btn primary">
+                <i class="fas fa-external-link-alt"></i> 新窗口打开
+              </a>
+            </div>
+          </div>
+          <div class="iframe-container">
+            <div class="phone-frame">
+              <iframe src="profile.html"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="footer">
+<p>账单管理小程序原型 · 简约商务风格 · 共 15 个页面</p>
+    <p style="margin-top: 8px; font-size: 12px;">技术栈：HTML + CSS + FontAwesome</p>
+  </div>
+
+  <script>
+    function scrollToSection(id) {
+      // 更新标签状态
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // 滚动到对应区域
+      if (id === 'all') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const section = document.getElementById(id);
+        if (section) {
+          const offset = 80; // 导航栏高度
+          const top = section.offsetTop - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    }
+  </script>
+</body>
+</html>
