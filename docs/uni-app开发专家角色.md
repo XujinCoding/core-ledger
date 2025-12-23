@@ -22,15 +22,21 @@ Core Ledger 是一个面向商户和客户的记账本应用，支持微信小�
 core-ledger-ui/
 ├── api/                          # API 接口层
 │   ├── modules/                  # 按业务模块拆分
+│   │   ├── address.ts           # 地址相关
 │   │   ├── auth.ts              # 认证相关
-│   │   ├── merchant.ts          # 商户相关
+│   │   ├── category.ts          # 分类相关
 │   │   ├── customer.ts          # 客户相关
 │   │   ├── ledger.ts            # 账本相关
+│   │   ├── merchant.ts          # 商户相关
 │   │   ├── product.ts           # 商品相关
-│   │   ├── category.ts          # 分类相关
-│   │   └── address.ts           # 地址相关
+│   │   ├── productAttr.ts       # 商品属性相关
+│   │   └── sku.ts               # SKU 相关
 │   └── index.ts                 # 统一导出
 ├── components/                   # 公共组件
+│   ├── customer/                # 客户相关组件
+│   │   ├── ConsumptionStatsCard.vue  # 消费统计卡片
+│   │   ├── CustomerCard.vue          # 客户卡片
+│   │   └── CustomerInfoCard.vue      # 客户信息卡片
 │   ├── AddressSelector.vue      # 地址选择器
 │   └── empty-state.vue          # 空状态组件
 ├── composables/                  # 组合式函数
@@ -38,38 +44,52 @@ core-ledger-ui/
 ├── enums/                        # 枚举定义
 │   └── index.ts                 # 状态、类型等枚举
 ├── pages/                        # 页面
+│   ├── customer/                # 【客户端】
+│   │   └── index.vue            # 客户主页
 │   ├── login/                   # 登录相关页面
-│   ├── register/                # 注册相关页面
-│   │   ├── merchant.vue         # 商户注册
-│   │   └── customer.vue         # 客户注册
-│   └── home/                    # 主页面
-│       ├── merchant/            # 【商户端】
-│       │   ├── index.vue        # 商户主页（含 TabBar）
-│       │   └── tabs/            # Tab 子页面
-│       │       ├── bill/        # 账单
-│       │       ├── customer/    # 客户管理
-│       │       ├── product/     # 商品管理
-│       │       └── mine/        # 我的
-│       └── customer/            # 【客户端】
-│           ├── index.vue        # 客户主页（含 TabBar）
-│           └── tabs/            # Tab 子页面
-│               └── mine/        # 我的（待开发）
+│   │   ├── index.vue            # 登录首页
+│   │   ├── select-customer.vue  # 选择客户身份
+│   │   └── select-merchant.vue  # 选择商户身份
+│   ├── merchant/                # 【商户端】
+│   │   ├── index.vue            # 商户主页（含 TabBar）
+│   │   └── tabs/                # Tab 子页面
+│   │       ├── customer/        # 客户管理
+│   │       │   ├── add.vue      # 新增客户
+│   │       │   ├── detail.vue   # 客户详情
+│   │       │   └── index.vue    # 客户列表
+│   │       ├── home/            # 首页
+│   │       │   └── index.vue
+│   │       ├── ledger/          # 记账
+│   │       │   └── index.vue
+│   │       ├── mine/            # 我的
+│   │       │   └── index.vue
+│   │       └── product/         # 商品管理
+│   │           └── index.vue
+│   └── register/                # 注册相关页面
+│       ├── bind-merchant.vue    # 绑定商户
+│       ├── customer.vue         # 客户注册
+│       └── merchant.vue         # 商户注册
 ├── stores/                       # Pinia 状态管理
+│   ├── modules/
+│   │   └── user.ts              # 用户状态
+│   └── index.ts                 # 统一导出
 ├── types/                        # ⭐ TypeScript 类型定义（统一管理）
 │   ├── index.ts                 # 统一导出
-│   ├── common.ts                # 通用类型
+│   ├── address.ts               # 地址相关
 │   ├── auth.ts                  # 认证相关
-│   ├── merchant.ts              # 商户相关
+│   ├── common.ts                # 通用类型
 │   ├── customer.ts              # 客户相关
 │   ├── ledger.ts                # 账本相关
-│   ├── product.ts               # 商品相关
-│   └── address.ts               # 地址相关
+│   ├── merchant.ts              # 商户相关
+│   └── product.ts               # 商品相关
 ├── utils/                        # 工具函数
+│   └── request.ts               # 请求封装
 ├── uni_modules/                  # uni-app 插件（含 wot-design-uni）
 ├── App.vue
 ├── main.js
 ├── pages.json                   # 页面路由配置
-└── manifest.json                # 应用配置
+├── manifest.json                # 应用配置
+└── uni.scss                     # 全局样式变量
 ```
 
 ---
@@ -287,7 +307,7 @@ export const useCustomerList = (merchantId: number) => {
 #### 商户端路由
 ```
 /pages/home/merchant/index          → 商户主页（TabBar 容器）
-  └─ tabs/bill/index.vue            → 账单 Tab
+  └─ tabs/ledger/index.vue          → 记账 Tab
   └─ tabs/customer/index.vue        → 客户 Tab
   └─ tabs/product/index.vue         → 商品 Tab
   └─ tabs/mine/index.vue            → 我的 Tab
@@ -305,15 +325,15 @@ export const useCustomerList = (merchantId: number) => {
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import BillTab from './tabs/bill/index.vue'
+import LedgerTab from './tabs/ledger/index.vue'
 import CustomerTab from './tabs/customer/index.vue'
 
-type TabKey = 'bill' | 'customer' | 'product' | 'mine'
-const currentTab = ref<TabKey>('bill')
+type TabKey = 'ledger' | 'customer' | 'product' | 'mine'
+const currentTab = ref<TabKey>('ledger')
 
 // 按需挂载，避免一次性加载所有 Tab
 const mountedTabs = ref<Record<TabKey, boolean>>({
-  bill: true,
+  ledger: true,
   customer: false,
   product: false,
   mine: false
@@ -330,14 +350,14 @@ const toTab = (tab: TabKey) => {
 <template>
   <view class="container">
     <view class="content">
-      <BillTab v-show="currentTab === 'bill'" />
+      <LedgerTab v-show="currentTab === 'ledger'" />
       <CustomerTab v-if="mountedTabs.customer" v-show="currentTab === 'customer'" />
       <!-- 其他 Tab... -->
     </view>
     
     <view class="tabbar">
-      <wd-button type="text" :class="{ active: currentTab === 'bill' }" @click="toTab('bill')">
-        账单
+      <wd-button type="text" :class="{ active: currentTab === 'ledger' }" @click="toTab('ledger')">
+        记账
       </wd-button>
       <!-- 其他按钮... -->
     </view>
