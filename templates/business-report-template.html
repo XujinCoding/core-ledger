@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经营报表 - 图表模板</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding-bottom: 20px;
+        }
+
+        /* 顶部Header */
+        .header {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            padding: 60px 16px 20px;
+            color: white;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* Tab切换区域 */
+        .tab-section {
+            background: white;
+            margin: -10px 16px 16px;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .time-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .time-tab {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .time-tab.active {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+            border-color: #3B82F6;
+        }
+
+        /* 选择器容器 */
+        .picker-container {
+            display: none;
+        }
+
+        .picker-container.active {
+            display: block;
+        }
+
+        .picker-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            background: white;
+        }
+
+        /* 数据概览卡片 */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 0 16px 16px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .summary-value.primary {
+            color: #3B82F6;
+        }
+
+        .summary-value.success {
+            color: #10B981;
+        }
+
+        .summary-value.warning {
+            color: #F59E0B;
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            background: white;
+            margin: 0 16px 16px;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-icon {
+            font-size: 20px;
+        }
+
+        .chart {
+            width: 100%;
+            height: 300px;
+        }
+
+        .chart.large {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部Header -->
+    <div class="header">
+        <div class="header-title">📊 经营报表</div>
+        <div class="header-subtitle">数据可视化分析</div>
+    </div>
+
+    <!-- Tab切换区域 -->
+    <div class="tab-section">
+        <div class="time-tabs">
+            <button class="time-tab" onclick="switchTab('year')">按年</button>
+            <button class="time-tab active" onclick="switchTab('month')">按月</button>
+            <button class="time-tab" onclick="switchTab('day')">按日</button>
+        </div>
+
+        <!-- 年选择器 -->
+        <div id="yearPicker" class="picker-container">
+            <input type="number" class="picker-input" placeholder="选择年份" value="2024" min="2020" max="2030">
+        </div>
+
+        <!-- 月选择器 -->
+        <div id="monthPicker" class="picker-container active">
+            <input type="month" class="picker-input" placeholder="选择月份" value="2024-12">
+        </div>
+
+        <!-- 日选择器 -->
+        <div id="dayPicker" class="picker-container">
+            <input type="date" class="picker-input" placeholder="选择日期" value="2024-12-31">
+        </div>
+    </div>
+
+    <!-- 数据概览 -->
+    <div class="summary-cards">
+        <div class="summary-card">
+            <div class="summary-label">总收入</div>
+            <div class="summary-value primary" id="totalIncome">¥156.8万</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">订单数</div>
+            <div class="summary-value success" id="totalOrders">1,568</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">客户数</div>
+            <div class="summary-value warning" id="totalCustomers">89</div>
+        </div>
+    </div>
+
+    <!-- 图表1: 收入统计 -->
+    <div class="chart-container">
+        <div class="chart-title">
+            <span class="chart-icon">📊</span>
+            <span id="incomeChartTitle">收入统计（按月）</span>
+        </div>
+        <div id="incomeChart" class="chart large"></div>
+    </div>
+
+    <!-- 图表2: 商品销售情况饼状图 -->
+    <div class="chart-container">
+        <div class="chart-title">
+            <span class="chart-icon">🥧</span>
+            <span>商品销售占比</span>
+        </div>
+        <div id="productChart" class="chart"></div>
+    </div>
+
+    <!-- 图表3: 客户交易情况TOP20 -->
+    <div class="chart-container">
+        <div class="chart-title">
+            <span class="chart-icon">👥</span>
+            <span>客户交易排行 TOP20</span>
+        </div>
+        <div id="customerChart" class="chart large"></div>
+    </div>
+
+    <script>
+        let currentTab = 'month';
+        let incomeChart, productChart, customerChart;
+
+        // Tab切换
+        function switchTab(tab) {
+            currentTab = tab;
+
+            // 更新Tab样式
+            document.querySelectorAll('.time-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 显示对应的选择器
+            document.querySelectorAll('.picker-container').forEach(p => p.classList.remove('active'));
+            document.getElementById(tab + 'Picker').classList.add('active');
+
+            // 更新图表标题
+            const titles = {
+                'year': '收入统计（按年）',
+                'month': '收入统计（按月）',
+                'day': '收入统计（按日）'
+            };
+            document.getElementById('incomeChartTitle').textContent = titles[tab];
+
+            // 更新图表数据
+            updateIncomeChart(tab);
+        }
+
+        // 更新收入统计图表
+        function updateIncomeChart(tab) {
+            let xAxisData, seriesData;
+
+            if (tab === 'year') {
+                // 按年：显示最近5年数据
+                xAxisData = ['2020年', '2021年', '2022年', '2023年', '2024年'];
+                seriesData = [120.5, 135.8, 148.6, 152.3, 156.8];
+            } else if (tab === 'month') {
+                // 按月：显示12个月数据
+                xAxisData = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+                seriesData = [12.5, 13.2, 14.8, 13.6, 15.2, 14.9, 16.3, 15.8, 14.2, 13.9, 15.6, 16.8];
+            } else {
+                // 按日：显示最近30天数据
+                xAxisData = [];
+                seriesData = [];
+                for (let i = 30; i >= 1; i--) {
+                    xAxisData.push(i + '日');
+                    seriesData.push((Math.random() * 2 + 3).toFixed(1));
+                }
+            }
+
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: '{b}<br/>收入: ¥{c}' + (tab === 'year' ? '万' : (tab === 'month' ? '万' : '千'))
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: xAxisData,
+                    axisLabel: {
+                        rotate: tab === 'day' ? 45 : 0,
+                        fontSize: 11
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '金额(' + (tab === 'year' || tab === 'month' ? '万元' : '千元') + ')',
+                    axisLabel: {
+                        formatter: '¥{value}'
+                    }
+                },
+                series: [
+                    {
+                        name: '收入',
+                        type: 'bar',
+                        data: seriesData,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: '#3B82F6' },
+                                { offset: 1, color: '#1D4ED8' }
+                            ]),
+                            borderRadius: [8, 8, 0, 0]
+                        },
+                        label: {
+                            show: tab !== 'day',
+                            position: 'top',
+                            formatter: '¥{c}',
+                            fontSize: 10
+                        },
+                        barWidth: tab === 'day' ? '60%' : '50%'
+                    }
+                ]
+            };
+
+            incomeChart.setOption(option, true);
+        }
+
+        // 初始化图表
+        window.onload = function() {
+            // 图表1: 收入统计
+            incomeChart = echarts.init(document.getElementById('incomeChart'));
+            updateIncomeChart('month');
+
+            // 图表2: 商品销售饼状图
+            productChart = echarts.init(document.getElementById('productChart'));
+            const productOption = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}: ¥{c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    right: 10,
+                    top: 'center',
+                    textStyle: {
+                        fontSize: 12
+                    }
+                },
+                series: [
+                    {
+                        name: '商品销售',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: false
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: 16,
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [
+                            { value: 35800, name: '商品A', itemStyle: { color: '#3B82F6' } },
+                            { value: 29600, name: '商品B', itemStyle: { color: '#10B981' } },
+                            { value: 24500, name: '商品C', itemStyle: { color: '#F59E0B' } },
+                            { value: 18900, name: '商品D', itemStyle: { color: '#EF4444' } },
+                            { value: 16200, name: '商品E', itemStyle: { color: '#8B5CF6' } },
+                            { value: 28000, name: '其他', itemStyle: { color: '#6B7280' } }
+                        ]
+                    }
+                ]
+            };
+            productChart.setOption(productOption);
+
+            // 图表3: 客户交易排行
+            customerChart = echarts.init(document.getElementById('customerChart'));
+            const customerOption = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: '{b}: ¥{c}'
+                },
+                grid: {
+                    left: '12%',
+                    right: '10%',
+                    bottom: '3%',
+                    top: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    name: '交易金额(元)',
+                    axisLabel: {
+                        formatter: '¥{value}'
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: [
+                        '客户20', '客户19', '客户18', '客户17', '客户16',
+                        '客户15', '客户14', '客户13', '客户12', '客户11',
+                        '客户10', '客户9', '客户8', '客户7', '客户6',
+                        '客户5', '客户4', '客户3', '客户2', '客户1'
+                    ],
+                    axisLabel: {
+                        fontSize: 11
+                    }
+                },
+                series: [
+                    {
+                        name: '交易金额',
+                        type: 'bar',
+                        data: [
+                            1200, 1350, 1480, 1620, 1750,
+                            1890, 2050, 2180, 2320, 2480,
+                            2650, 2820, 3050, 3280, 3520,
+                            3850, 4180, 4520, 4890, 5280
+                        ],
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                                { offset: 0, color: '#3B82F6' },
+                                { offset: 1, color: '#1D4ED8' }
+                            ]),
+                            borderRadius: [0, 5, 5, 0]
+                        },
+                        label: {
+                            show: true,
+                            position: 'right',
+                            formatter: '¥{c}',
+                            fontSize: 10
+                        }
+                    }
+                ]
+            };
+            customerChart.setOption(customerOption);
+
+            // 响应式调整
+            window.addEventListener('resize', function() {
+                incomeChart.resize();
+                productChart.resize();
+                customerChart.resize();
+            });
+
+            // 监听选择器变化
+            document.querySelectorAll('.picker-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    updateIncomeChart(currentTab);
+                });
+            });
+        };
+    </script>
+</body>
+</html>
